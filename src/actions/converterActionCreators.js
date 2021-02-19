@@ -1,9 +1,9 @@
 import {
   GET_DATA,
-  UPLOAD_DATA_TO_CACHE,
   REQUEST_FOR_CURRENCY,
   UPDATE_INPUTED_DATA,
-  ADD_SELECT_VALUE
+  ADD_SELECT_VALUE,
+  UPDATE_CURRENCY_SELECTOR,
 } from "@constants/actions";
 
 export const getData = (data) => ({
@@ -11,20 +11,20 @@ export const getData = (data) => ({
   payload: data,
 });
 
-export const uploadDataToCache = (data) => ({
-  type: UPLOAD_DATA_TO_CACHE,
-  payload: data,
-});
-
 export const currencyRateRequest = () => ({
-  type: REQUEST_FOR_CURRENCY
+  type: REQUEST_FOR_CURRENCY,
 });
 
 export const updateInputedValue = (inputData) => ({
   type: UPDATE_INPUTED_DATA,
-  payload: inputData
+  payload: inputData,
 });
-export const updateSelectValue = (selectValue) => ({
+
+export const addNewValueFromSelect = (selectValue) => ({
   type: ADD_SELECT_VALUE,
-  payload: selectValue
+  payload: selectValue,
+});
+export const updateCurrencySelector = (newValue) => ({
+  type: UPDATE_CURRENCY_SELECTOR,
+  payload: newValue,
 });

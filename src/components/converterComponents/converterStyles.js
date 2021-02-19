@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import background from "@assets/1155007.jpg";
-
 export const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -18,40 +17,21 @@ export const ContentContainer = styled.div`
   border-radius: 10%;
   background-color: #fff;
   min-height: 70vh;
-  display: grid;
 `;
 
 export const InputContainer = styled.div`
-  margin: 7.2% 7.2% 0;
+  margin: 7.2% 0 0 20px;
   display: flex;
   flex-flow: column;
   overflow: auto;
   max-height: 50vh;
-  grid-column: 1;
-  grid-row: 1;
-`;
-export const ValueInput = styled.input.attrs((props) => ({
-  type: props.type,
-}))`
-  max-width: 95%;
-  min-height: 5%;
-  border: none;
-  border-bottom: 3px silver solid;
-  font-size: 100%;
 `;
 
 export const CurrField = styled.div`
-  $grid__bp--md: 20%;
-  $grid__cols: 12;
+  $grid__bp--md: 50%;
+  $grid__cols: 50;
   max-width: $grid__bp--md * 1%;
-  margin-bottom: 4%;
-`;
-
-export const CurrSelect = styled.select`
-  margin-left: 5%;
-  min-height: 5%;
-  min-width: 15%;
-  border: none;
+  margin-bottom: 2%;
 `;
 
 export const Button = styled.button`
@@ -65,10 +45,7 @@ export const Button = styled.button`
 
 export const ToolsArea = styled.div`
   grid-column: 2;
-  margin: 7.2%;
+  margin: 7.2% 0px;
+  width: 50%;
   grid-row: 1;
 `;
-
-export const CurrLabel = styled.label`
-  margin-right: 1%
-`

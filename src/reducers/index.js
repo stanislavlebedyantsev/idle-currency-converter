@@ -1,20 +1,27 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
-import converterReducer from './converterReducer';
+import converterReducer from "./converterReducer";
 
-import {rootSaga} from '@sagas/converterSagas'
+import { rootSaga } from "@sagas/converterSagas";
+import { loadFromStorage, saveState } from "@utils/localStorage";
 
 const sagaMiddleware = createSagaMiddleware();
 
 const reducers = combineReducers({
-  converter: converterReducer
+  converter: converterReducer,
 });
 
-
+const preloadedState = loadFromStorage();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-export const store = createStore(reducers, /* preloadedState, */ composeEnhancers(
-  applyMiddleware(sagaMiddleware)
-));
+export const store = createStore(
+  reducers,
+  preloadedState,
+  composeEnhancers(applyMiddleware(sagaMiddleware))
+);
 
 sagaMiddleware.run(rootSaga);
+
+store.subscribe(() => {
+  saveState(store.getState())
+})
