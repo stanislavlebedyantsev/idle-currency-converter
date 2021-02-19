@@ -10,6 +10,7 @@ module.exports = function override(config) {
     '@actions' : 'src/actions',
     '@constants' : 'src/constants',
     '@api' : 'src/api',
+    '@utils': 'src/utils'
   })(config)
 
   return config

@@ -1,5 +1,5 @@
-import ConverterContent from "./converterContent/converterContent";
-import { Container } from "./converterStyles";
+import ConverterContent from "@components/converterComponents/converterComponentsContent/converterContent";
+import { Container } from "@components/converterComponents/converterStyles";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
@@ -10,7 +10,7 @@ const ConverterContainer = (props) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(currencyRateRequest());
-  }, []);
+  }, [dispatch]);
   return <Container>
     <ConverterContent/>
   </Container>;
