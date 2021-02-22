@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import {Input, Button} from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import Autocomplete from "@components/controls/Autocomplite";
 import {
   CurrField,
 } from "@components/converterComponents/converterStyles";
-import { useSelector } from "react-redux";
-import Autocomplete from "@components/controls/Autocomplite";
-import {Input, Button} from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
-
 
 
 const CurrInputContainer = ({
@@ -19,18 +18,21 @@ const CurrInputContainer = ({
 }) => {
   const allCurrs = useSelector((state) => state.converter.allCurrs);
   const [moneyValue, setFieldValue] = useState({ [choicenCurr]: fieldValue });
+
   useEffect(() => {
     setFieldValue(() => ({
       currency: choicenCurr,
       value: fieldValue,
     }));
   }, [fieldValue, choicenCurr]);
+
   const handleChange = (event) => {
     setFieldValue(() => ({
       currency: event.target.name,
       value: event.target.value,
     }));
   };
+  
   return (
     <CurrField>
       <Autocomplete

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import background from "@assets/1155007.jpg";
+
 export const Container = styled.div`
   display: flex;
   justify-content: center;

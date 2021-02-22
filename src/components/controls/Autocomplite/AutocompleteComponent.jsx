@@ -7,6 +7,7 @@ const AutocompleteComponent = ({
   defValue,
   styles,
 }) => {
+  
   return (
     <Autocomplete
       style={styles}

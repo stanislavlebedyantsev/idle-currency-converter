@@ -1,7 +1,7 @@
-import "@/App.css";
-import ConverterContainer from "@components/converterComponents/converterContainer";
 import { Provider } from "react-redux";
+import ConverterContainer from "@components/converterComponents/converterContainer";
 import { store } from "@reducers/index";
+import "@/App.css";
 
 function App() {
   return (
