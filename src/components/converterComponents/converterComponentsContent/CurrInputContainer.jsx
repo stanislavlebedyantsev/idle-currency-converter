@@ -2,11 +2,21 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {Input, Button} from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from "@material-ui/styles";
 import Autocomplete from "@components/controls/Autocomplite";
 import {
   CurrField,
 } from "@components/converterComponents/converterStyles";
 
+
+const useStyles = makeStyles({
+  autocomplete: {
+    width: '10%'
+  },
+  input: {
+    maxWidth: '30%'
+  }
+})
 
 const CurrInputContainer = ({
   choicenCurr,
@@ -18,6 +28,7 @@ const CurrInputContainer = ({
 }) => {
   const allCurrs = useSelector((state) => state.converter.allCurrs);
   const [moneyValue, setFieldValue] = useState({ [choicenCurr]: fieldValue });
+  const classes = useStyles();
 
   useEffect(() => {
     setFieldValue(() => ({
@@ -39,10 +50,10 @@ const CurrInputContainer = ({
         onChange={(event, newValue) => {handleChangeCurr(id, newValue)}}
         options={allCurrs}
         defValue={choicenCurr}
-        styles={{width: '10%'}}
+        styles={classes.autocomplete}
       />
       <Input
-        style={{maxWidth: '30%'}}
+        className={classes.input}
         min="0"
         type="number"
         value={moneyValue.value || "typed Incorrect symbols"}
