@@ -7,10 +7,10 @@ const AutocompleteComponent = ({
   defValue,
   styles,
 }) => {
-  
+
   return (
     <Autocomplete
-      style={styles}
+      className={styles}
       name="currency"
       value={defValue}
       onChange={onChange}
