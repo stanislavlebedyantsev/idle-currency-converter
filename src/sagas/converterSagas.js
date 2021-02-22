@@ -1,25 +1,44 @@
-import {call, fork, put, take} from 'redux-saga/effects'
-import { converterApi } from '@api/converterApi';
-import { REQUEST_FOR_CURRENCY, initData, initBaseCurrency } from '@actions/converterActionCreators';
+import { call, fork, put, take, all, takeEvery } from "redux-saga/effects";
+import { converterApi } from "@api/converterApi";
+import { geolocationApi } from "@api/geolocationApi";
+import {
+  REQUEST_FOR_CURRENCY,
+  REQUEST_FOR_GEOLOCATION,
+  currencyRateRequest,
+  initData,
+  initBaseCurrency,
+  setCurrentGeolocation,
+} from "@actions/converterActionCreators";
 
-export function* getCurrencyRateWatcher(){
-  yield take(REQUEST_FOR_CURRENCY)
-  yield fork(getCurrencyRate)
+export function* getCurrencyRateWatcher(baseCode) {
+  yield take(REQUEST_FOR_GEOLOCATION);
+  yield fork(getGeolocation);
+  yield takeEvery(REQUEST_FOR_CURRENCY, getCurrencyRate, baseCode);
+  //yield fork(getCurrencyRate, baseCode);
 }
 
-function* getCurrencyRate(){
-  try{
-    const responce = yield call(converterApi.fetchCurrencyRate)
-    const localStorageData = localStorage.getItem('state');
-    if(!localStorageData){
-      yield put(initData(responce))
-      yield put(initBaseCurrency(responce.base))
+
+function* getGeolocation() {
+  try {
+    const geolocationResponce = yield call(geolocationApi.fetchGeolocation);
+    const localStorageData = localStorage.getItem("state");
+    if (!localStorageData) {
+      yield put(setCurrentGeolocation(geolocationResponce));
+      yield put(currencyRateRequest(geolocationResponce.currency.code));
     }
-  }catch(e){
-    console.log('Error ', e);
+  } catch (e) {}
+}
+
+function* getCurrencyRate(baseCode) {
+  try {
+    const currencyResponce = yield call(converterApi.fetchCurrencyRate, baseCode);
+    yield put(initData(currencyResponce));
+    yield put(initBaseCurrency(currencyResponce.base));
+  } catch (e) {
+    console.log("Error ", e);
   }
 }
 
-export function* rootSaga(){
-  yield call(getCurrencyRateWatcher)
+export function* rootSaga() {
+  yield call(getCurrencyRateWatcher);
 }
