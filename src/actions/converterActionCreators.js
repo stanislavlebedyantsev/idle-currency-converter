@@ -1,14 +1,18 @@
-import {
-  GET_DATA,
-  REQUEST_FOR_CURRENCY,
-  UPDATE_INPUTED_DATA,
-  ADD_SELECT_VALUE,
-  UPDATE_CURRENCY_SELECTOR,
-} from "@constants/actions";
+export const INIT_DATA = "INIT_DATA";
+export const INIT_BASE = "INIT_BASE";
+export const REQUEST_FOR_CURRENCY = "REQUEST_FOR_CURRENCY";
+export const UPDATE_INPUTED_DATA = "UPDATE_INPUTED_DATA";
+export const ADD_SELECT_VALUE = "ADD_SELECT_VALUE";
+export const UPDATE_CURRENCY_SELECTOR = "UPDATE_CURRENCY_SELECTOR";
+export const DELETE_CURRENCY_FIELD = "DELETE_CURRENCY_FIELD";
 
-export const getData = (data) => ({
-  type: GET_DATA,
+export const initData = (data) => ({
+  type: INIT_DATA,
   payload: data,
+});
+export const initBaseCurrency = (baseCurrency) => ({
+  type: INIT_BASE,
+  payload: baseCurrency,
 });
 
 export const currencyRateRequest = () => ({
@@ -27,4 +31,8 @@ export const addNewValueFromSelect = (selectValue) => ({
 export const updateCurrencySelector = (newValue) => ({
   type: UPDATE_CURRENCY_SELECTOR,
   payload: newValue,
+});
+export const deleteCurrencyField = (newInput) => ({
+  type: DELETE_CURRENCY_FIELD,
+  payload: newInput,
 });

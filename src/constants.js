@@ -1,0 +1,1 @@
+export const CONVERTER_API_BASE = 'https://api.ratesapi.io/api/'

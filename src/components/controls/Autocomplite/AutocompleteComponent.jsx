@@ -13,7 +13,7 @@ const AutocompleteComponent = ({
       name="currency"
       value={defValue}
       onChange={onChange}
-      options={typeof(options) !== 'object' ? [...options] : []}
+      options={[...options]}
       renderInput={(params) => {
         const paramsWithNewFont = {
           ...params,

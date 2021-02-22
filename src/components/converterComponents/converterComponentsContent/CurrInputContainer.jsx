@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {
   CurrField,
 } from "@components/converterComponents/converterStyles";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Autocomplete from "@components/controls/Autocomplite";
 import {Input, Button} from "@material-ui/core";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -14,7 +14,8 @@ const CurrInputContainer = ({
   handleInput,
   fieldValue,
   handleChangeCurr,
-  id
+  id,
+  handleDelete
 }) => {
   const allCurrs = useSelector((state) => state.converter.allCurrs);
   const [moneyValue, setFieldValue] = useState({ [choicenCurr]: fieldValue });
@@ -47,7 +48,7 @@ const CurrInputContainer = ({
         onBlur={() => handleInput(moneyValue)}
         onChange={handleChange}
       />
-      <Button name={choicenCurr} startIcon={<DeleteIcon/>}/>
+      <Button name={choicenCurr} startIcon={<DeleteIcon/>} onClick={() => handleDelete(id)}/>
     </CurrField>
   );
 };

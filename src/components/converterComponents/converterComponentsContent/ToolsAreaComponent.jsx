@@ -2,7 +2,7 @@ import {
   ToolsArea,
 } from "@components/converterComponents/converterStyles";
 import Button from "@material-ui/core/Button";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Autocomplete  from "@components/controls/Autocomplite";
 
 const ToolsAreaComponent = ({onChangeHandle}) => {

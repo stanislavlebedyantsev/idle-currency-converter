@@ -1,7 +1,8 @@
 import * as axios from 'axios'
+import {CONVERTER_API_BASE} from '@/constants'
 
 const axiosTemplate = axios.create({
-  baseURL: 'https://api.ratesapi.io/api/',
+  baseURL: CONVERTER_API_BASE,
   headers: {}
 });
 
