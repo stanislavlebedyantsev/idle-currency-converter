@@ -1,7 +1,6 @@
 import {call, fork, put, take} from 'redux-saga/effects'
 import { converterApi } from '@api/converterApi';
-import { REQUEST_FOR_CURRENCY } from '@constants/actions';
-import { initData, initBaseCurrency } from '@actions/converterActionCreators';
+import { REQUEST_FOR_CURRENCY, initData, initBaseCurrency } from '@actions/converterActionCreators';
 
 export function* getCurrencyRateWatcher(){
   yield take(REQUEST_FOR_CURRENCY)

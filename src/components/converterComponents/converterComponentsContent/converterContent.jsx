@@ -1,28 +1,29 @@
-import {
-  InputContainer,
-  ContentContainer,
-} from "@components/converterComponents/converterStyles";
-import CurrInputContainer from "./CurrInputContainer";
 import { useDispatch, useSelector } from "react-redux";
+import CurrInputContainer from "./CurrInputContainer";
+import ToolsAreaComponent from "./ToolsAreaComponent";
 import {
   updateInputedValue,
   addNewValueFromSelect,
   updateCurrencySelector,
   deleteCurrencyField,
 } from "@actions/converterActionCreators";
-import ToolsAreaComponent from "./ToolsAreaComponent";
 import {
   updateAfterChange,
   convertBeforInput,
   updateCurrencyBeforeSelect,
   deleteCurrencyFromField,
 } from "@utils/data-mappers";
+import {
+  InputContainer,
+  ContentContainer,
+} from "@components/converterComponents/converterStyles";
 
 const ConverterContent = (props) => {
+  const dispatch = useDispatch();
   const moneyValues = useSelector((state) => state.converter.inputedValues);
   const converterState = useSelector((state) => state.converter);
   const { base, rates } = converterState.rate || { undefined };
-  const dispatch = useDispatch();
+
   const handleInput = (valueForUpdate) => {
     const updatedCurrency = convertBeforInput(
       valueForUpdate,
@@ -32,6 +33,7 @@ const ConverterContent = (props) => {
     );
     dispatch(updateInputedValue(updatedCurrency));
   };
+
   const handleSelect = (event, newValue) => {
     const updatedValue = updateCurrencyBeforeSelect(
       base,
@@ -41,6 +43,7 @@ const ConverterContent = (props) => {
     );
     dispatch(addNewValueFromSelect(updatedValue));
   };
+
   const handleChangeCurr = (id, newValue) => {
     const updatedCurrency = updateAfterChange(
       id,
@@ -51,10 +54,12 @@ const ConverterContent = (props) => {
     );
     dispatch(updateCurrencySelector(updatedCurrency));
   };
+
   const handleDelete = (id) => {
     const newInputFields = deleteCurrencyFromField(id, moneyValues);
     dispatch(deleteCurrencyField(newInputFields));
   };
+  
   return (
     <ContentContainer>
       <InputContainer>

@@ -1,7 +1,6 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import converterReducer from "./converterReducer";
-
 import { rootSaga } from "@sagas/converterSagas";
 import { loadFromStorage, saveState } from "@utils/localStorage";
 

@@ -1,5 +1,3 @@
-import { store } from "../../reducers"
-
 export const loadFromStorage = () => {
   try {
     const serializedState = localStorage.getItem('state')
