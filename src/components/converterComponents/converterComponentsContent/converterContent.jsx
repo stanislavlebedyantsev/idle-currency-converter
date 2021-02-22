@@ -4,34 +4,57 @@ import {
 } from "@components/converterComponents/converterStyles";
 import CurrInputContainer from "./CurrInputContainer";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-
 import {
   updateInputedValue,
   addNewValueFromSelect,
-  updateCurrencySelector
+  updateCurrencySelector,
+  deleteCurrencyField,
 } from "@actions/converterActionCreators";
 import ToolsAreaComponent from "./ToolsAreaComponent";
-import { updateAfterChange, convertBeforInput, updateCurrencyBeforeSelect } from '@utils/data-mappers';
+import {
+  updateAfterChange,
+  convertBeforInput,
+  updateCurrencyBeforeSelect,
+  deleteCurrencyFromField,
+} from "@utils/data-mappers";
 
 const ConverterContent = (props) => {
   const moneyValues = useSelector((state) => state.converter.inputedValues);
   const converterState = useSelector((state) => state.converter);
-  const {base, rates} = converterState.rate || {undefined, undefined}
+  const { base, rates } = converterState.rate || { undefined };
   const dispatch = useDispatch();
   const handleInput = (valueForUpdate) => {
-    const updatedCurrency = convertBeforInput(valueForUpdate, base, rates, moneyValues)
+    const updatedCurrency = convertBeforInput(
+      valueForUpdate,
+      base,
+      rates,
+      moneyValues
+    );
     dispatch(updateInputedValue(updatedCurrency));
   };
   const handleSelect = (event, newValue) => {
-    const updatedValue = updateCurrencyBeforeSelect(base, rates, newValue, moneyValues)
+    const updatedValue = updateCurrencyBeforeSelect(
+      base,
+      rates,
+      newValue,
+      moneyValues
+    );
     dispatch(addNewValueFromSelect(updatedValue));
   };
   const handleChangeCurr = (id, newValue) => {
-    const updatedCurrency = updateAfterChange(id, newValue, base, rates, moneyValues)
+    const updatedCurrency = updateAfterChange(
+      id,
+      newValue,
+      base,
+      rates,
+      moneyValues
+    );
     dispatch(updateCurrencySelector(updatedCurrency));
   };
-  
+  const handleDelete = (id) => {
+    const newInputFields = deleteCurrencyFromField(id, moneyValues);
+    dispatch(deleteCurrencyField(newInputFields));
+  };
   return (
     <ContentContainer>
       <InputContainer>
@@ -44,13 +67,12 @@ const ConverterContent = (props) => {
               fieldValue={el.value}
               handleInput={handleInput}
               handleChangeCurr={handleChangeCurr}
+              handleDelete={handleDelete}
             />
           );
         })}
       </InputContainer>
-      <ToolsAreaComponent
-        onChangeHandle={handleSelect}
-      />
+      <ToolsAreaComponent onChangeHandle={handleSelect} />
     </ContentContainer>
   );
 };

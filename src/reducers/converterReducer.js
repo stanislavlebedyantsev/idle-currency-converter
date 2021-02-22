@@ -1,13 +1,14 @@
 import {
-  GET_DATA,
+  INIT_DATA,
+  INIT_BASE,
   UPDATE_INPUTED_DATA,
   ADD_SELECT_VALUE,
   UPDATE_CURRENCY_SELECTOR,
-} from "@constants/actions";
+  DELETE_CURRENCY_FIELD,
+} from "@actions/converterActionCreators";
 
 const initState = {
   allCurrs: [],
-  availableCurrs: [],
   inputedValues: [],
   error: "",
 };
@@ -15,20 +16,32 @@ const initState = {
 const converterReducer = (state = initState, action) => {
   let copyState = { ...state };
   switch (action.type) {
-    case GET_DATA: {
-      copyState.availableCurrs = [...Object.keys(copyState.rate.rates)];
-      copyState.allCurrs = [...Object.keys(copyState.rate.rates)];
-      copyState.allCurrs.push(copyState.rate.base);
-      return copyState;
+    case INIT_DATA: {
+      return {
+        ...copyState,
+        rate: { ...action.payload },
+        allCurrs: [action.payload.base, ...Object.keys(action.payload.rates)],
+      };
+    }
+    case INIT_BASE: {
+      return {
+        ...copyState,
+        inputedValues: [
+          ...copyState.inputedValues,
+          { currency: action.payload, value: 1 },
+        ],
+      };
     }
     case ADD_SELECT_VALUE: {
-      copyState.availableCurrs.delete(action.payload);
       return { ...copyState, inputedValues: [...action.payload] };
     }
     case UPDATE_CURRENCY_SELECTOR: {
       return { ...copyState, inputedValues: [...action.payload] };
     }
     case UPDATE_INPUTED_DATA: {
+      return { ...copyState, inputedValues: [...action.payload] };
+    }
+    case DELETE_CURRENCY_FIELD: {
       return { ...copyState, inputedValues: [...action.payload] };
     }
     default:

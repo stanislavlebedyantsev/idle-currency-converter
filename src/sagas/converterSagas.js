@@ -1,7 +1,7 @@
 import {call, fork, put, take} from 'redux-saga/effects'
 import { converterApi } from '@api/converterApi';
 import { REQUEST_FOR_CURRENCY } from '@constants/actions';
-import { getData } from '@actions/converterActionCreators';
+import { initData, initBaseCurrency } from '@actions/converterActionCreators';
 
 export function* getCurrencyRateWatcher(){
   yield take(REQUEST_FOR_CURRENCY)
@@ -11,7 +11,11 @@ export function* getCurrencyRateWatcher(){
 function* getCurrencyRate(){
   try{
     const responce = yield call(converterApi.fetchCurrencyRate)
-    yield put(getData(responce))
+    const localStorageData = localStorage.getItem('state');
+    if(!localStorageData){
+      yield put(initData(responce))
+      yield put(initBaseCurrency(responce.base))
+    }
   }catch(e){
     console.log('Error ', e);
   }
