@@ -6,7 +6,7 @@ import "@/App.css";
 function App() {
   return (
     <Provider store={store}>
-      <ConverterContainer />
+        <ConverterContainer />
     </Provider>
   );
 }

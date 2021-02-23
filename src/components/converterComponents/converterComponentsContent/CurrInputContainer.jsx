@@ -1,22 +1,19 @@
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import {Input, Button} from "@material-ui/core";
-import DeleteIcon from '@material-ui/icons/Delete';
+import { Input, Button } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/styles";
 import Autocomplete from "@components/controls/Autocomplite";
-import {
-  CurrField,
-} from "@components/converterComponents/converterStyles";
-
+import { CurrField } from "@components/converterComponents/converterStyles";
 
 const useStyles = makeStyles({
   autocomplete: {
-    width: '10%'
+    width: "10%",
   },
   input: {
-    maxWidth: '30%'
-  }
-})
+    maxWidth: "30%",
+  },
+});
 
 const CurrInputContainer = ({
   choicenCurr,
@@ -24,12 +21,12 @@ const CurrInputContainer = ({
   fieldValue,
   handleChangeCurr,
   id,
-  handleDelete
+  handleDelete,
 }) => {
   const allCurrs = useSelector((state) => state.converter.allCurrs);
   const [moneyValue, setFieldValue] = useState({ [choicenCurr]: fieldValue });
-  const classes = useStyles();
-
+  const classes = useStyles();  
+  
   useEffect(() => {
     setFieldValue(() => ({
       currency: choicenCurr,
@@ -43,11 +40,16 @@ const CurrInputContainer = ({
       value: event.target.value,
     }));
   };
+
   
+
+
   return (
     <CurrField>
       <Autocomplete
-        onChange={(event, newValue) => {handleChangeCurr(id, newValue)}}
+        onChange={(event, newValue) => {
+          handleChangeCurr(id, newValue);
+        }}
         options={allCurrs}
         defValue={choicenCurr}
         styles={classes.autocomplete}
@@ -61,7 +63,11 @@ const CurrInputContainer = ({
         onBlur={() => handleInput(moneyValue)}
         onChange={handleChange}
       />
-      <Button name={choicenCurr} startIcon={<DeleteIcon/>} onClick={() => handleDelete(id)}/>
+      <Button
+        name={choicenCurr}
+        startIcon={<DeleteIcon />}
+        onClick={() => handleDelete(id)}
+      />
     </CurrField>
   );
 };
