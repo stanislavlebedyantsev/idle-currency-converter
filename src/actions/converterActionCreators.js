@@ -7,6 +7,7 @@ export const ADD_SELECT_VALUE = "ADD_SELECT_VALUE";
 export const UPDATE_CURRENCY_SELECTOR = "UPDATE_CURRENCY_SELECTOR";
 export const DELETE_CURRENCY_FIELD = "DELETE_CURRENCY_FIELD";
 export const SET_CURRENT_GEOLOCATION = "SET_CURRENT_GEOLOCATION"
+export const UPDATE_SWAPPED_CURRENCYS = "UPDATE_SWAPPED_CURRENCYS"
 
 export const initData = (data) => ({
   type: INIT_DATA,
@@ -45,4 +46,8 @@ export const deleteCurrencyField = (newInput) => ({
 export const setCurrentGeolocation = (country) => ({
   type: SET_CURRENT_GEOLOCATION,
   payload: country,
+});
+export const updateSwappedCurrency = (swappedValues) => ({
+  type: UPDATE_SWAPPED_CURRENCYS,
+  payload: swappedValues,
 });

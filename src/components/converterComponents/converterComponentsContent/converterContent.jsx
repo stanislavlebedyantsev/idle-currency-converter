@@ -59,22 +59,22 @@ const ConverterContent = (props) => {
     const newInputFields = deleteCurrencyFromField(id, moneyValues);
     dispatch(deleteCurrencyField(newInputFields));
   };
-  
+
   return (
     <ContentContainer>
       <InputContainer>
         {moneyValues.map((el, id) => {
-          return (
-            <CurrInputContainer
-              choicenCurr={el.currency}
-              key={el.currency + id}
-              id={id}
-              fieldValue={el.value}
-              handleInput={handleInput}
-              handleChangeCurr={handleChangeCurr}
-              handleDelete={handleDelete}
-            />
-          );
+            return (
+              <CurrInputContainer
+                choicenCurr={el.currency}
+                key={el.currency + id}
+                id={id}
+                fieldValue={el.value}
+                handleInput={handleInput}
+                handleChangeCurr={handleChangeCurr}
+                handleDelete={handleDelete}
+              />
+            );       
         })}
       </InputContainer>
       <ToolsAreaComponent onChangeHandle={handleSelect} />

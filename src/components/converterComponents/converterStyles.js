@@ -20,7 +20,7 @@ export const ContentContainer = styled.div`
   min-height: 70vh;
 `;
 
-export const InputContainer = styled.div`
+export const InputContainer = styled.div.attrs((props) => ({...props}))`
   margin: 7.2% 0 0 20px;
   display: flex;
   flex-flow: column;
@@ -28,7 +28,7 @@ export const InputContainer = styled.div`
   max-height: 50vh;
 `;
 
-export const CurrField = styled.div`
+export const CurrField = styled.div.attrs((props) => ({...props}))`
   $grid__bp--md: 50%;
   $grid__cols: 50;
   max-width: $grid__bp--md * 1%;

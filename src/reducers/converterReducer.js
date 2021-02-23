@@ -5,14 +5,14 @@ import {
   ADD_SELECT_VALUE,
   UPDATE_CURRENCY_SELECTOR,
   DELETE_CURRENCY_FIELD,
-  SET_CURRENT_GEOLOCATION
+  SET_CURRENT_GEOLOCATION,
+  UPDATE_SWAPPED_CURRENCYS
 } from "@actions/converterActionCreators";
 
 const initState = {
   allCurrs: [],
   inputedValues: [],
   error: "",
-  geolocation:{}
 };
 
 const converterReducer = (state = initState, action) => {
@@ -30,7 +30,7 @@ const converterReducer = (state = initState, action) => {
         ...copyState,
         inputedValues: [
           ...copyState.inputedValues,
-          { currency: action.payload, value: 1 },
+          { currency: copyState.localCurrency.code, value: 1 },
         ],
       };
     }
@@ -48,6 +48,9 @@ const converterReducer = (state = initState, action) => {
     }
     case SET_CURRENT_GEOLOCATION:{
       return {...copyState, localCurrency: {...action.payload.currency}};
+    }
+    case UPDATE_SWAPPED_CURRENCYS:{
+      return { ...copyState, inputedValues: [...action.payload] };
     }
     default:
       return state;
