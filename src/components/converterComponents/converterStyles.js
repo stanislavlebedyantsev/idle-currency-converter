@@ -17,7 +17,7 @@ export const ContentContainer = styled.div`
   min-width: 70%;
   border-radius: 10%;
   background-color: #fff;
-  min-height: 70vh;
+  max-height: 100vh;
 `;
 
 export const InputContainer = styled.div.attrs((props) => ({...props}))`
@@ -46,7 +46,7 @@ export const Button = styled.button`
 
 export const ToolsArea = styled.div`
   grid-column: 2;
-  margin: 7.2% 0px;
+  margin: 2% 2% 4%;
   width: 50%;
   grid-row: 1;
 `;
