@@ -1,11 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CurrInputContainer from "./CurrInputContainer";
 import ToolsAreaComponent from "./ToolsAreaComponent";
+import Header from "@components/common/header/index";
 import {
   updateInputedValue,
   addNewValueFromSelect,
   updateCurrencySelector,
   deleteCurrencyField,
+  updateSwappedCurrency,
 } from "@actions/converterActionCreators";
 import {
   updateAfterChange,
@@ -13,6 +16,7 @@ import {
   updateCurrencyBeforeSelect,
   deleteCurrencyFromField,
 } from "@utils/data-mappers";
+import { setMovedCurrency } from "@utils/dnd/index";
 import {
   InputContainer,
   ContentContainer,
@@ -60,22 +64,48 @@ const ConverterContent = (props) => {
     dispatch(deleteCurrencyField(newInputFields));
   };
 
+  const onDragEnd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+
+    if (result.destination.index === result.source.index) {
+      return;
+    }
+
+    const currencyList = setMovedCurrency(
+      moneyValues,
+      result.source.index,
+      result.destination.index
+    );
+
+    dispatch(updateSwappedCurrency(currencyList));
+  };
+
   return (
     <ContentContainer>
+      <Header/>
       <InputContainer>
-        {moneyValues.map((el, id) => {
-            return (
-              <CurrInputContainer
-                choicenCurr={el.currency}
-                key={el.currency + id}
-                id={id}
-                fieldValue={el.value}
-                handleInput={handleInput}
-                handleChangeCurr={handleChangeCurr}
-                handleDelete={handleDelete}
-              />
-            );       
-        })}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <Droppable droppableId="list">
+            {(provided) => (
+              <div ref={provided.innerRef} {...provided.droppableProps}>
+                {moneyValues.map((el, id) => (
+                  <CurrInputContainer
+                    choicenCurr={el.currency}
+                    key={el.currency + id}
+                    id={id}
+                    fieldValue={el.value}
+                    handleInput={handleInput}
+                    handleChangeCurr={handleChangeCurr}
+                    handleDelete={handleDelete}
+                  />
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
       </InputContainer>
       <ToolsAreaComponent onChangeHandle={handleSelect} />
     </ContentContainer>

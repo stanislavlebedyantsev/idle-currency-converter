@@ -21,7 +21,7 @@ const AutocompleteComponent = ({
           InputProps: {
             ...params.InputProps,
             style: {
-              fontSize: 16,
+              fontSize: '1.5vw',
             },
           },
         };
