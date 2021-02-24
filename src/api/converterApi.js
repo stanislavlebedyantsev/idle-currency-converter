@@ -8,7 +8,7 @@ const axiosTemplate = axios.create({
 
 export const converterApi = {
   fetchCurrencyRate() {
-    return axiosTemplate.get(`latest?access_key=${CONVERTER_API_KEY}`)
+    return axiosTemplate.get(`latest.json?app_id=${CONVERTER_API_KEY}`)
     .then(resp => resp.data);
   },
 };
