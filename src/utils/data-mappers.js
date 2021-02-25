@@ -4,18 +4,28 @@ import {
 } from "@utils/currencyConvert";
 
 export const updateAfterChange = (id, newValue, base, rates, moneyValues) => {
-  return moneyValues.reduce((acc, el, index) => {
-    if (index === id) {
-      if (el.currency !== base) {
-        el.value = calculateBaseValueFromCurrency(el.value, rates[el.currency]);
-      } else {
-        el.value = calculateCurrencyFromBase(el.value, rates[newValue]);
+  const copyValues = moneyValues.reduce((acc, el, index) => {
+    let temp = {};
+    if (id === index) {
+      if (el.currency !== base && newValue !== base) {
+        temp.value = calculateCurrencyFromBase(
+          el.value / rates[el.currency],
+          rates[newValue]
+        );
+      } else if (el.currency === base && newValue !== base) {
+        temp.value = calculateCurrencyFromBase(el.value, rates[newValue]);
+      } else if (el.currency !== base && newValue === base) {
+        temp.value = calculateBaseValueFromCurrency(
+          el.value,
+          rates[el.currency]
+        );
       }
-      el.currency = newValue;
+      temp.currency = newValue;
     }
-    acc.push(el);
+    !Object.keys(temp).length ?  acc.push(el) : acc.push(temp);
     return acc;
   }, []);
+  return copyValues;
 };
 
 export const convertBeforInput = (valueForUpdate, base, rates, moneyValues) => {
