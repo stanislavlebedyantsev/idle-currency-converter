@@ -10,8 +10,33 @@ const firebaseConfig = {
   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
-  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL
 }
 
 firebase.initializeApp(firebaseConfig)
 
+const database = firebase.database()
+
+
+const initDatabase = (rates) => {
+  database.ref('/rates').set([rates])
+}
+
+// //insert data
+// const writeRatesToDatabase = (rates) => {
+//   database.ref('/rates').set(rates)
+// }
+
+// //update data. Updates only changed data
+// const updateRatesToDatabase = (rates) => {
+//   database.ref('/rates').update(rates)
+// }
+// //read data
+// const readRatesToDatabase = (rates) => {
+//   database.ref('/rates').on('value', snap => console.log(snap.val()))
+// }
+// //delete data
+// const deleteRatesToDatabase = (rates) => {
+//   database.ref('/rates').remove()
+// }

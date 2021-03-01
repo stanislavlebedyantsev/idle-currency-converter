@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "firebase": "^8.2.9",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-app-rewire-alias": "^1.0.0",
     "react-app-rewired": "^2.1.8",
