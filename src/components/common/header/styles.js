@@ -1,16 +1,14 @@
-import styled from "styled-components";
+import styles from 'styled-components'
+import {NavLink} from "react-router-dom";
 
-export const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`
-export const MainTitle = styled.h1`
-  margin: 0;
-  font-size: 4vw;
-`
-export const SecondTitle = styled.p`
-  margin: 0;
-  font-size: 3vw;
+export const Link = styles(NavLink).attrs((props) => ({...props}))`
+  &:hover{
+    color: #ffff;
+  }
+  &:active{
+    color: #ffff;
+  }
+  &{
+    color: #ffff;
+  }
 `
