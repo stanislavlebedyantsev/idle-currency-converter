@@ -8,17 +8,44 @@ import {
   initData,
   initBaseCurrency,
   setCurrentGeolocation,
-  updateInputedValue
+  updateInputedValue,
 } from "@actions/converterActionCreators";
 import {
-  convertBeforInput,
-} from "@utils/data-mappers";
+  REQUEST_FOR_PUSH_DATABASE,
+  REQUEST_FOR_GET_LAST_VALUE_DATABASE,
+  REQUEST_FOR_GET_VALUES_DATABASE,
+  pushDatabaseRequest,
+} from "@actions/firebaseActionCreators";
+import { initChartsData, selectChart } from "@actions/chartsActionCreators";
+import { convertBeforInput } from "@utils/data-mappers";
+import { chartsUploadMapper, checkLastUpload } from "@utils/charts/index";
+import {
+  pushFirebaseDatabase,
+  getLastFirebaseDatabase,
+  getValuesFirebaseDatabase,
+} from "@utils/firebase/firebase";
 
 export function* getCurrencyRateWatcher() {
   yield takeEvery(REQUEST_FOR_CURRENCY, getCurrencyRate);
   //yield fork(getCurrencyRate);
   yield takeEvery(REQUEST_FOR_GEOLOCATION, getGeolocation);
+  yield takeEvery(REQUEST_FOR_PUSH_DATABASE, pushValueToDatabase);
+  yield takeEvery(REQUEST_FOR_GET_LAST_VALUE_DATABASE, pushValueToDatabase);
+  yield takeEvery(REQUEST_FOR_GET_VALUES_DATABASE, getAllValuesFromDatabase);
   //yield fork(getGeolocation);
+}
+
+function* getAllValuesFromDatabase() {
+  const allRates = yield getValuesFirebaseDatabase();
+  yield put(initChartsData(allRates));
+  //yield put(selectChart('BYN'))
+  //here call action for put values in state
+}
+
+function* pushValueToDatabase() {
+  const { rate } = yield select((state) => state.converter);
+  const ratesForCharts = yield chartsUploadMapper(rate.rates);
+  yield pushFirebaseDatabase(ratesForCharts);
 }
 
 function* getGeolocation() {
@@ -30,22 +57,30 @@ function* getGeolocation() {
 
 function* getCurrencyRate() {
   try {
-    const currencyResponce = yield call(converterApi.fetchCurrencyRate);
+    //currency request
+    //const currencyResponce = yield call(converterApi.fetchCurrencyRate);
     const localStorageData = localStorage.getItem("state");
-      yield put(geolocationRequest());
-      yield put(initData(currencyResponce));
-      const {inputedValues, rate} = yield select((state) => state.converter)
-      const updatedValues = yield call(convertBeforInput,
-        inputedValues[0],
-        rate.base,
-        rate.rates,
-        inputedValues
-      )
-      yield put(updateInputedValue(updatedValues))
-      if(!localStorageData){
-        yield put(initBaseCurrency(currencyResponce.base));
-      }
-    
+    //geolocation request
+    yield put(geolocationRequest());
+    //yield put(initData(currencyResponce));
+    const { inputedValues, rate } = yield select((state) => state.converter);
+    const updatedValues = yield convertBeforInput(
+      inputedValues[0],
+      rate.base,
+      rate.rates,
+      inputedValues
+    );
+    //get last value from database
+    const lastValue = yield getLastFirebaseDatabase();
+    //push value to database if last was uploaded >= 6 hours
+    if (yield checkLastUpload(lastValue.date)) {
+      yield put(pushDatabaseRequest());
+    }
+
+    yield put(updateInputedValue(updatedValues));
+    if (!localStorageData) {
+      //yield put(initBaseCurrency(currencyResponce.base));
+    }
   } catch (e) {
     console.log("Error ", e);
   }

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CurrInputContainer from "./CurrInputContainer";
 import ToolsAreaComponent from "./ToolsAreaComponent";
-import Header from "@components/common/header/index";
+import ConverterHeader from "@components/common/conveterHeader/index";
 import {
   updateInputedValue,
   addNewValueFromSelect,
@@ -17,10 +17,8 @@ import {
   deleteCurrencyFromField,
 } from "@utils/data-mappers";
 import { setMovedCurrency } from "@utils/dnd/index";
-import {
-  InputContainer,
-  ContentContainer,
-} from "@components/converterComponents/converterStyles";
+import { InputContainer } from "@components/converterComponents/converterStyles";
+import { ContentContainer } from "@components/common/commonStyles/styles";
 
 const ConverterContent = (props) => {
   const dispatch = useDispatch();
@@ -84,7 +82,7 @@ const ConverterContent = (props) => {
 
   return (
     <ContentContainer>
-      <Header/>
+      <ConverterHeader />
       <InputContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
