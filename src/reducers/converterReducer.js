@@ -22,7 +22,7 @@ const converterReducer = (state = initState, action) => {
       return {
         ...copyState,
         rate: { ...action.payload },
-        allCurrs: [action.payload.base, ...Object.keys(action.payload.rates)],
+        allCurrs: [...Object.keys(action.payload.rates)],
       };
     }
     case INIT_BASE: {
