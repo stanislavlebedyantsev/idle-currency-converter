@@ -28,14 +28,13 @@ export const getLastFirebaseDatabase = () => {
     .ref("/rates")
     .limitToLast(1)
     .once("value")
-    .then((snapshot) => Object.entries(snapshot.val())[0][1]);
+    .then((snapshot) => Object.values(snapshot.val()))
+    .catch((e) => false);
 };
 export const getValuesFirebaseDatabase = () => {
   return firebase
     .database()
     .ref("/rates")
     .once("value")
-    .then((snapshot) =>
-      Object.values(snapshot.val())
-    );
+    .then((snapshot) => Object.values(snapshot.val()));
 };

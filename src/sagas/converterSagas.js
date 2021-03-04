@@ -16,9 +16,16 @@ import {
   REQUEST_FOR_GET_VALUES_DATABASE,
   pushDatabaseRequest,
 } from "@actions/firebaseActionCreators";
-import { initChartsData, selectChart } from "@actions/chartsActionCreators";
+import {
+  initChartsData,
+  changeDispayCharsData,
+} from "@actions/chartsActionCreators";
 import { convertBeforInput } from "@utils/data-mappers";
-import { chartsUploadMapper, checkLastUpload } from "@utils/charts/index";
+import {
+  chartsUploadMapper,
+  checkLastUpload,
+  displayedCharts,
+} from "@utils/charts/index";
 import {
   pushFirebaseDatabase,
   getLastFirebaseDatabase,
@@ -37,9 +44,11 @@ export function* getCurrencyRateWatcher() {
 
 function* getAllValuesFromDatabase() {
   const allRates = yield getValuesFirebaseDatabase();
-  yield put(initChartsData(allRates));
-  //yield put(selectChart('BYN'))
+  const { code } = yield select((state) => state.converter.localCurrency);
+  const mappedDisplayCurrency = yield displayedCharts(code, allRates);
   //here call action for put values in state
+  yield put(initChartsData(allRates));
+  yield put(changeDispayCharsData(mappedDisplayCurrency));
 }
 
 function* pushValueToDatabase() {
@@ -58,11 +67,11 @@ function* getGeolocation() {
 function* getCurrencyRate() {
   try {
     //currency request
-    //const currencyResponce = yield call(converterApi.fetchCurrencyRate);
+    const currencyResponce = yield call(converterApi.fetchCurrencyRate);
     const localStorageData = localStorage.getItem("state");
     //geolocation request
     yield put(geolocationRequest());
-    //yield put(initData(currencyResponce));
+    yield put(initData(currencyResponce));
     const { inputedValues, rate } = yield select((state) => state.converter);
     const updatedValues = yield convertBeforInput(
       inputedValues[0],
@@ -72,14 +81,19 @@ function* getCurrencyRate() {
     );
     //get last value from database
     const lastValue = yield getLastFirebaseDatabase();
+
     //push value to database if last was uploaded >= 6 hours
-    if (yield checkLastUpload(lastValue.date)) {
+    if (lastValue) {
+      if (yield checkLastUpload(lastValue[0].date)) {
+        yield put(pushDatabaseRequest());
+      }
+    } else {
       yield put(pushDatabaseRequest());
     }
 
     yield put(updateInputedValue(updatedValues));
     if (!localStorageData) {
-      //yield put(initBaseCurrency(currencyResponce.base));
+      yield put(initBaseCurrency(currencyResponce.base));
     }
   } catch (e) {
     console.log("Error ", e);
