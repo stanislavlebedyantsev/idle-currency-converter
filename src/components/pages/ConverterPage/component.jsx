@@ -1,10 +1,10 @@
 import BasicLayout from "@components/layouts/BasicLayout/index";
-import ConverterContainer from "@components/converterComponents/converterContainer";
+import ConverterLanding from "@components/converterComponents/converterLanding";
 
 const ConverterPage = () => {
   return (
     <BasicLayout>
-      <ConverterContainer />
+      <ConverterLanding />
     </BasicLayout>
   );
 };

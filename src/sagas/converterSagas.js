@@ -1,5 +1,5 @@
 import { call, put, select, takeEvery } from "redux-saga/effects";
-import { converterApi } from "@api/converterApi";
+import { converterApi } from "@api/index";
 import {
   REQUEST_FOR_CURRENCY,
   geolocationRequest,

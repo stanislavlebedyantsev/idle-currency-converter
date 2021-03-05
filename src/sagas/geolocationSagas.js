@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { geolocationApi } from "@api/geolocationApi";
+import { geolocationApi } from "@api/index";
 import {
   REQUEST_FOR_GEOLOCATION,
   setCurrentGeolocation,

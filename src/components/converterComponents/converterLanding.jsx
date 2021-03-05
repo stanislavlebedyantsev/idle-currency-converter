@@ -4,7 +4,7 @@ import ConverterContent from "@components/converterComponents/converterComponent
 import { Container } from "@components/common/commonStyles/styles";
 import { currencyRateRequest } from "@actions/converterActionCreators";
 
-const ConverterContainer = (props) => {
+const ConverterLanding = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,4 +18,4 @@ const ConverterContainer = (props) => {
   );
 };
 
-export default ConverterContainer;
+export default ConverterLanding;
