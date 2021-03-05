@@ -15,7 +15,7 @@ const MapContent = () => {
     setExistedCurrs(() => isCurrencyExist(allRates, currencies));
   }, [allRates, currencies]);
   return (
-    <Map style={{ height: "400px" }} center={latlng} zoom={1}>
+    <Map style={{ height: "50vh" }} center={latlng} zoom={1}>
       <TileLayer
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

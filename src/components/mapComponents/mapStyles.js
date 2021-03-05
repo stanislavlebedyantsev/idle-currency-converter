@@ -8,5 +8,8 @@ export const Map = styled(MapContainer).attrs((props) => ({ ...props }))`
 export const MapBlock = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 5%
+  align-content: space-between;
+  flex-flow: row;
+  margin: 5%;
+  height: 50vh;
 `;
