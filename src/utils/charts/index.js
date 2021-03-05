@@ -14,8 +14,9 @@ export const chartsUploadMapper = (rates) => {
 };
 
 export const checkLastUpload = (lastUploadeData) => {
+  const sixHourInMilliseconds = 21600000
   const now = moment().valueOf();
-  if (moment(now).diff(lastUploadeData) >= 21600000) {
+  if (moment(now).diff(lastUploadeData) >= sixHourInMilliseconds) {
     return true;
   }
   return false;
