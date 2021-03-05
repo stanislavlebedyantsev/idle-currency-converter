@@ -7,7 +7,7 @@ import {
   DELETE_CURRENCY_FIELD,
   SET_CURRENT_GEOLOCATION,
   UPDATE_SWAPPED_CURRENCYS
-} from "@actions/converterActionCreators";
+} from "@actions/index";
 
 const initState = {
   allCurrs: [],

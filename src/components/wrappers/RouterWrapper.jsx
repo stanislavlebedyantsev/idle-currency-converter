@@ -1,12 +1,12 @@
 import { Switch, Route, Redirect } from "react-router-dom";
 import { CHARTS_ROUTER_PATH } from "@/constants";
-import ConverterContainer from "@components/converterComponents/converterContainer";
-import ChartsContainer from "@components/chartsComponents/chartContainer";
+import ChartsPage from "@components/pages/ChartsPage/index";
+import ConverterPage from "@components/pages/ConverterPage/index";
 const RouterWrapper = () => {
   return (
       <Switch>
-        <Route path={CHARTS_ROUTER_PATH} render={() => <ChartsContainer/>} />
-        <Route exact path={"/"} render={() => <ConverterContainer />} />
+        <Route path={CHARTS_ROUTER_PATH} render={() => <ChartsPage/>} />
+        <Route exact path={"/"} render={() => <ConverterPage />} />
         <Redirect from={'*'} to={'/'}/>
       </Switch>
   );

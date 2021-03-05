@@ -1,68 +1,21 @@
-import { call, fork, put, select, take, takeEvery } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import { converterApi } from "@api/converterApi";
-import { geolocationApi } from "@api/geolocationApi";
 import {
   REQUEST_FOR_CURRENCY,
-  REQUEST_FOR_GEOLOCATION,
   geolocationRequest,
   initData,
   initBaseCurrency,
-  setCurrentGeolocation,
   updateInputedValue,
-} from "@actions/converterActionCreators";
-import {
-  REQUEST_FOR_PUSH_DATABASE,
-  REQUEST_FOR_GET_LAST_VALUE_DATABASE,
-  REQUEST_FOR_GET_VALUES_DATABASE,
-  pushDatabaseRequest,
-} from "@actions/firebaseActionCreators";
-import {
-  initChartsData,
-  changeDispayCharsData,
-} from "@actions/chartsActionCreators";
+} from "@actions/index";
+import { checkLastUpload } from "@utils/charts/index";
+import { pushDatabaseRequest } from "@actions/index";
+import { getLastFirebaseDatabase } from "@utils/firebase/firebase";
 import { convertBeforInput } from "@utils/data-mappers";
-import {
-  chartsUploadMapper,
-  checkLastUpload,
-  displayedCharts,
-} from "@utils/charts/index";
-import {
-  pushFirebaseDatabase,
-  getLastFirebaseDatabase,
-  getValuesFirebaseDatabase,
-} from "@utils/firebase/firebase";
 
 export function* getCurrencyRateWatcher() {
   yield takeEvery(REQUEST_FOR_CURRENCY, getCurrencyRate);
-  //yield fork(getCurrencyRate);
-  yield takeEvery(REQUEST_FOR_GEOLOCATION, getGeolocation);
-  yield takeEvery(REQUEST_FOR_PUSH_DATABASE, pushValueToDatabase);
-  yield takeEvery(REQUEST_FOR_GET_LAST_VALUE_DATABASE, pushValueToDatabase);
-  yield takeEvery(REQUEST_FOR_GET_VALUES_DATABASE, getAllValuesFromDatabase);
-  //yield fork(getGeolocation);
 }
 
-function* getAllValuesFromDatabase() {
-  const allRates = yield getValuesFirebaseDatabase();
-  const { code } = yield select((state) => state.converter.localCurrency);
-  const mappedDisplayCurrency = yield displayedCharts(code, allRates);
-  //here call action for put values in state
-  yield put(initChartsData(allRates));
-  yield put(changeDispayCharsData(mappedDisplayCurrency));
-}
-
-function* pushValueToDatabase() {
-  const { rate } = yield select((state) => state.converter);
-  const ratesForCharts = yield chartsUploadMapper(rate.rates);
-  yield pushFirebaseDatabase(ratesForCharts);
-}
-
-function* getGeolocation() {
-  try {
-    const geolocationResponce = yield call(geolocationApi.fetchGeolocation);
-    yield put(setCurrentGeolocation(geolocationResponce));
-  } catch (e) {}
-}
 
 function* getCurrencyRate() {
   try {
@@ -81,7 +34,6 @@ function* getCurrencyRate() {
     );
     //get last value from database
     const lastValue = yield getLastFirebaseDatabase();
-
     //push value to database if last was uploaded >= 6 hours
     if (lastValue) {
       if (yield checkLastUpload(lastValue[0].date)) {
@@ -98,8 +50,4 @@ function* getCurrencyRate() {
   } catch (e) {
     console.log("Error ", e);
   }
-}
-
-export function* rootSaga() {
-  yield call(getCurrencyRateWatcher);
 }

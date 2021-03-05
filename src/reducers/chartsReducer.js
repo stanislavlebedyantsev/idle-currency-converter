@@ -3,7 +3,7 @@ import {
   SELECT_CHART,
   REMOVE_SELECT_CHART,
   CHANGE_DISPLAY_CHARTS_DATA
-} from "@actions/chartsActionCreators";
+} from "@actions/index";
 const initState = {
   ratesHistory: [],
   selectedCurrency: [],

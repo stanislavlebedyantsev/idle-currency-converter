@@ -2,7 +2,7 @@ import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import createSagaMiddleware from "redux-saga";
 import converterReducer from "./converterReducer";
 import chartsReducer from "./chartsReducer";
-import { rootSaga } from "@sagas/converterSagas";
+import { rootSaga } from "@sagas/index";
 import { loadFromStorage, saveState } from "@utils/localStorage";
 
 const sagaMiddleware = createSagaMiddleware();
