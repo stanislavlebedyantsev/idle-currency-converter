@@ -1,10 +1,10 @@
 import BasicLayout from '@components/layouts/BasicLayout/index';
-import ChartsContainer from "@components/chartsComponents/chartContainer";
+import ChartLanding from "@components/chartsComponents/chartLanding";
 
 const ChartsPage = () => {
   return(
     <BasicLayout>
-      <ChartsContainer/>
+      <ChartLanding/>
     </BasicLayout>
   )
 }

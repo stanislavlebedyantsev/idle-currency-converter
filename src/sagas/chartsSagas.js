@@ -1,4 +1,4 @@
-import { call, fork, put, select, take, takeEvery } from "redux-saga/effects";
+import { put, select, takeEvery } from "redux-saga/effects";
 import { chartsUploadMapper, displayedCharts } from "@utils/charts/index";
 import {
   initChartsData,

@@ -12,7 +12,7 @@ export const Container = styled.div`
   background-size: cover;
   overflow: none;
 `;
-export const ContentContainer = styled.div`
+export const ContentContainer = styled.div.attrs(props => ({...props}))`
   min-width: 70%;
   border-radius: 4%;
   background-color: #fff;

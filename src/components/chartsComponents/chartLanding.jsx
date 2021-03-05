@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getValuesDatabaseRequest } from "@actions/firebaseActionCreators";
-import ChartTopToolArea from './chartComponentContent/ChartTopToolArea'
+import ChartTopToolArea from "./chartComponentContent/ChartTopToolArea";
 import {
   LineChart,
   Line,
@@ -17,9 +17,7 @@ import {
   ContentContainer,
 } from "@components/common/commonStyles/styles";
 
-
-
-const ChartsContainer = () => {
+const ChartLanding = () => {
   const dispatch = useDispatch();
   const selectedCharts = useSelector((store) => store.charts.selectedCurrency);
   const chartsData = useSelector((store) => store.charts.mappedRates);
@@ -29,20 +27,20 @@ const ChartsContainer = () => {
   return (
     <Container>
       <ContentContainer>
-        <ChartTopToolArea/>
+        <ChartTopToolArea />
         <LineChart width={600} height={300} data={chartsData}>
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
           <Legend />
-          {
-            selectedCharts.map((el) => <Line type="monotone" dataKey={el} stroke={`#${toHashCode(el)}`} />)
-          }
+          {selectedCharts.map((el) => (
+            <Line type="monotone" dataKey={el} stroke={`#${toHashCode(el)}`} />
+          ))}
         </LineChart>
       </ContentContainer>
     </Container>
   );
 };
 
-export default ChartsContainer;
+export default ChartLanding;
