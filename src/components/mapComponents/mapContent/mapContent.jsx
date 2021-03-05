@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Marker, Popup, TileLayer } from "react-leaflet";
 import { isCurrencyExist } from "@utils/map/index";
 import { Map } from "@components/mapComponents/mapStyles";
+import { Redirect } from "react-router";
 
 const MapContent = () => {
   const [existedCurrs, setExistedCurrs] = useState([]);
