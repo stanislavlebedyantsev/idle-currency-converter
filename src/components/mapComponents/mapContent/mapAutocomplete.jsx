@@ -15,7 +15,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflow: "auto",
-    maxHeight: 300,
+    maxHeight: "80%",
+    flexWrap: 'nowrap'
   },
   listSection: {
     backgroundColor: "inherit",
