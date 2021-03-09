@@ -28,7 +28,7 @@ const errorReducer = (state = initState, action) => {
       return { ...state, charts: action.payload.message };
     }
     case REMOVE_ERROR: {
-      return { ...state, [action.payload]: undefined };
+      return { ...state, [action.payload]: '' };
     }
     default:
       return state;

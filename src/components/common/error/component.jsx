@@ -17,7 +17,7 @@ const Error = () => {
   console.log(errors);
   return (
     <div className={classes.root}>
-      {Object.values(errors).filter((el) => el !== undefined).length
+      {Object.values(errors).filter((el) => el !== '').length
         ? Object.values(errors).map((el) => {
             if (el !== undefined)
               return <AlertError severity="error">{el}</AlertError>;
