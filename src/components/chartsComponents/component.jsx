@@ -1,10 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Error from "@components/common/error/error";
+import Error from "@components/common/error/component";
 import { getValuesDatabaseRequest } from "@actions/firebaseActionCreators";
-import ChartTopToolArea from "./chartComponentContent/ChartTopToolArea";
+import ChartTopToolArea from "./chartComponentContent/ChartTopToolArea/component";
 import {
-  ResponsiveContainer,
   LineChart,
   Line,
   CartesianGrid,
@@ -14,7 +13,7 @@ import {
   Legend,
 } from "recharts";
 import { toHashCode } from "@utils/colorGenerator/index";
-import { Chart } from "./chartStyles";
+import { Chart, ChartContainer } from "./styles";
 import {
   Container,
   ContentContainer,
@@ -29,26 +28,27 @@ const ChartLanding = () => {
   }, [dispatch]);
   return (
     <Container>
-      {/* <Error/> */}
+      <Error />
       <ContentContainer>
         <ChartTopToolArea />
-        <Chart width="100%" height='25%'>
-          <LineChart width={500}
-          height={300} data={chartsData}>
-            <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            {selectedCharts.map((el) => (
-              <Line
-                type="monotone"
-                dataKey={el}
-                stroke={`#${toHashCode(el)}`}
-              />
-            ))}
-          </LineChart>
-        </Chart>
+        <ChartContainer>
+          <Chart>
+            <LineChart width={500} height={300} data={chartsData}>
+              <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              {selectedCharts.map((el) => (
+                <Line
+                  type="monotone"
+                  dataKey={el}
+                  stroke={`#${toHashCode(el)}`}
+                />
+              ))}
+            </LineChart>
+          </Chart>
+        </ChartContainer>
       </ContentContainer>
     </Container>
   );

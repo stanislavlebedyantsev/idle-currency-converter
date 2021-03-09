@@ -5,7 +5,7 @@ import { Input, Button } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { makeStyles } from "@material-ui/styles";
 import Autocomplete from "@components/controls/Autocomplite";
-import { CurrField } from "@components/converterComponents/converterStyles";
+import { CurrField } from "@components/converterComponents/styles";
 
 const useStyles = makeStyles({
   autocomplete: {

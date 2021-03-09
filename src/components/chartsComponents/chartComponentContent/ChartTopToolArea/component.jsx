@@ -7,8 +7,8 @@ import { changeDispayCharsData } from "@actions/chartsActionCreators";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Autocomplete from "@components/controls/Autocomplite";
-import { ChartToolArea } from "@components/chartsComponents/chartStyles";
 import { makeStyles } from "@material-ui/styles";
+import { ChartToolArea } from "@components/chartsComponents/styles";
 
 const useStyles = makeStyles({
   autocomplete: {

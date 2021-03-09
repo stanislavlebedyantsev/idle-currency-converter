@@ -1,4 +1,5 @@
-import {Autocomplete, Input} from './styles'
+import {Autocomplete} from './styles'
+import InputControl from '@components/controls/Input/component'
 
 const AutocompleteComponent = ({
   onChange,
@@ -16,7 +17,7 @@ const AutocompleteComponent = ({
       options={[...options]}
       renderInput={(params) => {
         return (
-          <Input
+          <InputControl
             {...params}
             size="small"
             label="Currency"

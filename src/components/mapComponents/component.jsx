@@ -1,32 +1,38 @@
-import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import List from "@material-ui/core/List";
-import TextField from "@material-ui/core/TextField";
 import { filterBeforeSave } from "@utils/map/index";
 import { requestForCountryData, updateMatchesListData } from "@actions/index";
+import Error from "@components/common/error/component";
+import MapContent from "./MapContent/component";
+import ListAutocomplete from "@components/controls/ListAutocomplete/component";
+import { requestCountryList } from "@actions/index";
+import {
+  Container,
+  ContentContainer,
+} from "@components/common/commonStyles/styles";
 import { makeStyles } from "@material-ui/core/styles";
+import { MapBlock } from "./styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: "80%",
     backgroundColor: theme.palette.background.paper,
     position: "relative",
     overflow: "auto",
     maxHeight: "80%",
-    flexWrap: 'nowrap'
   },
   listSection: {
     backgroundColor: "inherit",
   },
 }));
 
-const MapAutocomplete = () => {
-  const [textFieldState, setTextFieldState] = useState("");
-  const dispatch = useDispatch();
+const MapLanding = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const [textFieldState, setTextFieldState] = useState("");
   const countryList = useSelector((state) => state.map.countryList);
   const matchedValues = useSelector((state) => state.map.matchedValues);
 
@@ -49,21 +55,30 @@ const MapAutocomplete = () => {
       </ListItem>
     ));
   };
+
+  useEffect(() => {
+    dispatch(requestCountryList());
+  }, [dispatch]);
+
   return (
-    <div>
-      <TextField
-        id="standard-basic"
-        label="Type currency"
-        value={textFieldState}
-        onChange={handleTextFieldChange}
-      />
-      <List className={classes.root}>
-        {matchedValues.length
-          ? listFilter(matchedValues)
-          : listFilter(countryList)}
-      </List>
-    </div>
+    <Container>
+      <Error />
+      <ContentContainer>
+        <MapBlock>
+          <ListAutocomplete
+            classes={classes}
+            textFieldState={textFieldState}
+            listFilter={listFilter}
+            handleTextFieldChange={handleTextFieldChange}
+            handleSearchResult={handleSearchResult}
+            matchedValues={matchedValues}
+            countryList={countryList}
+          />
+          <MapContent />
+        </MapBlock>
+      </ContentContainer>
+    </Container>
   );
 };
 
-export default MapAutocomplete;
+export default MapLanding;

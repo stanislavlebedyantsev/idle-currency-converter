@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Marker, Popup, TileLayer } from "react-leaflet";
 import { isCurrencyExist } from "@utils/map/index";
-import { Map } from "@components/mapComponents/mapStyles";
+import { Map } from "@components/mapComponents/styles";
 
 const MapContent = () => {
   const [existedCurrs, setExistedCurrs] = useState([]);
@@ -21,7 +21,7 @@ const MapContent = () => {
     setExistedCurrs(() => isCurrencyExist(allRates, currencies));
   }, [allRates, currencies]);
   return (
-      <Map style={{ height: "50vh" }} center={latlng || [0, 0]} zoom={1}>
+      <Map center={latlng || [0, 0]} zoom={2}>
         <TileLayer
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

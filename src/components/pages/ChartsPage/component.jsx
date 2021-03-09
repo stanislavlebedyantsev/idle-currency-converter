@@ -1,5 +1,5 @@
 import BasicLayout from '@components/layouts/BasicLayout/index';
-import ChartLanding from "@components/chartsComponents/chartLanding";
+import ChartLanding from "@components/chartsComponents/component";
 
 const ChartsPage = () => {
   return(
