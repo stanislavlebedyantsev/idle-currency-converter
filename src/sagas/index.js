@@ -1,4 +1,4 @@
-import { all } from "redux-saga/effects";
+import { all, call } from "redux-saga/effects";
 import { getChartsWatcher } from "./chartsSagas";
 import { countryDataWatcher } from "./mapSagas";
 import { getCurrencyRateWatcher } from "./converterSagas";

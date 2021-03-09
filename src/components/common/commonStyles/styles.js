@@ -5,6 +5,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
   width: 100%;
   background: url(${background});
   height: 100vh;
@@ -12,7 +13,8 @@ export const Container = styled.div`
   background-size: cover;
   overflow: none;
 `;
-export const ContentContainer = styled.div.attrs(props => ({...props}))`
+export const ContentContainer = styled.div.attrs((props) => ({ ...props }))`
+  position: absolute;
   min-width: 70%;
   border-radius: 4%;
   background-color: #fff;

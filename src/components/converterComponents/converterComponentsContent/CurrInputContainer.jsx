@@ -9,7 +9,7 @@ import { CurrField } from "@components/converterComponents/converterStyles";
 
 const useStyles = makeStyles({
   autocomplete: {
-    width: "10%",
+    width: "25%",
   },
   input: {
     maxWidth: "30%",

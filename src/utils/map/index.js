@@ -18,10 +18,15 @@ export const filterCountryList = (countryList) => {
 };
 
 export const isCurrencyExist = (allRates, localCurrs) => {
-  const result = [];
-  localCurrs.map((el) => {
-    if (allRates[el.code]) result.push({currency: el.code, value: allRates[el.code]});
-    return el;
-  });
+  let result = [];
+  try {
+    localCurrs.map((el) => {
+      if (allRates[el.code])
+        result.push({ currency: el.code, value: allRates[el.code] });
+      return el;
+    });
+  } catch (e) {
+    result = false;
+  }
   return result;
 };
