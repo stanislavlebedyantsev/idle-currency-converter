@@ -1,5 +1,5 @@
 import BasicLayout from "@components/layouts/BasicLayout/index";
-import MapLanding from '@components/mapComponents/mapLanding';
+import MapLanding from '@components/mapComponents/component';
 
 const MapPage = () => {
   return <BasicLayout>

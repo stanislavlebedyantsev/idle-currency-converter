@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/styles";
 import Autocomplete from "@components/controls/Autocomplite";
 import { currencyRateRequest } from "@actions/converterActionCreators";
-import { ToolsArea } from "@components/converterComponents/converterStyles";
+import { ToolsArea } from "@components/converterComponents/styles";
 
 const useStyles = makeStyles({
   autocomplete: {

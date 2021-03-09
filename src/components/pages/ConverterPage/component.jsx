@@ -1,5 +1,5 @@
 import BasicLayout from "@components/layouts/BasicLayout/index";
-import ConverterLanding from "@components/converterComponents/converterLanding";
+import ConverterLanding from "@components/converterComponents/component";
 
 const ConverterPage = () => {
   return (
