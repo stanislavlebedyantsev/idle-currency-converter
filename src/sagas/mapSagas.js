@@ -5,7 +5,9 @@ import {
   REQUEST_FOR_COUNRY_LIST,
   updateCountryData,
   updateCountryList,
-  requestForCountryData
+  requestForCountryData,
+  removeError,
+  setMapError,
 } from "@actions/index";
 import { mapApi } from "@api/index";
 
@@ -27,9 +29,9 @@ function* getCountryList() {
   try {
     const countryList = yield call(mapApi.fetchCountryList);
     const filtredList = yield filterCountryList(countryList);
-    yield put(requestForCountryData('Belarus'))
     yield put(updateCountryList(filtredList));
+    yield put(removeError("map"));
   } catch (e) {
-    console.log(e);
+    yield put(setMapError(e));
   }
 }

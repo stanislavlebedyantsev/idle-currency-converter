@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import Error from "@components/common/error/error";
 import MapContent from "./mapContent/mapContent";
 import MapAutocomplete from "./mapContent/mapAutocomplete";
 import { requestCountryList } from "@actions/index";
@@ -18,6 +19,7 @@ const MapLanding = () => {
 
   return (
     <Container>
+      {/* <Error /> */}
       <ContentContainer>
         <MapBlock>
           <MapAutocomplete />

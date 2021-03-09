@@ -1,49 +1,40 @@
 import {
   calculateCurrencyFromBase,
   calculateBaseValueFromCurrency,
+  choiceConverterType
 } from "@utils/currencyConvert";
 
-export const updateAfterChange = (id, newValue, base, rates, moneyValues) => {
+export const updateAfterChange = (id, newCurrency, base, rates, moneyValues) => {
   const copyValues = moneyValues.reduce((acc, el, index) => {
     let temp = {};
     if (id === index) {
-      if (el.currency !== base && newValue !== base) {
-        temp.value = calculateCurrencyFromBase(
-          el.value / rates[el.currency],
-          rates[newValue]
-        );
-      } else if (el.currency === base && newValue !== base) {
-        temp.value = calculateCurrencyFromBase(el.value, rates[newValue]);
-      } else if (el.currency !== base && newValue === base) {
-        temp.value = calculateBaseValueFromCurrency(
-          el.value,
-          rates[el.currency]
-        );
-      }
-      temp.currency = newValue;
+      temp.value = choiceConverterType(el.currency, el.value, base, newCurrency, rates)
+      temp.currency = newCurrency;
     }
-    !Object.keys(temp).length ?  acc.push(el) : acc.push(temp);
+    !Object.keys(temp).length ? acc.push(el) : acc.push(temp);
     return acc;
   }, []);
   return copyValues;
 };
 
 export const convertBeforInput = (valueForUpdate, base, rates, moneyValues) => {
-  const { currency, value } = valueForUpdate;
-  return moneyValues.reduce((acc, el) => {
-    if (el.currency === currency) {
-      el = valueForUpdate;
-    } else if (el.currency !== currency && currency !== base) {
-      el.value = calculateCurrencyFromBase(
-        value / rates[currency],
-        rates[el.currency] || 1
-      );
-    } else if (el.currency !== currency && currency === base) {
-      el.value = calculateCurrencyFromBase(value, rates[el.currency]);
-    }
-    acc.push(el);
-    return acc;
-  }, []);
+  if (valueForUpdate) {
+    const { currency, value } = valueForUpdate;
+    return moneyValues.reduce((acc, el) => {
+      if (el.currency === currency) {
+        el = valueForUpdate;
+      } else if (el.currency !== currency && currency !== base) {
+        el.value = calculateCurrencyFromBase(
+          value / rates[currency],
+          rates[el.currency] || 1
+        );
+      } else if (el.currency !== currency && currency === base) {
+        el.value = calculateCurrencyFromBase(value, rates[el.currency]);
+      }
+      acc.push(el);
+      return acc;
+    }, []);
+  }
 };
 
 export const updateCurrencyBeforeSelect = (

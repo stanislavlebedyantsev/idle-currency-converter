@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/styles";
 
 const useStyles = makeStyles({
   autocomplete: {
-    width: "10%",
+    width: "25%",
   },
   input: {
     maxWidth: "30%",

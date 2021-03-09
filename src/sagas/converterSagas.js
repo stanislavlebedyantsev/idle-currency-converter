@@ -6,6 +6,8 @@ import {
   initData,
   initBaseCurrency,
   updateInputedValue,
+  setConverterError,
+  removeError,
 } from "@actions/index";
 import { checkLastUpload } from "@utils/charts/index";
 import { pushDatabaseRequest } from "@actions/index";
@@ -16,38 +18,41 @@ export function* getCurrencyRateWatcher() {
   yield takeEvery(REQUEST_FOR_CURRENCY, getCurrencyRate);
 }
 
-
 function* getCurrencyRate() {
   try {
-    //currency request
-    const currencyResponce = yield call(converterApi.fetchCurrencyRate);
-    const localStorageData = localStorage.getItem("state");
-    //geolocation request
-    yield put(geolocationRequest());
-    yield put(initData(currencyResponce));
-    const { inputedValues, rate } = yield select((state) => state.converter);
-    const updatedValues = yield convertBeforInput(
-      inputedValues[0],
-      rate.base,
-      rate.rates,
-      inputedValues
-    );
-    //get last value from database
-    const lastValue = yield getLastFirebaseDatabase();
-    //push value to database if last was uploaded >= 6 hours
-    if (lastValue) {
-      if (yield checkLastUpload(lastValue[0].date)) {
-        yield put(pushDatabaseRequest());
-      }
-    } else {
+  //currency request
+  const currencyResponce = yield call(converterApi.fetchCurrencyRate);
+  const localStorageData = localStorage.getItem("state");
+  //geolocation request
+  yield put(geolocationRequest());
+  yield put(initData(currencyResponce));
+  const { inputedValues, rate } = yield select((state) => state.converter);
+  //if we have values on converter => update their values
+  const updatedValues = yield convertBeforInput(
+    inputedValues[0],
+    rate.base,
+    rate.rates,
+    inputedValues
+  );
+  if (updatedValues) {
+    yield put(updateInputedValue(updatedValues));
+  }
+  //get last value from database
+  const lastValue = yield getLastFirebaseDatabase();
+  //push value to database if last was uploaded >= 6 hours
+  if (lastValue) {
+    if (yield checkLastUpload(lastValue[0].date)) {
       yield put(pushDatabaseRequest());
     }
+  } else {
+    yield put(pushDatabaseRequest());
+  }
 
-    yield put(updateInputedValue(updatedValues));
-    if (!localStorageData) {
-      yield put(initBaseCurrency(currencyResponce.base));
-    }
+  if (!localStorageData) {
+    yield put(initBaseCurrency(currencyResponce.base));
+  }
+  yield put(removeError("converter"));
   } catch (e) {
-    console.log("Error ", e);
+    yield put(setConverterError(e))
   }
 }

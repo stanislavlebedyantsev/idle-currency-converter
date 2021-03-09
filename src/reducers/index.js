@@ -3,6 +3,7 @@ import createSagaMiddleware from "redux-saga";
 import converterReducer from "./converterReducer";
 import chartsReducer from "./chartsReducer";
 import mapReducer from "./mapReducer";
+import errorReducer from "./errorReducer";
 import { rootSaga } from "@sagas/index";
 import { loadFromStorage, saveState } from "@utils/localStorage";
 
@@ -11,7 +12,8 @@ const sagaMiddleware = createSagaMiddleware();
 const reducers = combineReducers({
   converter: converterReducer,
   charts: chartsReducer,
-  map: mapReducer
+  map: mapReducer,
+  error: errorReducer
 });
 
 const preloadedState = loadFromStorage();

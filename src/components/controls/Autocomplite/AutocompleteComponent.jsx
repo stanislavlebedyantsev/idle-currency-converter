@@ -1,5 +1,4 @@
-import TextField from "@material-ui/core/TextField";
-import {Autocomplete} from './styles'
+import {Autocomplete, Input} from './styles'
 
 const AutocompleteComponent = ({
   onChange,
@@ -16,18 +15,9 @@ const AutocompleteComponent = ({
       onChange={onChange}
       options={[...options]}
       renderInput={(params) => {
-        const paramsWithNewFont = {
-          ...params,
-          InputProps: {
-            ...params.InputProps,
-            style: {
-              fontSize: '1.5vw',
-            },
-          },
-        };
         return (
-          <TextField
-            {...paramsWithNewFont}
+          <Input
+            {...params}
             size="small"
             label="Currency"
             variant="outlined"
