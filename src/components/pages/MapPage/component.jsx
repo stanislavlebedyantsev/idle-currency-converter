@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { filterBeforeSave } from '@/utils/';
 import {
   requestForCountryData,
-  updateMatchesListData,
+  updateMatchesValuesListData,
   requestCountryList,
 } from '@/actions/';
 import Error from '@/components/common/error/component';
@@ -44,12 +44,12 @@ const MapPage = () => {
     setTextFieldState('');
     dispatch(requestForCountryData(event.target.textContent));
     const filtredList = filterBeforeSave(countryList, '');
-    dispatch(updateMatchesListData(filtredList));
+    dispatch(updateMatchesValuesListData(filtredList));
   };
   const handleTextFieldChange = (event) => {
     setTextFieldState(event.target.value);
     const filtredList = filterBeforeSave(countryList, event.target.value);
-    dispatch(updateMatchesListData(filtredList));
+    dispatch(updateMatchesValuesListData(filtredList));
   };
 
   const listFilter = (list) => {

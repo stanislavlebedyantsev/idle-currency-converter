@@ -1,8 +1,8 @@
 export const SET_CURRENT_GEOLOCATION = 'SET_CURRENT_GEOLOCATION';
-export const REQUEST_FOR_GEOLOCATION = 'REQUEST_FOR_GEOLOCATION';
+export const GEOLOCATION_REQUEST = 'GEOLOCATION_REQUEST';
 
 export const geolocationRequest = () => ({
-  type: REQUEST_FOR_GEOLOCATION,
+  type: GEOLOCATION_REQUEST,
 });
 export const setCurrentGeolocation = (country) => ({
   type: SET_CURRENT_GEOLOCATION,

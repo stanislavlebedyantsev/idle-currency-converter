@@ -1,7 +1,11 @@
-import { React } from 'react';
-import { useSelector } from 'react-redux';
+import { React, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeError } from '@/actions/';
 import { AlertError } from './styles';
 import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,15 +18,28 @@ const useStyles = makeStyles((theme) => ({
 
 const Error = () => {
   const classes = useStyles();
-  const errors = useSelector((state) => state.error);
+  const dispatch = useDispatch();
+  const { errorValue, isError } = useSelector((state) => state.error);
+
   return (
     <div className={classes.root}>
-      {Object.values(errors).filter((el) => el !== '').length
-        ? Object.values(errors).map((el) => {
-            if (el !== undefined)
-              return <AlertError severity="error">{el}</AlertError>;
-          })
-        : null}
+      <Collapse in={isError}>
+        <AlertError
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                dispatch(removeError());
+              }}>
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }>
+          {errorValue}
+        </AlertError>
+      </Collapse>
     </div>
   );
 };

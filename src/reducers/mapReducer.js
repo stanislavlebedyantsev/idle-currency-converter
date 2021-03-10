@@ -1,6 +1,6 @@
 import {
   UPDATE_COUNTRY_DATA,
-  UPDATE_MATCHED_LIST_DATA,
+  UPDATE_MATCHED_VALUES_LIST_DATA,
   UPDATE_COUNTRY_LIST,
 } from '@/actions/index';
 
@@ -15,7 +15,7 @@ const mapReducer = (state = initState, action) => {
     case UPDATE_COUNTRY_LIST: {
       return { ...state, countryList: [...action.payload] };
     }
-    case UPDATE_MATCHED_LIST_DATA: {
+    case UPDATE_MATCHED_VALUES_LIST_DATA: {
       return { ...state, matchedValues: [...action.payload] };
     }
     case UPDATE_COUNTRY_DATA: {
