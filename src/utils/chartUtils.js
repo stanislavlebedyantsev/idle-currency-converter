@@ -22,7 +22,7 @@ export const checkLastUpload = (lastUploadeData) => {
   return false;
 };
 
-export const displayedCharts = (selectedCurrency, chartsData) => {
+export const predisplayedChartsMapper = (selectedCurrency, chartsData) => {
   return chartsData.reduce((acc, el) => {
     const temp = {
       BYN: calculateCurrencyFromBase(

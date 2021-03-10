@@ -1,12 +1,12 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { converterApi } from '@/api/index';
 import {
-  REQUEST_FOR_CURRENCY,
+  REQUEST_FOR_CURRENCY_RATES,
   geolocationRequest,
   initData,
   initBaseCurrency,
   updateInputedValue,
-  setConverterError,
+  setError,
   removeError,
   pushDatabaseRequest,
 } from '@/actions/';
@@ -14,7 +14,7 @@ import { checkLastUpload } from '@/utils/';
 import { getLastFirebaseDatabase } from '@/utils/';
 import { convertBeforInput } from '@/utils/';
 
-function* getCurrencyRate() {
+function* getCurrencyRates() {
   try {
     //currency request
     const currencyResponce = yield call(converterApi.fetchCurrencyRate);
@@ -47,12 +47,12 @@ function* getCurrencyRate() {
     if (!localStorageData) {
       yield put(initBaseCurrency(currencyResponce.base));
     }
-    yield put(removeError('converter'));
+    yield put(removeError());
   } catch (e) {
-    yield put(setConverterError(e));
+    yield put(setError(e));
   }
 }
 
 export function* getCurrencyRateWatcher() {
-  yield takeEvery(REQUEST_FOR_CURRENCY, getCurrencyRate);
+  yield takeEvery(REQUEST_FOR_CURRENCY_RATES, getCurrencyRates);
 }

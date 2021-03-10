@@ -1,12 +1,12 @@
 import {
   INIT_DATA,
-  INIT_BASE,
+  INIT_BASE_CURRENCY,
   UPDATE_INPUTED_DATA,
   ADD_SELECT_VALUE,
   UPDATE_CURRENCY_SELECTOR,
   DELETE_CURRENCY_FIELD,
   SET_CURRENT_GEOLOCATION,
-  UPDATE_SWAPPED_CURRENCYS,
+  UPDATE_SWAPPED_CURRENCIES,
 } from '@/actions/index';
 
 const initState = {
@@ -25,7 +25,7 @@ const converterReducer = (state = initState, action) => {
         allCurrs: [...Object.keys(action.payload.rates)],
       };
     }
-    case INIT_BASE: {
+    case INIT_BASE_CURRENCY: {
       return {
         ...state,
         inputedValues: [
@@ -49,7 +49,7 @@ const converterReducer = (state = initState, action) => {
     case SET_CURRENT_GEOLOCATION: {
       return { ...state, localCurrency: { ...action.payload.currency } };
     }
-    case UPDATE_SWAPPED_CURRENCYS: {
+    case UPDATE_SWAPPED_CURRENCIES: {
       return { ...state, inputedValues: [...action.payload] };
     }
     default:

@@ -5,9 +5,8 @@ import {
   REQUEST_FOR_COUNRY_LIST,
   updateCountryData,
   updateCountryList,
-  requestForCountryData,
   removeError,
-  setMapError,
+  setError,
 } from '@/actions/';
 import { mapApi } from '@/api/';
 
@@ -15,8 +14,9 @@ function* getCountryData(action) {
   try {
     const countryData = yield call(mapApi.fetchCountryData, action.payload);
     yield put(updateCountryData(countryData[0]));
+		yield put(removeError());
   } catch (e) {
-    console.log(e);
+    yield put(setError(e));
   }
 }
 
@@ -25,9 +25,9 @@ function* getCountryList() {
     const countryList = yield call(mapApi.fetchCountryList);
     const filtredList = yield filterCountryList(countryList);
     yield put(updateCountryList(filtredList));
-    yield put(removeError('map'));
+    yield put(removeError());
   } catch (e) {
-    yield put(setMapError(e));
+    yield put(setError(e));
   }
 }
 

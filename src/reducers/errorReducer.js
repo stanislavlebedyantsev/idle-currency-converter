@@ -1,5 +1,5 @@
 import {
-  SET_MAP_ERROR,
+  SET_ERROR,
   SET_CONVERTER_ERROR,
   SET_GEOLOCATION_ERROR,
   SET_CHARTS_ERROR,
@@ -7,28 +7,17 @@ import {
 } from '@/actions/index';
 
 const initState = {
-  map: '',
-  geolocation: '',
-  converter: '',
-  charts: '',
+  errorValue: '',
+  isError: false,
 };
 
 const errorReducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_MAP_ERROR: {
-      return { ...state, map: action.payload };
-    }
-    case SET_CONVERTER_ERROR: {
-      return { ...state, converter: action.payload.message };
-    }
-    case SET_GEOLOCATION_ERROR: {
-      return { ...state, geolocation: action.payload.message };
-    }
-    case SET_CHARTS_ERROR: {
-      return { ...state, charts: action.payload.message };
+    case SET_ERROR: {
+      return { ...state, errorValue: action.payload.message, isError: true };
     }
     case REMOVE_ERROR: {
-      return { ...state, [action.payload]: '' };
+      return { ...state, errorValue: '', isError: false };
     }
     default:
       return state;

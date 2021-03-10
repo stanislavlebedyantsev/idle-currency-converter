@@ -6,7 +6,7 @@ import {
   changeDispayCharsData,
 } from '@/actions/';
 import FormGroup from '@material-ui/core/FormGroup';
-import { displayedCharts } from '@/utils/';
+import { predisplayedChartsMapper } from '@/utils/';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from '@/components/controls/Autocomplite';
@@ -46,7 +46,7 @@ const ChartTopToolArea = () => {
   }, [localCurrency]);
 
   const handleSelectMainCurrency = (event, newValue) => {
-    const mappedDisplayCurrency = displayedCharts(newValue, chartsRatesHistory);
+    const mappedDisplayCurrency = predisplayedChartsMapper(newValue, chartsRatesHistory);
     setChoisenCurr(newValue);
     dispatch(changeDispayCharsData(mappedDisplayCurrency));
   };
