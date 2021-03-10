@@ -1,20 +1,30 @@
 import {
   calculateCurrencyFromBase,
   calculateBaseValueFromCurrency,
-  choiceConverterType
-} from "@utils/currencyConvert";
+  choiceConverterType,
+} from '@/utils/';
 
-export const updateAfterChange = (id, newCurrency, base, rates, moneyValues) => {
-  const copyValues = moneyValues.reduce((acc, el, index) => {
-    let temp = {};
+export const updateAfterChange = (
+  id,
+  newCurrency,
+  base,
+  rates,
+  moneyValues
+) => {
+  return moneyValues.reduce((acc, el, index) => {
     if (id === index) {
-      temp.value = choiceConverterType(el.currency, el.value, base, newCurrency, rates)
-      temp.currency = newCurrency;
+      el.value = choiceConverterType(
+        el.currency,
+        el.value,
+        base,
+        newCurrency,
+        rates
+      );
+      el.currency = newCurrency;
     }
-    !Object.keys(temp).length ? acc.push(el) : acc.push(temp);
+    acc.push(el);
     return acc;
   }, []);
-  return copyValues;
 };
 
 export const convertBeforInput = (valueForUpdate, base, rates, moneyValues) => {
@@ -66,7 +76,5 @@ export const updateCurrencyBeforeSelect = (
 };
 
 export const deleteCurrencyFromField = (id, inputValues) => {
-  const copyInput = [...inputValues];
-  copyInput.splice(id, 1);
-  return copyInput;
+  return inputValues.filter((el, i) => i !== id);
 };

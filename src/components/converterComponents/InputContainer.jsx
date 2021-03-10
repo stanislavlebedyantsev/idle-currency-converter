@@ -1,19 +1,21 @@
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { Draggable } from "react-beautiful-dnd";
-import { Input, Button } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import { makeStyles } from "@material-ui/styles";
-import Autocomplete from "@components/controls/Autocomplite";
-import { CurrField } from "@components/converterComponents/styles";
+/* eslint-disable react/jsx-closing-bracket-location */
+import { React } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Draggable } from 'react-beautiful-dnd';
+import { Input, Button } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { makeStyles } from '@material-ui/styles';
+import Autocomplete from '@/components/controls/Autocomplite';
+import { CurrField } from '@/components/converterComponents/styles';
 
 const useStyles = makeStyles({
   autocomplete: {
-    width: "25%",
+    width: '25%',
   },
   input: {
-    maxWidth: "30%",
-    marginLeft: '10%'
+    maxWidth: '30%',
+    marginLeft: '10%',
   },
 });
 
@@ -49,8 +51,7 @@ const CurrInputContainer = ({
         <CurrField
           ref={provided.innerRef}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
+          {...provided.dragHandleProps}>
           <Autocomplete
             onChange={(event, newValue) => {
               handleChangeCurr(id, newValue);
@@ -63,7 +64,7 @@ const CurrInputContainer = ({
             className={classes.input}
             min="0"
             type="number"
-            value={moneyValue.value || "typed Incorrect symbols"}
+            value={moneyValue.value || 'typed Incorrect symbols'}
             name={choicenCurr}
             onBlur={() => handleInput(moneyValue)}
             onChange={handleChange}

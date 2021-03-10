@@ -1,3 +1,3 @@
-import BasicLayout from "./component";
+import BasicLayout from './component';
 
 export default BasicLayout;

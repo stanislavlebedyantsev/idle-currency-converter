@@ -1,41 +1,43 @@
 import {
   INIT_CHARTS_DATA,
-  SELECT_CHART,
-  REMOVE_SELECT_CHART,
-  CHANGE_DISPLAY_CHARTS_DATA
-} from "@actions/index";
+  SELECT_CHECKBOX_CHART,
+  REMOVE_SELECT_CHECKBOX_CHART,
+  CHANGE_DISPLAY_CHARTS_DATA,
+} from '@/actions/';
 const initState = {
   ratesHistory: [],
-  selectedCurrency: [],
+  selectedCheckboxesCurrencies: [],
   mappedRates: [],
+	selectedForTheChart: '',
 };
 
 const chartsReducer = (state = initState, action) => {
-  let copyState = state;
   switch (action.type) {
     case INIT_CHARTS_DATA: {
       return { ...state, ratesHistory: [...action.payload] };
     }
-    case SELECT_CHART: {
+    case SELECT_CHECKBOX_CHART: {
       return {
-        ...copyState,
-        selectedCurrency: [...copyState.selectedCurrency, action.payload],
+        ...state,
+        selectedCheckboxesCurrencies: [...state.selectedCheckboxesCurrencies, action.payload],
       };
     }
-    case REMOVE_SELECT_CHART: {
+    case REMOVE_SELECT_CHECKBOX_CHART: {
       return {
-        ...copyState,
-        selectedCurrency: copyState.selectedCurrency.filter(el => el !== action.payload),
+        ...state,
+        selectedCheckboxesCurrencies: state.selectedCheckboxesCurrencies.filter(
+          (el) => el !== action.payload
+        ),
       };
     }
     case CHANGE_DISPLAY_CHARTS_DATA: {
       return {
-        ...copyState,
+        ...state,
         mappedRates: [...action.payload],
       };
     }
     default:
-      return copyState;
+      return state;
   }
 };
 

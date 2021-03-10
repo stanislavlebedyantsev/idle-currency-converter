@@ -1,3 +1,3 @@
-import MapPage from "./component";
+import MapPage from './component';
 
 export default MapPage;

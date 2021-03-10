@@ -1,26 +1,18 @@
-import { put, select, takeEvery } from "redux-saga/effects";
-import { chartsUploadMapper, displayedCharts } from "@utils/charts/index";
-import {
-  initChartsData,
-  changeDispayCharsData,
-  setChartsError,
-  removeError
-} from "@actions/index";
+import { put, select, takeEvery } from 'redux-saga/effects';
+import { chartsUploadMapper, displayedCharts } from '@/utils/';
 import {
   REQUEST_FOR_PUSH_DATABASE,
   REQUEST_FOR_GET_LAST_VALUE_DATABASE,
   REQUEST_FOR_GET_VALUES_DATABASE,
-} from "@actions/index";
+  initChartsData,
+  changeDispayCharsData,
+  setChartsError,
+  removeError,
+} from '@/actions/';
 import {
   pushFirebaseDatabase,
   getValuesFirebaseDatabase,
-} from "@utils/firebase/firebase";
-
-export function* getChartsWatcher() {
-  yield takeEvery(REQUEST_FOR_PUSH_DATABASE, pushValueToDatabase);
-  yield takeEvery(REQUEST_FOR_GET_LAST_VALUE_DATABASE, pushValueToDatabase);
-  yield takeEvery(REQUEST_FOR_GET_VALUES_DATABASE, getAllValuesFromDatabase);
-}
+} from '@/utils/';
 
 function* getAllValuesFromDatabase() {
   try {
@@ -30,7 +22,7 @@ function* getAllValuesFromDatabase() {
     //here call action for put values in state
     yield put(initChartsData(allRates));
     yield put(changeDispayCharsData(mappedDisplayCurrency));
-    yield put(removeError('charts'))
+    yield put(removeError('charts'));
   } catch (e) {
     yield put(setChartsError(e));
   }
@@ -44,4 +36,9 @@ function* pushValueToDatabase() {
   } catch (e) {
     yield put(setChartsError(e));
   }
+}
+export function* getChartsWatcher() {
+  yield takeEvery(REQUEST_FOR_PUSH_DATABASE, pushValueToDatabase);
+  yield takeEvery(REQUEST_FOR_GET_LAST_VALUE_DATABASE, pushValueToDatabase);
+  yield takeEvery(REQUEST_FOR_GET_VALUES_DATABASE, getAllValuesFromDatabase);
 }

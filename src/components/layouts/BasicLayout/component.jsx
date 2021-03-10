@@ -1,4 +1,5 @@
-import Header from "@components/common/header/index";
+import { React } from 'react';
+import Header from '@/components/common/header/';
 
 const BasicLayout = ({ children }) => {
   return (

@@ -1,13 +1,8 @@
-import {Autocomplete} from './styles'
-import InputControl from '@components/controls/Input/component'
+import { React } from 'react';
+import { Autocomplete } from './styles';
+import InputControl from '@/components/controls/Input/component';
 
-const AutocompleteComponent = ({
-  onChange,
-  options,
-  defValue,
-  styles,
-}) => {
-
+const AutocompleteComponent = ({ onChange, options, defValue, styles }) => {
   return (
     <Autocomplete
       className={styles}
@@ -21,15 +16,13 @@ const AutocompleteComponent = ({
             {...params}
             size="small"
             label="Currency"
-            variant="outlined"
-          />
+            variant="outlined"/>
         );
       }}
       renderOption={(option) => option}
       clearOnBlur
       selectOnFocus
-      disableClearable
-    />
+      disableClearable/>
   );
 };
 

@@ -1,42 +1,49 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeSelectChart, selectChart } from "@actions/chartsActionCreators";
-import FormGroup from "@material-ui/core/FormGroup";
-import { displayedCharts } from "@utils/charts/index";
-import { changeDispayCharsData } from "@actions/chartsActionCreators";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Autocomplete from "@components/controls/Autocomplite";
-import { makeStyles } from "@material-ui/styles";
-import { ChartToolArea } from "@components/chartsComponents/styles";
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  removeSelectСheckboxChart,
+  selectCheckboxChart,
+  changeDispayCharsData,
+} from '@/actions/';
+import FormGroup from '@material-ui/core/FormGroup';
+import { displayedCharts } from '@/utils/';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Autocomplete from '@/components/controls/Autocomplite';
+import { makeStyles } from '@material-ui/styles';
+import { ChartToolArea } from '@/components/chartsComponents/styles';
 
 const useStyles = makeStyles({
   autocomplete: {
-    width: "25%",
+    width: '25%',
   },
   input: {
-    maxWidth: "30%",
-    marginLeft: "10%",
+    maxWidth: '30%',
+    marginLeft: '10%',
   },
 });
 
 const ChartTopToolArea = () => {
-  const selectedCurrency = useSelector(
-    (store) => store.charts.selectedCurrency
+  const selectedCurrencies = useSelector(
+    (store) => store.charts.selectedCheckboxesCurrencies
   );
   const allCurrencys = useSelector((store) => store.converter.allCurrs);
   const chartsRatesHistory = useSelector((store) => store.charts.ratesHistory);
   const localCurrency = useSelector(
-    (store) => store.converter.localCurrency.code
+    (store) => store.converter.localCurrency
   );
-  const [choisenCurr, setChoisenCurr] = useState(localCurrency);
+  const [choisenCurr, setChoisenCurr] = useState('');
   const [checkboxState, setCheckboxState] = useState({
-    USD: selectedCurrency.includes("USD"),
-    BYN: selectedCurrency.includes("BYN"),
-    RUB: selectedCurrency.includes("RUB"),
+    USD: selectedCurrencies.includes('USD'),
+    BYN: selectedCurrencies.includes('BYN'),
+    RUB: selectedCurrencies.includes('RUB'),
   });
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setChoisenCurr(() => localCurrency.code);
+  }, [localCurrency]);
 
   const handleSelectMainCurrency = (event, newValue) => {
     const mappedDisplayCurrency = displayedCharts(newValue, chartsRatesHistory);
@@ -49,9 +56,9 @@ const ChartTopToolArea = () => {
       [event.target.name]: event.target.checked,
     }));
     if (event.target.checked) {
-      dispatch(selectChart(event.target.name));
+      dispatch(selectCheckboxChart(event.target.name));
     } else {
-      dispatch(removeSelectChart(event.target.name));
+      dispatch(removeSelectСheckboxChart(event.target.name));
     }
   };
 
@@ -70,7 +77,7 @@ const ChartTopToolArea = () => {
               name="USD"
               color="primary"
               onChange={handleChangeCheckbox}
-              checked={checkboxState["USD"]}
+              checked={checkboxState['USD']}
             />
           }
           label="USD"
@@ -79,7 +86,7 @@ const ChartTopToolArea = () => {
           control={
             <Checkbox
               name="BYN"
-              checked={checkboxState["BYN"]}
+              checked={checkboxState['BYN']}
               color="primary"
               onChange={handleChangeCheckbox}
             />
@@ -91,7 +98,7 @@ const ChartTopToolArea = () => {
             <Checkbox
               name="RUB"
               color="primary"
-              checked={checkboxState["RUB"]}
+              checked={checkboxState['RUB']}
               onChange={handleChangeCheckbox}
             />
           }

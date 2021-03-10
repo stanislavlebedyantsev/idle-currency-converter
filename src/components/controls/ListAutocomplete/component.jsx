@@ -1,6 +1,7 @@
-import List from "@material-ui/core/List";
-import InputControl from '@components/controls/Input/component'
-import {AutoCompleteListContainer} from './styles'
+import { React } from 'react';
+import List from '@material-ui/core/List';
+import InputControl from '@/components/controls/Input/component';
+import { AutoCompleteListContainer } from './styles';
 
 const ListAutocomplete = ({
   textFieldState,
@@ -16,8 +17,7 @@ const ListAutocomplete = ({
         id="standard-basic"
         label="Type currency"
         value={textFieldState}
-        onChange={handleTextFieldChange}
-      />
+        onChange={handleTextFieldChange}/>
       <List className={classes.root}>
         {matchedValues.length
           ? listFilter(matchedValues)

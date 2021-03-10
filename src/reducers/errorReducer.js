@@ -4,7 +4,7 @@ import {
   SET_GEOLOCATION_ERROR,
   SET_CHARTS_ERROR,
   REMOVE_ERROR,
-} from "@actions/index";
+} from '@/actions/index';
 
 const initState = {
   map: '',

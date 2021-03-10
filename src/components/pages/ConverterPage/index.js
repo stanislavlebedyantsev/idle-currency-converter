@@ -1,3 +1,3 @@
-import ConverterPage from "./component";
+import ConverterPage from './component';
 
 export default ConverterPage;

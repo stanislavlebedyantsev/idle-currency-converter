@@ -1,7 +1,7 @@
-import styles from 'styled-components'
-import {NavLink} from "react-router-dom";
+import styles from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-export const Link = styles(NavLink).attrs((props) => ({...props}))`
+export const Link = styles(NavLink).attrs((props) => ({ ...props }))`
   &:hover{
     color: #ffff;
   }
@@ -11,4 +11,4 @@ export const Link = styles(NavLink).attrs((props) => ({...props}))`
   &{
     color: #ffff;
   }
-`
+`;
