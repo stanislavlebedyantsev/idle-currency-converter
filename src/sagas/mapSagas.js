@@ -1,5 +1,5 @@
-import { call, put, takeEvery } from "redux-saga/effects";
-import { filterCountryList } from "@utils/map/index";
+import { call, put, takeEvery } from 'redux-saga/effects';
+import { filterCountryList } from '@/utils/';
 import {
   REQUEST_FOR_COUNRY_DATA,
   REQUEST_FOR_COUNRY_LIST,
@@ -8,13 +8,8 @@ import {
   requestForCountryData,
   removeError,
   setMapError,
-} from "@actions/index";
-import { mapApi } from "@api/index";
-
-export function* countryDataWatcher() {
-  yield takeEvery(REQUEST_FOR_COUNRY_DATA, getCountryData);
-  yield takeEvery(REQUEST_FOR_COUNRY_LIST, getCountryList);
-}
+} from '@/actions/';
+import { mapApi } from '@/api/';
 
 function* getCountryData(action) {
   try {
@@ -30,8 +25,13 @@ function* getCountryList() {
     const countryList = yield call(mapApi.fetchCountryList);
     const filtredList = yield filterCountryList(countryList);
     yield put(updateCountryList(filtredList));
-    yield put(removeError("map"));
+    yield put(removeError('map'));
   } catch (e) {
     yield put(setMapError(e));
   }
+}
+
+export function* countryDataWatcher() {
+  yield takeEvery(REQUEST_FOR_COUNRY_DATA, getCountryData);
+  yield takeEvery(REQUEST_FOR_COUNRY_LIST, getCountryList);
 }

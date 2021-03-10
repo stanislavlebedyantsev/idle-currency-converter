@@ -2,7 +2,7 @@ import {
   UPDATE_COUNTRY_DATA,
   UPDATE_MATCHED_LIST_DATA,
   UPDATE_COUNTRY_LIST,
-} from "@actions/index";
+} from '@/actions/index';
 
 const initState = {
   matchedValues: [],

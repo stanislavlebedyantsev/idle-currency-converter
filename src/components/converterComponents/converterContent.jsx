@@ -1,26 +1,27 @@
-import { useDispatch, useSelector } from "react-redux";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import CurrInputContainer from "./ConverterInputContainer/component";
-import ToolsAreaComponent from "./ToolAreaComponent/component";
-import ConverterHeader from "@components/common/conveterHeader/index";
+import { React } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import CurrInputContainer from './InputContainer';
+import ToolsAreaComponent from './ToolAreaComponent';
+import ConverterHeader from '@/components/common/conveterHeader/';
 import {
   updateInputedValue,
   addNewValueFromSelect,
   updateCurrencySelector,
   deleteCurrencyField,
   updateSwappedCurrency,
-} from "@actions/converterActionCreators";
+} from '@/actions/';
 import {
   updateAfterChange,
   convertBeforInput,
   updateCurrencyBeforeSelect,
   deleteCurrencyFromField,
-} from "@utils/data-mappers";
-import { setMovedCurrency } from "@utils/dnd/index";
-import { InputContainer } from "@components/converterComponents/styles";
-import { ContentContainer } from "@components/common/commonStyles/styles";
+  dropCurrencyAfterDragging,
+} from '@/utils/';
+import { InputContainer } from '@/components/converterComponents/styles';
+import { ContentContainer } from '@/components/common/commonStyles/styles';
 
-const ConverterContent = (props) => {
+const ConverterContent = () => {
   const dispatch = useDispatch();
   const moneyValues = useSelector((state) => state.converter.inputedValues);
   const converterState = useSelector((state) => state.converter);
@@ -71,7 +72,7 @@ const ConverterContent = (props) => {
       return;
     }
 
-    const currencyList = setMovedCurrency(
+    const currencyList = dropCurrencyAfterDragging(
       moneyValues,
       result.source.index,
       result.destination.index

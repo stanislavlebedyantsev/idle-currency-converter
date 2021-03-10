@@ -1,8 +1,8 @@
-import moment from "moment";
+import moment from 'moment';
 import {
   calculateCurrencyFromBase,
   calculateBaseValueFromCurrency,
-} from "@utils/currencyConvert";
+} from '@/utils/';
 
 export const chartsUploadMapper = (rates) => {
   const uploadTime = moment().valueOf();
@@ -14,9 +14,9 @@ export const chartsUploadMapper = (rates) => {
 };
 
 export const checkLastUpload = (lastUploadeData) => {
-  const sixHourInMilliseconds = 21600000
+  const SIX_HOUR_IN_MILLISECONDS = 21600000;
   const now = moment().valueOf();
-  if (moment(now).diff(lastUploadeData) >= sixHourInMilliseconds) {
+  if (moment(now).diff(lastUploadeData) >= SIX_HOUR_IN_MILLISECONDS) {
     return true;
   }
   return false;
@@ -27,15 +27,15 @@ export const displayedCharts = (selectedCurrency, chartsData) => {
     const temp = {
       BYN: calculateCurrencyFromBase(
         1 / el.rates[selectedCurrency],
-        el.rates["BYN"]
+        el.rates['BYN']
       ),
       RUB: calculateCurrencyFromBase(
         1 / el.rates[selectedCurrency],
-        el.rates["RUB"]
+        el.rates['RUB']
       ),
       USD: calculateBaseValueFromCurrency(1, el.rates[selectedCurrency]),
       currency: selectedCurrency,
-      date: 1614842881214,
+      date: el.date,
       name: selectedCurrency,
     };
     acc.push(temp);

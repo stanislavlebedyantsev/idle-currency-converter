@@ -1,5 +1,5 @@
-import * as axios from "axios";
-import { COUNRY_INFO_BY_CURRENCY } from "@/constants";
+import * as axios from 'axios';
+import { COUNRY_INFO_BY_CURRENCY } from '@/constants';
 
 const axiosTemplate = axios.create({
   baseURL: COUNRY_INFO_BY_CURRENCY,
@@ -8,13 +8,9 @@ const axiosTemplate = axios.create({
 
 export const mapApi = {
   fetchCountryData(name) {
-    return axiosTemplate
-      .get(`name/${name}`)
-      .then((resp) => resp.data);
+    return axiosTemplate.get(`name/${name}`).then((resp) => resp.data);
   },
   fetchCountryList() {
-    return axiosTemplate
-      .get()
-      .then((resp) => resp.data);
+    return axiosTemplate.get().then((resp) => resp.data);
   },
 };

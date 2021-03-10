@@ -6,51 +6,51 @@ import {
   UPDATE_CURRENCY_SELECTOR,
   DELETE_CURRENCY_FIELD,
   SET_CURRENT_GEOLOCATION,
-  UPDATE_SWAPPED_CURRENCYS
-} from "@actions/index";
+  UPDATE_SWAPPED_CURRENCYS,
+} from '@/actions/index';
 
 const initState = {
   allCurrs: [],
   inputedValues: [],
-  error: "",
+  error: '',
+	localCurrency: {},
 };
 
 const converterReducer = (state = initState, action) => {
-  let copyState = { ...state };
   switch (action.type) {
     case INIT_DATA: {
       return {
-        ...copyState,
+        ...state,
         rate: { ...action.payload },
         allCurrs: [...Object.keys(action.payload.rates)],
       };
     }
     case INIT_BASE: {
       return {
-        ...copyState,
+        ...state,
         inputedValues: [
-          ...copyState.inputedValues,
-          { currency: copyState.localCurrency.code, value: 1 },
+          ...state.inputedValues,
+          { currency: state.localCurrency.code, value: 1 },
         ],
       };
     }
     case ADD_SELECT_VALUE: {
-      return { ...copyState, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: [...action.payload] };
     }
     case UPDATE_CURRENCY_SELECTOR: {
-      return { ...copyState, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: [...action.payload] };
     }
     case UPDATE_INPUTED_DATA: {
-      return { ...copyState, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: [...action.payload] };
     }
     case DELETE_CURRENCY_FIELD: {
-      return { ...copyState, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: [...action.payload] };
     }
-    case SET_CURRENT_GEOLOCATION:{
-      return {...copyState, localCurrency: {...action.payload.currency}};
+    case SET_CURRENT_GEOLOCATION: {
+      return { ...state, localCurrency: { ...action.payload.currency } };
     }
-    case UPDATE_SWAPPED_CURRENCYS:{
-      return { ...copyState, inputedValues: [...action.payload] };
+    case UPDATE_SWAPPED_CURRENCYS: {
+      return { ...state, inputedValues: [...action.payload] };
     }
     default:
       return state;

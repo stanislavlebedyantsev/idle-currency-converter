@@ -1,3 +1,3 @@
-export * from './converterApi'
-export * from './geolocationApi'
-export * from './mapApi'
+export * from './converterApi';
+export * from './geolocationApi';
+export * from './mapApi';

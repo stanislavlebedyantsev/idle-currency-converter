@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import MaterialAutocomplete from "@material-ui/lab/Autocomplete";
+import styled from 'styled-components';
+import MaterialAutocomplete from '@material-ui/lab/Autocomplete';
 
 export const Autocomplete = styled(MaterialAutocomplete).attrs((props) => ({
   ...props,

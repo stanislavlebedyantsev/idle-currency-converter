@@ -1,11 +1,11 @@
-export const INIT_DATA = "INIT_DATA";
-export const INIT_BASE = "INIT_BASE";
-export const REQUEST_FOR_CURRENCY = "REQUEST_FOR_CURRENCY";
-export const UPDATE_INPUTED_DATA = "UPDATE_INPUTED_DATA";
-export const ADD_SELECT_VALUE = "ADD_SELECT_VALUE";
-export const UPDATE_CURRENCY_SELECTOR = "UPDATE_CURRENCY_SELECTOR";
-export const DELETE_CURRENCY_FIELD = "DELETE_CURRENCY_FIELD";
-export const UPDATE_SWAPPED_CURRENCYS = "UPDATE_SWAPPED_CURRENCYS"
+export const INIT_DATA = 'INIT_DATA';
+export const INIT_BASE = 'INIT_BASE';
+export const REQUEST_FOR_CURRENCY = 'REQUEST_FOR_CURRENCY';
+export const UPDATE_INPUTED_DATA = 'UPDATE_INPUTED_DATA';
+export const ADD_SELECT_VALUE = 'ADD_SELECT_VALUE';
+export const UPDATE_CURRENCY_SELECTOR = 'UPDATE_CURRENCY_SELECTOR';
+export const DELETE_CURRENCY_FIELD = 'DELETE_CURRENCY_FIELD';
+export const UPDATE_SWAPPED_CURRENCYS = 'UPDATE_SWAPPED_CURRENCYS';
 
 export const initData = (data) => ({
   type: INIT_DATA,
@@ -18,7 +18,7 @@ export const initBaseCurrency = (baseCurrency) => ({
 
 export const currencyRateRequest = (baseCode) => ({
   type: REQUEST_FOR_CURRENCY,
-  payload: baseCode
+  payload: baseCode,
 });
 
 export const updateInputedValue = (inputData) => ({

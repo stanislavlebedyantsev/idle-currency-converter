@@ -6,7 +6,13 @@ export const calculateBaseValueFromCurrency = (baseValue, newCurrency) => {
   const value = Math.ceil((baseValue / newCurrency) * 100) / 100;
   return value;
 };
-export const choiceConverterType = (currency, value, base, newCurrency, rates) => {
+export const choiceConverterType = (
+  currency,
+  value,
+  base,
+  newCurrency,
+  rates
+) => {
   if (currency !== base && newCurrency !== base) {
     return calculateCurrencyFromBase(
       value / rates[currency],
@@ -15,9 +21,6 @@ export const choiceConverterType = (currency, value, base, newCurrency, rates) =
   } else if (currency === base && newCurrency !== base) {
     return calculateCurrencyFromBase(value, rates[newCurrency]);
   } else if (currency !== base && newCurrency === base) {
-    return calculateBaseValueFromCurrency(
-      value,
-      rates[currency]
-    );
+    return calculateBaseValueFromCurrency(value, rates[currency]);
   }
-}
+};

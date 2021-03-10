@@ -1,7 +1,7 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/database";
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/database';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,21 +20,21 @@ export const database = firebase.database();
 export default firebase;
 
 export const pushFirebaseDatabase = (rates) => {
-  firebase.database().ref("/rates").push(rates);
+  firebase.database().ref('/rates').push(rates);
 };
 export const getLastFirebaseDatabase = () => {
   return firebase
     .database()
-    .ref("/rates")
+    .ref('/rates')
     .limitToLast(1)
-    .once("value")
+    .once('value')
     .then((snapshot) => Object.values(snapshot.val()))
     .catch((e) => false);
 };
 export const getValuesFirebaseDatabase = () => {
   return firebase
     .database()
-    .ref("/rates")
-    .once("value")
+    .ref('/rates')
+    .once('value')
     .then((snapshot) => Object.values(snapshot.val()));
 };

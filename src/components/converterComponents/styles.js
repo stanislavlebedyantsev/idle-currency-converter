@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const InputContainer = styled.div.attrs((props) => ({...props}))`
   margin: 7.2% 0 0 20px;

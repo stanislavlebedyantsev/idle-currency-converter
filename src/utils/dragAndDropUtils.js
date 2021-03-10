@@ -1,4 +1,4 @@
-export const setMovedCurrency = (
+export const dropCurrencyAfterDragging = (
   moneyValues,
   startIndex,
   endIndex
