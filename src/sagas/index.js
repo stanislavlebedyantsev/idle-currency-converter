@@ -3,6 +3,7 @@ import { getChartsWatcher } from './chartsSagas';
 import { countryDataWatcher } from './mapSagas';
 import { getCurrencyRateWatcher } from './converterSagas';
 import { getGeolocationWatcher } from './geolocationSagas';
+import { userRequestsWatcher } from './userSagas';
 
 export function* rootSaga() {
   yield all([
@@ -10,5 +11,6 @@ export function* rootSaga() {
     getChartsWatcher(),
     getGeolocationWatcher(),
     countryDataWatcher(),
+    userRequestsWatcher(),
   ]);
 }
