@@ -1,13 +1,12 @@
 import { put, select, takeEvery } from 'redux-saga/effects';
 import { chartsUploadMapper, predisplayedChartsMapper } from '@/utils/';
 import {
-  PUSH_DATA_IN_DATABASE,
+  UPLOAD_RATES_REQUEST,
   REQUEST_FOR_GET_LAST_VALUE_DATABASE,
   REQUEST_FOR_GET_VALUES_DATABASE,
   initChartsData,
   changeDispayCharsData,
   setError,
-  removeError,
 } from '@/actions/';
 import { pushFirebaseDatabase, getValuesFirebaseDatabase } from '@/utils/';
 
@@ -22,7 +21,6 @@ function* getAllValuesFromDatabase() {
     //here call action for put values in state
     yield put(initChartsData(allRates));
     yield put(changeDispayCharsData(mappedDisplayCurrency));
-    yield put(removeError());
   } catch (e) {
     yield put(setError(e));
   }
@@ -38,7 +36,7 @@ function* pushValueToDatabase() {
   }
 }
 export function* getChartsWatcher() {
-  yield takeEvery(PUSH_DATA_IN_DATABASE, pushValueToDatabase);
+  yield takeEvery(UPLOAD_RATES_REQUEST, pushValueToDatabase);
   yield takeEvery(REQUEST_FOR_GET_LAST_VALUE_DATABASE, pushValueToDatabase);
   yield takeEvery(REQUEST_FOR_GET_VALUES_DATABASE, getAllValuesFromDatabase);
 }

@@ -1,13 +1,13 @@
 import {
-  INIT_DATA,
+  CURRENCY_RATES_RESPONCE,
   INIT_BASE_CURRENCY,
   UPDATE_INPUTED_DATA,
   ADD_SELECT_VALUE,
   UPDATE_CURRENCY_SELECTOR,
   DELETE_CURRENCY_FIELD,
   SET_CURRENT_GEOLOCATION,
-  UPDATE_SWAPPED_CURRENCIES,
-} from '@/actions/index';
+  SWAP_CURRENCY_VIEWS,
+} from '@/actions/';
 
 const initState = {
   allCurrs: [],
@@ -18,7 +18,7 @@ const initState = {
 
 const converterReducer = (state = initState, action) => {
   switch (action.type) {
-    case INIT_DATA: {
+    case CURRENCY_RATES_RESPONCE: {
       return {
         ...state,
         rate: { ...action.payload },
@@ -49,7 +49,7 @@ const converterReducer = (state = initState, action) => {
     case SET_CURRENT_GEOLOCATION: {
       return { ...state, localCurrency: { ...action.payload.currency } };
     }
-    case UPDATE_SWAPPED_CURRENCIES: {
+    case SWAP_CURRENCY_VIEWS: {
       return { ...state, inputedValues: [...action.payload] };
     }
     default:
