@@ -1,14 +1,14 @@
-export const INIT_DATA = 'INIT_DATA';
+export const CURRENCY_RATES_RESPONCE = 'CURRENCY_RATES_RESPONCE';
 export const INIT_BASE_CURRENCY = 'INIT_BASE_CURRENCY';
-export const REQUEST_FOR_CURRENCY_RATES = 'REQUEST_FOR_CURRENCY_RATES';
+export const CURRENCY_RATES_REQUEST = 'CURRENCY_RATES_REQUEST';
 export const UPDATE_INPUTED_DATA = 'UPDATE_INPUTED_DATA';
 export const ADD_SELECT_VALUE = 'ADD_SELECT_VALUE';
 export const UPDATE_CURRENCY_SELECTOR = 'UPDATE_CURRENCY_SELECTOR';
 export const DELETE_CURRENCY_FIELD = 'DELETE_CURRENCY_FIELD';
-export const UPDATE_SWAPPED_CURRENCIES = 'UPDATE_SWAPPED_CURRENCIES';
+export const SWAP_CURRENCY_VIEWS = 'SWAP_CURRENCY_VIEWS ';
 
-export const initData = (data) => ({
-  type: INIT_DATA,
+export const currencyRateResponce = (data) => ({
+  type: CURRENCY_RATES_RESPONCE,
   payload: data,
 });
 export const initBaseCurrency = (baseCurrency) => ({
@@ -17,7 +17,7 @@ export const initBaseCurrency = (baseCurrency) => ({
 });
 
 export const currencyRateRequest = (baseCode) => ({
-  type: REQUEST_FOR_CURRENCY_RATES,
+  type: CURRENCY_RATES_REQUEST,
   payload: baseCode,
 });
 
@@ -38,7 +38,7 @@ export const deleteCurrencyField = (newInput) => ({
   type: DELETE_CURRENCY_FIELD,
   payload: newInput,
 });
-export const updateSwappedCurrency = (swappedValues) => ({
-  type: UPDATE_SWAPPED_CURRENCIES,
+export const swapCurrencyViews = (swappedValues) => ({
+  type: SWAP_CURRENCY_VIEWS ,
   payload: swappedValues,
 });

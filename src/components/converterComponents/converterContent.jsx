@@ -9,7 +9,7 @@ import {
   addNewValueFromSelect,
   updateCurrencySelector,
   deleteCurrencyField,
-  updateSwappedCurrency,
+  swapCurrencyViews,
 } from '@/actions/';
 import {
   updateAfterChange,
@@ -78,7 +78,7 @@ const ConverterContent = () => {
       result.destination.index
     );
 
-    dispatch(updateSwappedCurrency(currencyList));
+    dispatch(swapCurrencyViews(currencyList));
   };
 
   return (

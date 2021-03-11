@@ -21,6 +21,10 @@ const Error = () => {
   const dispatch = useDispatch();
   const { errorValue, isError } = useSelector((state) => state.error);
 
+  const handleClick = () => {
+    dispatch(removeError());
+  };
+
   return (
     <div className={classes.root}>
       <Collapse in={isError}>
@@ -31,9 +35,7 @@ const Error = () => {
               aria-label="close"
               color="inherit"
               size="small"
-              onClick={() => {
-                dispatch(removeError());
-              }}>
+              onClick={handleClick}>
               <CloseIcon fontSize="inherit" />
             </IconButton>
           }>

@@ -4,7 +4,6 @@ import {
   GEOLOCATION_REQUEST,
   setCurrentGeolocation,
   setError,
-  removeError,
   requestForCountryData,
 } from '@/actions/';
 
@@ -13,7 +12,6 @@ function* getGeolocation() {
     const geolocationResponce = yield call(geolocationApi.fetchGeolocation);
     yield put(setCurrentGeolocation(geolocationResponce));
     yield put(requestForCountryData(geolocationResponce.country_name));
-    yield put(removeError());
   } catch (e) {
     yield put(setError(e));
   }

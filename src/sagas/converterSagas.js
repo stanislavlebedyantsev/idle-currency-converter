@@ -1,14 +1,13 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { converterApi } from '@/api/index';
 import {
-  REQUEST_FOR_CURRENCY_RATES,
+  CURRENCY_RATES_REQUEST,
   geolocationRequest,
-  initData,
+  currencyRateResponce,
   initBaseCurrency,
   updateInputedValue,
   setError,
-  removeError,
-  pushDatabaseRequest,
+  uploadRatesRequest,
 } from '@/actions/';
 import { checkLastUpload } from '@/utils/';
 import { getLastFirebaseDatabase } from '@/utils/';
@@ -21,7 +20,7 @@ function* getCurrencyRates() {
     const localStorageData = localStorage.getItem('state');
     //geolocation request
     yield put(geolocationRequest());
-    yield put(initData(currencyResponce));
+    yield put(currencyRateResponce(currencyResponce));
     const { inputedValues, rate } = yield select((state) => state.converter);
     //if we have values on converter => update their values
     const updatedValues = yield convertBeforInput(
@@ -38,21 +37,20 @@ function* getCurrencyRates() {
     //push value to database if last was uploaded >= 6 hours
     if (lastValue) {
       if (yield checkLastUpload(lastValue[0].date)) {
-        yield put(pushDatabaseRequest());
+        yield put(uploadRatesRequest());
       }
     } else {
-      yield put(pushDatabaseRequest());
+      yield put(uploadRatesRequest());
     }
 
     if (!localStorageData) {
       yield put(initBaseCurrency(currencyResponce.base));
     }
-    yield put(removeError());
   } catch (e) {
     yield put(setError(e));
   }
 }
 
 export function* getCurrencyRateWatcher() {
-  yield takeEvery(REQUEST_FOR_CURRENCY_RATES, getCurrencyRates);
+  yield takeEvery(CURRENCY_RATES_REQUEST, getCurrencyRates);
 }

@@ -67,7 +67,7 @@ const ChartTopToolArea = () => {
       <Autocomplete
         styles={classes.autocomplete}
         options={[...allCurrencys]}
-        defValue={choisenCurr}
+        defValue={choisenCurr || "error"}
         onChange={handleSelectMainCurrency}
       />
       <FormGroup row>
