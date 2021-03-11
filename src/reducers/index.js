@@ -4,6 +4,7 @@ import converterReducer from './converterReducer';
 import chartsReducer from './chartsReducer';
 import mapReducer from './mapReducer';
 import errorReducer from './errorReducer';
+import userReducer from './userReducer';
 import { rootSaga } from '@/sagas/index';
 import { loadFromStorage, saveState } from '@/utils/';
 
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   charts: chartsReducer,
   map: mapReducer,
   error: errorReducer,
+	user: userReducer,
 });
 
 const preloadedState = loadFromStorage();

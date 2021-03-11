@@ -9,9 +9,12 @@ import {
   setError,
   uploadRatesRequest,
 } from '@/actions/';
-import { checkLastUpload } from '@/utils/';
-import { getLastFirebaseDatabase } from '@/utils/';
-import { convertBeforInput } from '@/utils/';
+import {
+  getLastFirebaseDatabase,
+  signInByGoogleAuthFirebase,
+  convertBeforInput,
+  checkLastUpload,
+} from '@/utils/';
 
 function* getCurrencyRates() {
   try {
