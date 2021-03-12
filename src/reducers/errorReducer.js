@@ -1,8 +1,5 @@
 import {
   SET_ERROR,
-  SET_CONVERTER_ERROR,
-  SET_GEOLOCATION_ERROR,
-  SET_CHARTS_ERROR,
   REMOVE_ERROR,
 } from '@/actions/index';
 

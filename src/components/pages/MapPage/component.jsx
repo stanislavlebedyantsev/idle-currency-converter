@@ -8,7 +8,7 @@ import {
   updateMatchesValuesListData,
   requestCountryList,
 } from '@/actions/';
-import Error from '@/components/common/error/component';
+import Error from '@/components/common/error/';
 import MapContent from '@/components/mapComponents/MapContent';
 import BasicLayout from '@/components/layouts/BasicLayout/index';
 import ListAutocomplete from '@/components/controls/ListAutocomplete/component';
