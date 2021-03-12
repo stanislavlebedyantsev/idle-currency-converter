@@ -6,3 +6,4 @@ export * from './localStorageUtils';
 export * from './firebase/firebase';
 export * from './mapUtils';
 export * from './converterUtils';
+export * from './registrateUtils';

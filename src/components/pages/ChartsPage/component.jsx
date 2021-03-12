@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Error from '@/components/common/error/component';
+import Error from '@/components/common/error/';
 import { getValuesDatabaseRequest } from '@/actions/';
 import ChartTopToolArea from '@/components/chartsComponents/ChartTopToolArea';
 import LineChartContainer from '@/components/chartsComponents/LineChartContainer';

@@ -18,13 +18,21 @@ import {
 } from '@/utils/';
 
 function* userSignInGoogleAuth() {
-  const userData = yield signInByGoogleAuthFirebase();
-  yield put(saveUserData(userData));
+  try {
+    const userData = yield signInByGoogleAuthFirebase();
+    yield put(saveUserData(userData));
+  } catch (e) {
+    yield put(setError(e));
+  }
 }
 
 function* userSignOutGoogleAuth() {
-  yield signOutFirebase();
-  yield put(removeUserData());
+  try {
+    yield signOutFirebase();
+    yield put(removeUserData());
+  } catch (e) {
+    yield put(setError(e));
+  }
 }
 
 function* userSignInEmailAuth({ payload }) {
@@ -35,11 +43,7 @@ function* userSignInEmailAuth({ payload }) {
     );
     yield put(saveUserData(userData));
   } catch (e) {
-    if (e.code.includes('user-not-found')) {
-      yield put(registateEmailAuthRequest(payload.email, payload.password));
-    } else {
-      yield put(setError(e.message));
-    }
+    yield put(setError(e));
   }
 }
 function* registrateByEmailAndPassword({ payload }) {
@@ -47,7 +51,7 @@ function* registrateByEmailAndPassword({ payload }) {
     yield createUserWithEmailAndPassword(payload.email, payload.password);
     yield put(signInEmailAuthRequest(payload.email, payload.password));
   } catch (e) {
-    yield put(setError(e.message));
+    yield put(setError(e));
   }
 }
 

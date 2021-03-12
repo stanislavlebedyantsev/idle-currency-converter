@@ -2,7 +2,6 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
-//import * as firebaseui from 'firebaseui';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -15,19 +14,11 @@ const firebaseConfig = {
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
 };
 
-// const uiConfig = {
-//   signInSuccessUrl: '/converter',
-//   signInOptions: [
-//     firebase.auth.EmailAuthProvider.PROVIDER_ID,
-//     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-//   ],
-// };
 
 firebase.initializeApp(firebaseConfig);
 
 export const database = firebase.database();
 const provider = new firebase.auth.GoogleAuthProvider();
-//const ui = new firebaseui.auth.AuthUI(firebase.auth());
 export default firebase;
 
 export const pushFirebaseDatabase = (rates) => {
