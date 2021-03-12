@@ -1,11 +1,11 @@
 import { React } from 'react';
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import {
-  CHARTS_ROUTER_PATH,
-  MAP_ROUTER_PATH,
-  CONVERTER_ROUTER_PATH,
+  CHARTS_ROUTE_PATH,
+  MAP_ROUTE_PATH,
+  CONVERTER_ROUTE_PATH,
 } from '@/constants';
-import PrivateRouter from './PrivateRouter';
+import PrivateRoute from './PrivateRoute';
 import ChartsPage from '@/components/pages/ChartsPage/';
 import MapPage from '@/components/pages/MapPage/';
 import ConverterPage from '@/components/pages/ConverterPage/';
@@ -15,17 +15,17 @@ const Router = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <PrivateRouter
-          path={CHARTS_ROUTER_PATH}
+        <PrivateRoute
+          path={CHARTS_ROUTE_PATH}
           component={() => <ChartsPage />}
         />
-        <PrivateRouter path={MAP_ROUTER_PATH} component={() => <MapPage />} />
-        <PrivateRouter
-          path={CONVERTER_ROUTER_PATH}
+        <PrivateRoute path={MAP_ROUTE_PATH} component={() => <MapPage />} />
+        <PrivateRoute
+          path={CONVERTER_ROUTE_PATH}
           component={() => <ConverterPage />}
         />
-        <Route exact path={'/'} component={() => <SignInPage />} />
-        <Redirect from={'*'} to={'/'} />
+        <Route exact path="/" component={() => <SignInPage />} />
+        <Redirect from="*" to="/" />
       </Switch>
     </BrowserRouter>
   );

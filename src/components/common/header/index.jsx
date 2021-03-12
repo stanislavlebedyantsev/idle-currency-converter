@@ -1,9 +1,9 @@
 import { React } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  CHARTS_ROUTER_PATH,
-  MAP_ROUTER_PATH,
-  CONVERTER_ROUTER_PATH,
+  CHARTS_ROUTE_PATH,
+  MAP_ROUTE_PATH,
+  CONVERTER_ROUTE_PATH,
 } from '@/constants';
 import { signOutRequest } from '@/actions/';
 import AppBar from '@material-ui/core/AppBar';
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const GlobalHeader = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const userEmail = useSelector((state) => state.user.user);
+  const userEmail = useSelector((state) => state.user.user?.email);
 
   const handleClick = () => {
     dispatch(signOutRequest());
@@ -50,23 +50,23 @@ const GlobalHeader = () => {
           Currency converter
         </Typography>
         <div className={classes.grow} />
-        {userEmail ? <>{userEmail.email}</> : undefined}
+        {userEmail}
         <div className={classes.sectionDesktop}>
-          <Link to={CHARTS_ROUTER_PATH}>
+          <Link to={CHARTS_ROUTE_PATH}>
             <IconButton color="inherit">
               <Badge color="secondary">
                 <TimelineIcon />
               </Badge>
             </IconButton>
           </Link>
-          <Link to={MAP_ROUTER_PATH}>
+          <Link to={MAP_ROUTE_PATH}>
             <IconButton color="inherit">
               <Badge color="secondary">
                 <MapIcon />
               </Badge>
             </IconButton>
           </Link>
-          <Link to={CONVERTER_ROUTER_PATH}>
+          <Link to={CONVERTER_ROUTE_PATH}>
             <IconButton color="inherit">
               <Badge color="secondary">
                 <AccountBalanceIcon />
