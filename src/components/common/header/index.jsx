@@ -1,5 +1,5 @@
 import { React } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   CHARTS_ROUTER_PATH,
   MAP_ROUTER_PATH,
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const GlobalHeader = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const userEmail = useSelector((state) => state.user.user);
 
   const handleClick = () => {
     dispatch(signOutRequest());
@@ -49,6 +50,7 @@ const GlobalHeader = () => {
           Currency converter
         </Typography>
         <div className={classes.grow} />
+        {userEmail ? <>{userEmail.email}</> : undefined}
         <div className={classes.sectionDesktop}>
           <Link to={CHARTS_ROUTER_PATH}>
             <IconButton color="inherit">
