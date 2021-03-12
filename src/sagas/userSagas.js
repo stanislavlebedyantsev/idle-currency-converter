@@ -49,7 +49,6 @@ function* userSignInEmailAuth({ payload }) {
 function* registrateByEmailAndPassword({ payload }) {
   try {
     yield createUserWithEmailAndPassword(payload.email, payload.password);
-    yield put(signInEmailAuthRequest(payload.email, payload.password));
   } catch (e) {
     yield put(setError(e));
   }

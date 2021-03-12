@@ -4,16 +4,16 @@ export const emailValidator = (email) => {
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
       email
     )
-    ? 'The email address is badly formatted.'
-    : undefined;
+    ? 'Incorrect email'
+    : '';
 };
 
-export const passwordValidator = (password, passwordConfirm) => {
-  if (password !== passwordConfirm) {
-    return 'Password are different';
-  }
-  if (password.length < 6 && passwordConfirm.length < 6) {
-    return 'Password should be at least 6 characters';
-  }
-  return undefined;
+export const matchingPasswordsValidator = (password, passwordConfirm) => {
+  return password !== passwordConfirm ? 'Password are different' : '';
+};
+
+export const passwordLengthValidation = (password) => {
+  return password.length < 6 && password.length
+    ? 'Password should be at least 6 characters'
+    : '';
 };

@@ -1,9 +1,9 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import InputControl from '@/components/controls/Input/';
 import Button from '@material-ui/core/Button';
-import { CONVERTER_ROUTER_PATH } from '@/constants';
+import { CONVERTER_ROUTE_PATH } from '@/constants';
 import {
   setError,
   signInGoogleAuthRequest,
@@ -12,7 +12,11 @@ import {
   removeError,
 } from '@/actions/';
 import { Container } from '@/components/common/commonStyles/styles';
-import { emailValidator, passwordValidator } from '@/utils/';
+import {
+  emailValidator,
+  matchingPasswordsValidator,
+  passwordLengthValidation,
+} from '@/utils/';
 import Error from '@/components/common/error/';
 import { makeStyles } from '@material-ui/core/styles';
 import { SignInContainer } from './styles';
@@ -30,31 +34,45 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignInPage = () => {
+  const [isEmailValid, setIsEmailValid] = useState('');
+  const [isPasswordValid, setIsPasswordValid] = useState('');
+  const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState('');
+  const [isPasswordsMatching, setIsPasswordsMatching] = useState('');
+  const [isRegistering, setIsRegistering] = useState(false);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isRegistrate, setisRegistrate] = useState(false);
+
   const classes = useStyles();
   const dispatch = useDispatch();
   const isAuth = useSelector((state) => state.user.isAuth);
+
+  useEffect(() => {
+    setIsEmailValid(() => emailValidator(email));
+    setIsPasswordValid(() => passwordLengthValidation(password));
+    setIsConfirmPasswordValid(() => passwordLengthValidation(confirmPassword));
+    setIsPasswordsMatching(() =>
+      matchingPasswordsValidator(password, confirmPassword)
+    );
+  }, [email, password, confirmPassword]);
 
   const handleGoogleClick = () => {
     dispatch(signInGoogleAuthRequest());
     dispatch(removeError());
   };
   const handleLoginClick = () => {
-    const emailValid = emailValidator(email);
-    const passwordValid = passwordValidator(password, confirmPassword);
-    if (!isRegistrate) {
-      dispatch(signInEmailAuthRequest(email, password));
+    if (!isRegistering) {
+      if (!isEmailValid && !isPasswordValid) dispatch(signInEmailAuthRequest(email, password));
     } else {
-      if (passwordValid || emailValid) {
-        dispatch(
-          setError({ message: `${emailValid || ''}${passwordValid || ''}` })
-        );
-      } else {
+      if (
+        !isEmailValid &&
+        !isPasswordValid &&
+        !isConfirmPasswordValid &&
+        !isPasswordsMatching
+      ) {
         dispatch(registateEmailAuthRequest(email, password));
-        setisRegistrate(() => false);
+        setIsRegistering(() => false);
       }
     }
   };
@@ -68,7 +86,7 @@ const SignInPage = () => {
     setConfirmPassword(() => event.target.value);
   };
   const handleChangeIsRegistrate = () => {
-    setisRegistrate(() => !isRegistrate);
+    setIsRegistering(() => !isRegistering);
     dispatch(removeError());
   };
 
@@ -79,22 +97,36 @@ const SignInPage = () => {
         <form onSubmit={handleLoginClick}>
           Email:
           <InputControl
+            error={isEmailValid}
             type="email"
             className={classes.input}
             value={email}
             onChange={handleEmailChange}
+            helperText={isEmailValid}
           />
           Password:
           <InputControl
+            error={isPasswordValid || (isRegistering && isPasswordsMatching)}
             type="password"
             className={classes.input}
             value={password}
             onChange={handlePasswordChange}
+            helperText={
+              (isRegistering && isPasswordsMatching) || isPasswordValid
+            }
           />
-          {isRegistrate ? (
+          {isRegistering ? (
             <>
               Confirm Password:
               <InputControl
+                error={
+                  isConfirmPasswordValid ||
+                  (isRegistering && isPasswordsMatching)
+                }
+                helperText={
+                  (isRegistering && isPasswordsMatching) ||
+                  isConfirmPasswordValid
+                }
                 type="password"
                 className={classes.input}
                 value={confirmPassword}
@@ -107,7 +139,7 @@ const SignInPage = () => {
             variant="contained"
             color="primary"
             onClick={handleLoginClick}>
-            {!isRegistrate ? <>Login by email</> : <>Registrate</>}
+            {!isRegistering ? 'Login by email' : 'Registrate'}
           </Button>
         </form>
         <Button
@@ -118,7 +150,7 @@ const SignInPage = () => {
           Sign In by google
         </Button>
         <Button color="primary" onClick={handleChangeIsRegistrate}>
-          {isRegistrate ? (
+          {isRegistering ? (
             <>Already have account? Go and log in</>
           ) : (
             <>No account? Go and registrate new one</>
@@ -127,7 +159,7 @@ const SignInPage = () => {
       </SignInContainer>
     </Container>
   ) : (
-    <Redirect to={CONVERTER_ROUTER_PATH} />
+    <Redirect to={CONVERTER_ROUTE_PATH} />
   );
 };
 
