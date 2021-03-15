@@ -54,20 +54,13 @@ export const updateCurrencyBeforeSelect = (
   moneyValues
 ) => {
   const copyValues = [...moneyValues];
-  let newValue;
-  if (newCurrency !== base && !!copyValues.length) {
-    newValue = calculateCurrencyFromBase(
-      copyValues[0].value,
-      rates[newCurrency]
-    );
-  } else if (newCurrency === base && !!copyValues.length) {
-    newValue = calculateBaseValueFromCurrency(
-      copyValues[0].value,
-      rates[copyValues[0].currency]
-    );
-  } else if (!copyValues.length) {
-    newValue = 1;
-  }
+  const newValue = choiceConverterType(
+    copyValues[0]?.currency || newCurrency,
+    copyValues[0]?.value || 1,
+    base,
+    newCurrency,
+    rates
+  );
   copyValues.push({
     currency: newCurrency,
     value: newValue,

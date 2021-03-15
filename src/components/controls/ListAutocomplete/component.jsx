@@ -11,17 +11,25 @@ const ListAutocomplete = ({
   countryList,
   listFilter,
 }) => {
+  const listChild = () => {
+    if (matchedValues.length && textFieldState.length) {
+      return listFilter(matchedValues);
+    } else if (!matchedValues.length && textFieldState.length) {
+      return listFilter(matchedValues);
+    }
+    return listFilter(countryList);
+  };
+
   return (
     <AutoCompleteListContainer>
       <InputControl
         id="standard-basic"
-        label="Type currency"
+        label="Type country"
         value={textFieldState}
-        onChange={handleTextFieldChange}/>
+        onChange={handleTextFieldChange}
+      />
       <List className={classes.root}>
-        {matchedValues.length
-          ? listFilter(matchedValues)
-          : listFilter(countryList)}
+        {listChild()}
       </List>
     </AutoCompleteListContainer>
   );

@@ -1,7 +1,7 @@
 import { React } from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Marker, Popup, TileLayer } from 'react-leaflet';
+import { Marker, Popup, TileLayer, useMap, Tooltip } from 'react-leaflet';
 import { isCurrencyExist } from '@/utils/';
 import { Map } from '@/components/mapComponents/styles';
 
@@ -21,14 +21,23 @@ const MapContent = () => {
   useEffect(() => {
     setExistedCurrs(() => isCurrencyExist(allRates, currencies));
   }, [allRates, currencies]);
+
+  const ChangeView = ({ center, zoom }) => {
+    const map = useMap();
+    map.setView(center, zoom);
+    return null;
+  };
+
   return (
-    <Map center={latlng || [0, 0]} zoom={2}>
+    <Map center={latlng || [0, 0]} zoom={5}>
+      <ChangeView center={latlng} zoom={5} />
       <TileLayer
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'/>
+        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      />
       {latlng ? (
         <Marker position={latlng}>
-          <Popup>
+          <Tooltip>
             <span>
               Country name: {name}
               <br />
@@ -41,7 +50,7 @@ const MapContent = () => {
                 ? existedCurrs.map((el) => `${el.currency} - ${el.value}`)
                 : 'unknowed'}
             </span>
-          </Popup>
+          </Tooltip>
         </Marker>
       ) : null}
     </Map>

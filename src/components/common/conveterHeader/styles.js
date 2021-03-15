@@ -7,10 +7,15 @@ export const HeaderContainer = styled.div`
   justify-content: center;
 `;
 export const MainTitle = styled.h1`
-  margin: 0;
-  font-size: 4vw;
+  margin: 1% 0 0 0;
+  @media (max-width: 720px) {
+    font-size: 5vw;
+  }
 `;
 export const SecondTitle = styled.p`
   margin: 0;
-  font-size: 3vw;
+	font-size: 2vw;
+  @media (max-width: 720px) {
+    font-size: 4vw;
+  }
 `;
