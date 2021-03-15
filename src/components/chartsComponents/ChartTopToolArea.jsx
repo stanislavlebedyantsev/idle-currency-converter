@@ -29,10 +29,9 @@ const ChartTopToolArea = () => {
   );
   const allCurrencys = useSelector((store) => store.converter.allCurrs);
   const chartsRatesHistory = useSelector((store) => store.charts.ratesHistory);
-  const localCurrency = useSelector(
-    (store) => store.converter.localCurrency
-  );
+  const localCurrency = useSelector((store) => store.converter.localCurrency);
   const [choisenCurr, setChoisenCurr] = useState('');
+  const [checkboxes, setCheckboxes] = useState(['USD', 'BYN', 'RUB']);
   const [checkboxState, setCheckboxState] = useState({
     USD: selectedCurrencies.includes('USD'),
     BYN: selectedCurrencies.includes('BYN'),
@@ -44,12 +43,25 @@ const ChartTopToolArea = () => {
   useEffect(() => {
     setChoisenCurr(() => localCurrency.code);
   }, [localCurrency]);
+  useEffect(() => {
+    const sameCurr = checkboxes?.find((el) => el === choisenCurr);
+    if (sameCurr) dispatch(removeSelectСheckboxChart(sameCurr));
+		setCheckboxState(() => ({
+      USD: selectedCurrencies.includes('USD'),
+      BYN: selectedCurrencies.includes('BYN'),
+      RUB: selectedCurrencies.includes('RUB'),
+    }));
+  }, [checkboxes, choisenCurr]);
 
   const handleSelectMainCurrency = (event, newValue) => {
-    const mappedDisplayCurrency = predisplayedChartsMapper(newValue, chartsRatesHistory);
+    const mappedDisplayCurrency = predisplayedChartsMapper(
+      newValue,
+      chartsRatesHistory
+    );
     setChoisenCurr(newValue);
     dispatch(changeDispayCharsData(mappedDisplayCurrency));
   };
+
   const handleChangeCheckbox = (event) => {
     setCheckboxState(() => ({
       ...checkboxState,
@@ -67,43 +79,25 @@ const ChartTopToolArea = () => {
       <Autocomplete
         styles={classes.autocomplete}
         options={[...allCurrencys]}
-        defValue={choisenCurr || "error"}
+        defValue={choisenCurr || 'error'}
         onChange={handleSelectMainCurrency}
       />
       <FormGroup row>
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="USD"
-              color="primary"
-              onChange={handleChangeCheckbox}
-              checked={checkboxState['USD']}
+        {checkboxes.map((el) =>
+          choisenCurr !== el ? (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name={el}
+                  color="primary"
+                  onChange={handleChangeCheckbox}
+                  checked={checkboxState[el]}
+                />
+              }
+              label={el}
             />
-          }
-          label="USD"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="BYN"
-              checked={checkboxState['BYN']}
-              color="primary"
-              onChange={handleChangeCheckbox}
-            />
-          }
-          label="BYN"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="RUB"
-              color="primary"
-              checked={checkboxState['RUB']}
-              onChange={handleChangeCheckbox}
-            />
-          }
-          label="RUB"
-        />
+          ) : null
+        )}
       </FormGroup>
     </ChartToolArea>
   );

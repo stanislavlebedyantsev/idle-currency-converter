@@ -16,9 +16,12 @@ import MapIcon from '@material-ui/icons/Map';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
-import { Link } from './styles';
+import { Link, EmailBlock } from './styles';
 
 const useStyles = makeStyles((theme) => ({
+  bar: {
+    zIndex: 0,
+  },
   grow: {
     flexGrow: 1,
   },
@@ -27,10 +30,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
-  },
-  signOut: {
-    fontSize: '2vh',
-    borderRadius: 0,
   },
 }));
 
@@ -44,13 +43,13 @@ const GlobalHeader = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="sticky">
       <Toolbar color="primary">
         <Typography className={classes.title} variant="h6" noWrap>
           Currency converter
         </Typography>
         <div className={classes.grow} />
-        {userEmail}
+        <EmailBlock>{userEmail}</EmailBlock>
         <div className={classes.sectionDesktop}>
           <Link to={CHARTS_ROUTE_PATH}>
             <IconButton color="inherit">
@@ -74,11 +73,10 @@ const GlobalHeader = () => {
             </IconButton>
           </Link>
           <IconButton
-            className={classes.signOut}
             color="inherit"
             onClick={handleClick}>
             <Badge color="secondary">
-              <ExitToAppIcon /> Sign out
+              <ExitToAppIcon />
             </Badge>
           </IconButton>
         </div>

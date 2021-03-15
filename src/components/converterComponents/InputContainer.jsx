@@ -28,6 +28,8 @@ const CurrInputContainer = ({
   handleDelete,
 }) => {
   const allCurrs = useSelector((state) => state.converter.allCurrs);
+  const [avaluebleCurrs, setAvaluebleCurrs] = useState(allCurrs);
+  const moneyValues = useSelector((state) => state.converter.inputedValues);
   const [moneyValue, setFieldValue] = useState({ [choicenCurr]: fieldValue });
   const classes = useStyles();
 
@@ -37,6 +39,17 @@ const CurrInputContainer = ({
       value: fieldValue,
     }));
   }, [fieldValue, choicenCurr]);
+
+  useEffect(() => {
+    setAvaluebleCurrs(() =>
+      allCurrs.filter((el) => {
+        const existedElement = moneyValues.find((element) => {
+          return element.currency === el;
+        });
+        return el === choicenCurr || el !== existedElement?.currency ;
+      })
+    );
+  }, [allCurrs, moneyValues]);
 
   const handleChange = (event) => {
     setFieldValue(() => ({
@@ -56,7 +69,7 @@ const CurrInputContainer = ({
             onChange={(event, newValue) => {
               handleChangeCurr(id, newValue);
             }}
-            options={allCurrs}
+            options={avaluebleCurrs}
             defValue={choicenCurr}
             styles={classes.autocomplete}
           />

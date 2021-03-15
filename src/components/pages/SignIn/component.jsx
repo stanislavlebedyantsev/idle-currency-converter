@@ -24,11 +24,12 @@ import { SignInContainer } from './styles';
 const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: '5%',
+    width: '100%',
   },
   input: {
     width: '100%',
     '& input': {
-      fontSize: '1.5vh !important',
+      fontSize: '1.3vw !important',
     },
   },
 }));
@@ -63,7 +64,8 @@ const SignInPage = () => {
   };
   const handleLoginClick = () => {
     if (!isRegistering) {
-      if (!isEmailValid && !isPasswordValid) dispatch(signInEmailAuthRequest(email, password));
+      if (!isEmailValid && !isPasswordValid)
+        dispatch(signInEmailAuthRequest(email, password));
     } else {
       if (
         !isEmailValid &&
@@ -139,7 +141,7 @@ const SignInPage = () => {
             variant="contained"
             color="primary"
             onClick={handleLoginClick}>
-            {!isRegistering ? 'Login by email' : 'Registrate'}
+            {!isRegistering ? 'Sign-In by Email' : 'Sign-Up'}
           </Button>
         </form>
         <Button
@@ -151,9 +153,9 @@ const SignInPage = () => {
         </Button>
         <Button color="primary" onClick={handleChangeIsRegistrate}>
           {isRegistering ? (
-            <>Already have account? Go and log in</>
+            <>Already have account? Go and Sign-In</>
           ) : (
-            <>No account? Go and registrate new one</>
+            <>No account? Go and Sing-Up new one</>
           )}
         </Button>
       </SignInContainer>

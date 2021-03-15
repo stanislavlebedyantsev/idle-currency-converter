@@ -20,5 +20,7 @@ export const ChartContainer = styled.div`
   justify-content: center !important;
   height: 50vh;
   width: 72vw;
-  
+  ul {
+		margin-top: 1% !important;
+	}
 `;
