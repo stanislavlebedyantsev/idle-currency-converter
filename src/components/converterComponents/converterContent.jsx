@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import CurrInputContainer from './InputContainer';
 import ToolsAreaComponent from './ToolAreaComponent';
-import ConverterHeader from '@/components/common/conveterHeader/';
+import ConverterHeader from '@/components/common/componentsHeader/';
 import {
   updateInputedValue,
   addNewValueFromSelect,
@@ -83,7 +83,10 @@ const ConverterContent = () => {
 
   return (
     <ContentContainer>
-      <ConverterHeader />
+      <ConverterHeader
+        title="Welcome to currency converter page"
+        discription="If you want to swap fields you can drag them and drop"
+      />
       <InputContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
