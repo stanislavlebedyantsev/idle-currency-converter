@@ -1,12 +1,12 @@
 import { React } from 'react';
 import { HeaderContainer, MainTitle, SecondTitle } from './styles';
 
-const ConverterHeader = () => {
+const ConverterHeader = ({title, discription}) => {
   return (
     <HeaderContainer>
-      <MainTitle>Welcome to currency converter</MainTitle>
+      <MainTitle>{title}</MainTitle>
       <SecondTitle>
-        If you want to swap fields you can drag them and drop
+				{discription}
       </SecondTitle>
     </HeaderContainer>
   );

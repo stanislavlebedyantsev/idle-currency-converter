@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import MapHeader from '@/components/common/componentsHeader/';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { filterBeforeSave } from '@/utils/';
@@ -69,6 +70,10 @@ const MapPage = () => {
       <Container>
         <Error />
         <ContentContainer>
+          <MapHeader
+            title="Welcome to map page"
+            discription="Here you can write the name of the country you want to receive information about. To get information about the selected country, move the mouse over the marker on the map."
+          />
           <MapBlock>
             <ListAutocomplete
               classes={classes}

@@ -24,7 +24,7 @@ export const ContentContainer = styled.div.attrs((props) => ({ ...props }))`
   border-radius: 16px;
   background-color: #fff;
   @media (max-width: 568px) and (max-height: 320px) {
-		margin-top: 50vh;
+		margin-top: 80vh;
     max-height: 150vh;
   }
 `;

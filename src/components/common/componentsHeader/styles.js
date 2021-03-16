@@ -14,7 +14,8 @@ export const MainTitle = styled.h1`
 `;
 export const SecondTitle = styled.p`
   margin: 0;
-	font-size: 2vw;
+	text-align: center;
+	font-size: 1vw;
   @media (max-width: 720px) {
     font-size: 4vw;
   }
