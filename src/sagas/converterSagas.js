@@ -47,7 +47,7 @@ function* getCurrencyRates() {
     }
 
     if (!localStorageData || !inputedValues.length) {
-      yield put(initBaseCurrency(currencyResponce.base));
+      yield put(initBaseCurrency(currencyResponce?.base));
     }
   } catch (e) {
     yield put(setError(e));

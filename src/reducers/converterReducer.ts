@@ -1,3 +1,5 @@
+import { IConverterState, TAction } from 'src/types/';
+
 import {
   CURRENCY_RATES_RESPONCE,
   INIT_BASE_CURRENCY,
@@ -7,16 +9,21 @@ import {
   DELETE_CURRENCY_FIELD,
   SET_CURRENT_GEOLOCATION,
   SWAP_CURRENCY_VIEWS,
-} from '@/actions/';
+} from 'src/actions/';
 
-const initState = {
+const initState: IConverterState = {
   allCurrs: [],
   inputedValues: [],
-  error: '',
-	localCurrency: {},
+  localCurrency: {
+    name: '',
+    code: '',
+    symbol: '',
+    native: '',
+    plural: '',
+  },
 };
 
-const converterReducer = (state = initState, action) => {
+const converterReducer = (state = initState, action: TAction) => {
   switch (action.type) {
     case CURRENCY_RATES_RESPONCE: {
       return {
