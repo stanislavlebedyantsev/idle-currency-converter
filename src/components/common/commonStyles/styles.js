@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import background from '@/assets/background.jpg';
+import background from '@/assets/background.png';
 
 export const Container = styled.div`
   display: block;
@@ -28,3 +28,4 @@ export const ContentContainer = styled.div.attrs((props) => ({ ...props }))`
     max-height: 150vh;
   }
 `;
+

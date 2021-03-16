@@ -29,14 +29,14 @@ const MapContent = () => {
   };
 
   return (
-    <Map center={latlng || [0, 0]} zoom={5}>
-      <ChangeView center={latlng} zoom={5} />
+    <Map center={latlng || [54, -2]} zoom={5}>
+      <ChangeView center={latlng || [54, -2]} zoom={5} />
       <TileLayer
         url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       {latlng ? (
-        <Marker position={latlng}>
+        <Marker position={latlng || [54, -2]}>
           <Tooltip>
             <span>
               Country name: {name}

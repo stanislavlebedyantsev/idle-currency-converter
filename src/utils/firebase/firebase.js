@@ -44,7 +44,7 @@ export const getValuesFirebaseDatabase = () => {
 export const signInByGoogleAuthFirebase = () => {
   return firebase
     .auth()
-    .signInWithPopup(provider)
+    .signInWithRedirect(provider)
     .then(({ user }) => user);
 };
 

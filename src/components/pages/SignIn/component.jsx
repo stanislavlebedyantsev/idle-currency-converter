@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import InputControl from '@/components/controls/Input/';
 import Button from '@material-ui/core/Button';
 import { CONVERTER_ROUTE_PATH } from '@/constants';
+import isElectron from 'is-electron';
 import {
   setError,
   signInGoogleAuthRequest,
@@ -144,13 +145,16 @@ const SignInPage = () => {
             {!isRegistering ? 'Sign-In by Email' : 'Sign-Up'}
           </Button>
         </form>
-        <Button
-          className={classes.button}
-          variant="contained"
-          color="primary"
-          onClick={handleGoogleClick}>
-          Sign In by google
-        </Button>
+        {!isElectron() ? (
+          <Button
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={handleGoogleClick}>
+            Sign In by google
+          </Button>
+        ) : null}
+
         <Button color="primary" onClick={handleChangeIsRegistrate}>
           {isRegistering ? (
             <>Already have account? Go and Sign-In</>
