@@ -1,17 +1,17 @@
-import { React } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import {
   CHARTS_ROUTE_PATH,
   MAP_ROUTE_PATH,
   CONVERTER_ROUTE_PATH,
-} from '@/constants';
+} from 'src/constants';
 import PrivateRoute from './PrivateRoute';
-import ChartsPage from '@/components/pages/ChartsPage/';
-import MapPage from '@/components/pages/MapPage/';
-import ConverterPage from '@/components/pages/ConverterPage/';
-import SignInPage from '@/components/pages/SignIn/';
+import ChartsPage from 'src/components/pages/ChartsPage/';
+import MapPage from 'src/components/pages/MapPage/';
+import ConverterPage from 'src/components/pages/ConverterPage/';
+import SignInPage from 'src/components/pages/SignIn/';
 
-const Router = () => {
+const Router: React.FunctionComponent = (): React.ReactElement => {
   return (
     <BrowserRouter>
       <Switch>

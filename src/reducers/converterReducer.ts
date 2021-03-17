@@ -1,4 +1,4 @@
-import { IConverterState, TAction } from 'src/types/';
+import { IConverterState, TAction } from 'src/types/reducers';
 
 import {
   CURRENCY_RATES_RESPONCE,

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from 'src/types/';
+import { IRootState } from 'src/types/reducers';
 import InputControl from 'src/components/controls/Input/';
 import Button from '@material-ui/core/Button';
-import { CONVERTER_ROUTE_PATH } from 'src/constants.js';
+import { CONVERTER_ROUTE_PATH } from 'src/constants';
 import isElectron from 'is-electron';
 import {
   setError,
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SignInPage = () => {
+const SignInPage: React.FunctionComponent = (): React.ReactElement => {
   const [isEmailValid, setIsEmailValid] = useState<string>('');
   const [isPasswordValid, setIsPasswordValid] = useState<string>('');
   const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState<string>(

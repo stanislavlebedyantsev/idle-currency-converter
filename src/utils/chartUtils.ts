@@ -1,10 +1,23 @@
-import moment from 'moment';
+import moment, { Moment, MomentRelativeTime } from 'moment';
 import {
   calculateCurrencyFromBase,
   calculateBaseValueFromCurrency,
-} from '@/utils/';
+} from 'src/utils/';
 
-export const chartsUploadMapper = (rates) => {
+type TChartUpload = {
+  date: number;
+  rates?: any;
+};
+type TChartsData = {
+  BYN: number;
+  USD: number;
+  RUB: number;
+  currency: string;
+  date: number;
+  name: string;
+};
+
+export const chartsUploadMapper = (rates:any): TChartUpload => {
   const uploadTime = moment().valueOf();
   const uploadData = {
     date: uploadTime,
@@ -13,7 +26,7 @@ export const chartsUploadMapper = (rates) => {
   return uploadData;
 };
 
-export const checkLastUpload = (lastUploadeData) => {
+export const checkLastUpload = (lastUploadeData: number): boolean => {
   const SIX_HOUR_IN_MILLISECONDS = 21600000;
   const now = moment().valueOf();
   if (moment(now).diff(lastUploadeData) >= SIX_HOUR_IN_MILLISECONDS) {
@@ -22,8 +35,8 @@ export const checkLastUpload = (lastUploadeData) => {
   return false;
 };
 
-export const predisplayedChartsMapper = (selectedCurrency, chartsData) => {
-  return chartsData.reduce((acc, el) => {
+export const predisplayedChartsMapper = (selectedCurrency:string, chartsData:any): TChartsData => {
+  return chartsData.reduce((acc: Array<TChartsData>, el: any) => {
     const temp = {
       BYN: calculateCurrencyFromBase(
         1 / el.rates[selectedCurrency],

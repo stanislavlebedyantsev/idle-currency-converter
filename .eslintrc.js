@@ -1,17 +1,16 @@
 module.exports = {
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
-  plugins: ['prettier', 'react-hooks'],
-  parser: 'babel-eslint',
+  root: true,
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
+  ],
   env: {
     node: true,
     browser: true,
     jest: true,
-  },
-  settings: {
-    react: {
-      version: '16.13.1',
-      flowVersion: '0.53',
-    },
   },
   rules: {
     'arrow-parens': ['error', 'always'],
@@ -21,7 +20,7 @@ module.exports = {
     'no-multi-spaces': 'error',
     'space-in-parens': 'error',
     'no-multiple-empty-lines': 'error',
-    'no-use-before-define': 'error',
+    //'no-use-before-define': 'error',
     'prefer-destructuring': 'error',
     'max-len': [
       'warn',
@@ -33,22 +32,7 @@ module.exports = {
     ],
     'no-unused-vars': 'warn',
     'operator-linebreak': 'warn',
-    'react-hooks/rules-of-hooks': 'error',
-    'react/jsx-closing-tag-location': 2,
     'react/jsx-closing-bracket-location': 0,
-    'react/jsx-max-props-per-line': [
-      2,
-      {
-        maximum: 4,
-        when: 'always',
-      },
-    ],
-    'react/jsx-filename-extension': [
-      2,
-      {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      },
-    ],
     'jsx-quotes': ['error', 'prefer-double'],
     'comma-dangle': [
       2,
@@ -67,7 +51,6 @@ module.exports = {
         ignoreReadBeforeAssign: false,
       },
     ],
-    'react/prop-types': [1],
   },
   overrides: [
     {

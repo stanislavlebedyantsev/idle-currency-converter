@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MapHeader from '@/components/common/componentsHeader/';
+import { IRootState } from 'src/types/reducers';
+import MapHeader from 'src/components/common/componentsHeader/';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { filterBeforeSave } from '@/utils/';
+import { filterBeforeSave } from 'src/utils/';
 import {
   requestForCountryData,
   updateMatchesValuesListData,
   requestCountryList,
-} from '@/actions/';
-import Error from '@/components/common/error/';
-import MapContent from '@/components/mapComponents/MapContent';
-import BasicLayout from '@/components/layouts/BasicLayout/index';
-import ListAutocomplete from '@/components/controls/ListAutocomplete/component';
+} from 'src/actions/';
+import Error from 'src/components/common/error/';
+import MapContent from 'src/components/mapComponents/MapContent';
+import BasicLayout from 'src/components/layouts/BasicLayout/index';
+import ListAutocomplete from 'src/components/controls/ListAutocomplete/component';
 import {
   Container,
   ContentContainer,
-} from '@/components/common/commonStyles/styles';
+} from 'src/components/common/commonStyles/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { MapBlock } from './styles';
 
@@ -33,28 +34,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MapPage = () => {
+const MapPage: React.FunctionComponent = (): React.ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [textFieldState, setTextFieldState] = useState('');
-  const countryList = useSelector((state) => state.map.countryList);
-  const matchedValues = useSelector((state) => state.map.matchedValues);
+  const [textFieldState, setTextFieldState] = useState<string>('');
+  const countryList = useSelector((state: IRootState) => state.map.countryList);
+  const matchedValues = useSelector(
+    (state: IRootState) => state.map.matchedValues
+  );
 
-  const handleSearchResult = (event) => {
-    setTextFieldState('');
-    dispatch(requestForCountryData(event.target.textContent));
+  const handleSearchResult = (event: React.MouseEvent<HTMLDivElement>) => {
+    setTextFieldState(''); 
+    dispatch(requestForCountryData((event.target as HTMLElement).innerText));
     const filtredList = filterBeforeSave(countryList, '');
     dispatch(updateMatchesValuesListData(filtredList));
   };
-  const handleTextFieldChange = (event) => {
+  const handleTextFieldChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setTextFieldState(event.target.value);
     const filtredList = filterBeforeSave(countryList, event.target.value);
     dispatch(updateMatchesValuesListData(filtredList));
   };
 
-  const listFilter = (list) => {
-    return list.map((el) => (
+  const listFilter = (list: string[]) => {
+    return list.map((el: string) => (
       <ListItem button key={el} onClick={handleSearchResult}>
         <ListItemText primary={el} />
       </ListItem>
@@ -80,7 +85,6 @@ const MapPage = () => {
               textFieldState={textFieldState}
               listFilter={listFilter}
               handleTextFieldChange={handleTextFieldChange}
-              handleSearchResult={handleSearchResult}
               matchedValues={matchedValues}
               countryList={countryList}
             />
