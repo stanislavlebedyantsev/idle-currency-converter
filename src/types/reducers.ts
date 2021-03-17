@@ -1,3 +1,5 @@
+import { IRates } from 'src/types/apiResponces';
+
 type IInputedValues = {
   currency: string;
   value: number;
@@ -10,10 +12,19 @@ type ILocalCurrency = {
   plural: string;
 };
 
+type IRate = {
+  disclaimer: string;
+  license: string;
+  timestamp: number;
+  base: string;
+  rates: IRates;
+};
+
 export interface IConverterState {
   allCurrs: string[];
   inputedValues: IInputedValues[];
   localCurrency: ILocalCurrency;
+  rate: IRate;
 }
 
 type IMappedRates = {
@@ -25,9 +36,8 @@ type IMappedRates = {
   name: string;
 };
 
-///??????????????????
-interface IRatesHistory<T> {
-  extend<T>(properties: T): this & T;
+interface IRatesHistory extends IRates {
+	date: number;
 }
 
 export interface IChartsState {
@@ -39,7 +49,7 @@ export interface IChartsState {
 export interface IMapState {
   matchedValues: string[];
   countryList: string[];
-  countryData: any; ///??????????????????????????
+  countryData: IRatesHistory; 
 }
 
 export interface IErrorState {
@@ -61,6 +71,6 @@ export interface IRootState {
 }
 
 export type TAction = {
-	type: string;
-	payload: any;
-}
+  type: string;
+  payload: any;
+};
