@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from 'src/types/reducers';
+import { IRootState } from 'src/types/rootStateTypes';
 import InputControl from 'src/components/controls/Input/';
 import Button from '@material-ui/core/Button';
 import { CONVERTER_ROUTE_PATH } from 'src/constants';
@@ -88,7 +88,9 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(() => event.target.value);
   };
-  const handleConfirmPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleConfirmPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setConfirmPassword(() => event.target.value);
   };
   const handleChangeIsRegistrate = () => {

@@ -2,6 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
+import { IRatesHistory } from 'src/types/reducersTypes/';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -14,26 +15,25 @@ const firebaseConfig = {
   databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
 };
 
-
 firebase.initializeApp(firebaseConfig);
 
 export const database = firebase.database();
 const provider = new firebase.auth.GoogleAuthProvider();
 export default firebase;
 
-export const pushFirebaseDatabase = (rates) => {
+export const pushFirebaseDatabase = (rates: IRatesHistory): void => {
   firebase.database().ref('/rates').push(rates);
 };
-export const getLastFirebaseDatabase = () => {
+export const getLastFirebaseDatabase = (): Promise<boolean | unknown[]> => {
   return firebase
     .database()
     .ref('/rates')
     .limitToLast(1)
     .once('value')
     .then((snapshot) => Object.values(snapshot.val()))
-    .catch((e) => false);
+    .catch(() => false);
 };
-export const getValuesFirebaseDatabase = () => {
+export const getValuesFirebaseDatabase = (): Promise<void | unknown[]> => {
   return firebase
     .database()
     .ref('/rates')
@@ -41,28 +41,35 @@ export const getValuesFirebaseDatabase = () => {
     .then((snapshot) => Object.values(snapshot.val()));
 };
 
-export const signInByGoogleAuthFirebase = () => {
+export const signInByGoogleAuthFirebase = (): Promise<
+  firebase.auth.UserCredential | firebase.User | null
+> => {
   return firebase
     .auth()
     .signInWithPopup(provider)
     .then(({ user }) => user);
 };
 
-
-export const createUserWithEmailAndPassword = (email, password) => {
+export const createUserWithEmailAndPassword = (
+  email: string,
+  password: string
+): Promise<firebase.auth.UserCredential> => {
   return firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
-    .then((resp) => resp);
+    .then((resp: firebase.auth.UserCredential) => resp);
 };
 
-export const signInByEmailAuthFirebase = (email, password) => {
+export const signInByEmailAuthFirebase = (
+  email: string,
+  password: string
+): Promise<firebase.auth.UserCredential | firebase.User | null> => {
   return firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(({ user }) => user);
 };
 
-export const signOutFirebase = () => {
+export const signOutFirebase = (): Promise<void> => {
   return firebase.auth().signOut();
 };

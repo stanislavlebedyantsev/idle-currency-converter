@@ -1,4 +1,4 @@
-import { IConverterState, TAction } from 'src/types/reducers';
+import { IConverterState, IRateReducer } from 'src/types/reducersTypes/';
 
 import {
   CURRENCY_RATES_RESPONCE,
@@ -9,7 +9,8 @@ import {
   DELETE_CURRENCY_FIELD,
   SET_CURRENT_GEOLOCATION,
   SWAP_CURRENCY_VIEWS,
-} from 'src/actions/';
+  TConverterActionTypes,
+} from 'src/types/actionTypes/';
 
 const initState: IConverterState = {
   allCurrs: [],
@@ -21,15 +22,24 @@ const initState: IConverterState = {
     native: '',
     plural: '',
   },
+  rate: {
+    base: '',
+    rates: {
+      USD: 0,
+    },
+  },
 };
 
-const converterReducer = (state = initState, action: TAction) => {
+const converterReducer = (
+  state = initState,
+  action: TConverterActionTypes
+): IConverterState => {
   switch (action.type) {
     case CURRENCY_RATES_RESPONCE: {
       return {
         ...state,
         rate: { ...action.payload },
-        allCurrs: [...Object.keys(action.payload.rates)],
+        allCurrs: [...Object.keys((action.payload as IRateReducer).rates)],
       };
     }
     case INIT_BASE_CURRENCY: {
@@ -42,22 +52,22 @@ const converterReducer = (state = initState, action: TAction) => {
       };
     }
     case ADD_SELECT_VALUE: {
-      return { ...state, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: action.payload };
     }
     case UPDATE_CURRENCY_SELECTOR: {
-      return { ...state, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: action.payload };
     }
     case UPDATE_INPUTED_DATA: {
-      return { ...state, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: action.payload };
     }
     case DELETE_CURRENCY_FIELD: {
-      return { ...state, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: action.payload };
     }
     case SET_CURRENT_GEOLOCATION: {
-      return { ...state, localCurrency: { ...action.payload.currency } };
+      return { ...state, localCurrency: { ...action.payload } };
     }
     case SWAP_CURRENCY_VIEWS: {
-      return { ...state, inputedValues: [...action.payload] };
+      return { ...state, inputedValues: action.payload };
     }
     default:
       return state;

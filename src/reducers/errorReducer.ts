@@ -1,14 +1,19 @@
+import { IErrorState } from 'src/types/reducersTypes';
 import {
   SET_ERROR,
   REMOVE_ERROR,
-} from '@/actions/index';
+  TErrorActionTypes,
+} from 'src/types/actionTypes';
 
-const initState = {
+const initState: IErrorState = {
   errorValue: '',
   isError: false,
 };
 
-const errorReducer = (state = initState, action) => {
+const errorReducer = (
+  state = initState,
+  action: TErrorActionTypes
+): IErrorState => {
   switch (action.type) {
     case SET_ERROR: {
       return { ...state, errorValue: action.payload.message, isError: true };

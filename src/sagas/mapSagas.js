@@ -3,10 +3,8 @@ import { filterCountryList } from '@/utils/';
 import {
   REQUEST_FOR_COUNRY_DATA,
   REQUEST_FOR_COUNRY_LIST,
-  updateCountryData,
-  updateCountryList,
-  setError,
-} from '@/actions/';
+} from 'src/types/actionTypes';
+import { updateCountryData, updateCountryList, setError } from '@/actions/';
 import { mapApi } from '@/api/';
 
 function* getCountryData(action) {

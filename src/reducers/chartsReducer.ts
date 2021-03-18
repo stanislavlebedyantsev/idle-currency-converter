@@ -3,15 +3,20 @@ import {
   SELECT_CHECKBOX_CHART,
   REMOVE_SELECT_CHECKBOX_CHART,
   CHANGE_DISPLAY_CHARTS_DATA,
-} from '@/actions/';
-const initState = {
+  TChartActionTypes,
+} from 'src/types/actionTypes/';
+import { IChartsState } from 'src/types/reducersTypes/';
+const initState: IChartsState = {
   ratesHistory: [],
   selectedCheckboxesCurrencies: [],
   mappedRates: [],
-	selectedForTheChart: '',
+  selectedForTheChart: '',
 };
 
-const chartsReducer = (state = initState, action) => {
+const chartsReducer = (
+  state = initState,
+  action: TChartActionTypes
+): IChartsState => {
   switch (action.type) {
     case INIT_CHARTS_DATA: {
       return { ...state, ratesHistory: [...action.payload] };
@@ -19,7 +24,10 @@ const chartsReducer = (state = initState, action) => {
     case SELECT_CHECKBOX_CHART: {
       return {
         ...state,
-        selectedCheckboxesCurrencies: [...state.selectedCheckboxesCurrencies, action.payload],
+        selectedCheckboxesCurrencies: [
+          ...state.selectedCheckboxesCurrencies,
+          action.payload,
+        ],
       };
     }
     case REMOVE_SELECT_CHECKBOX_CHART: {
