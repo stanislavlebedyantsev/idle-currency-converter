@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import CurrInputContainer from './InputContainer';
@@ -20,6 +20,7 @@ import {
 } from '@/utils/';
 import { InputContainer } from '@/components/converterComponents/styles';
 import { ContentContainer } from '@/components/common/commonStyles/styles';
+import { setError } from '@/actions/';
 
 const ConverterContent = () => {
   const dispatch = useDispatch();

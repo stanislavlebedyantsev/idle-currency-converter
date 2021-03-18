@@ -1,4 +1,6 @@
-export const loadFromStorage = () => {
+import { IRootState } from './../types/rootStateTypes';
+
+export const loadFromStorage = (): IRootState | undefined => {
   try {
     const serializedState = localStorage.getItem('state');
     if (!serializedState) {
@@ -10,7 +12,7 @@ export const loadFromStorage = () => {
   }
 };
 
-export const saveState = (state) => {
+export const saveState = (state: IRootState): undefined => {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem('state', serializedState);

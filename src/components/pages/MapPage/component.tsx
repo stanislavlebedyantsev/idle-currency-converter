@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from 'src/types/reducers';
+import { IRootState } from 'src/types/rootStateTypes';
 import MapHeader from 'src/components/common/componentsHeader/';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';

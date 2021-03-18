@@ -1,15 +1,11 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import {
   SIGN_IN_GOOGLE_REQUEST,
   SIGN_OUT_REQUEST,
   REGISTRATE_EMAIL_REQUEST,
   SIGN_IN_EMAIL_REQUEST,
-  saveUserData,
-  removeUserData,
-  registateEmailAuthRequest,
-  signInEmailAuthRequest,
-  setError,
-} from '@/actions/';
+} from 'src/types/actionTypes';
+import { saveUserData, removeUserData, setError } from 'src/actions';
 import {
   signInByGoogleAuthFirebase,
   signOutFirebase,

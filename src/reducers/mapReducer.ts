@@ -2,15 +2,22 @@ import {
   UPDATE_COUNTRY_DATA,
   UPDATE_MATCHED_VALUES_LIST_DATA,
   UPDATE_COUNTRY_LIST,
-} from '@/actions/index';
+  TMapActionTypes,
+} from 'src/types/actionTypes';
+import { IMapState } from 'src/types/reducersTypes';
 
-const initState = {
+const initState: IMapState = {
   matchedValues: [],
   countryList: [],
-  countryData: {},
+  countryData: {
+    name: '',
+    latlng: [54, -2],
+    population: 0,
+    capital: '',
+  },
 };
 
-const mapReducer = (state = initState, action) => {
+const mapReducer = (state = initState, action: TMapActionTypes): IMapState => {
   switch (action.type) {
     case UPDATE_COUNTRY_LIST: {
       return { ...state, countryList: [...action.payload] };

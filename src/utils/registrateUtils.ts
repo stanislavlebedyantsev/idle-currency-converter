@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-escape */
-export const emailValidator = (email) => {
+export const emailValidator = (email: string): string => {
   return email &&
     !/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
       email
@@ -8,11 +8,14 @@ export const emailValidator = (email) => {
     : '';
 };
 
-export const matchingPasswordsValidator = (password, passwordConfirm) => {
+export const matchingPasswordsValidator = (
+  password: string,
+  passwordConfirm: string
+): string => {
   return password !== passwordConfirm ? 'Password are different' : '';
 };
 
-export const passwordLengthValidation = (password) => {
+export const passwordLengthValidation = (password: string): string => {
   return password.length < 6 && password.length
     ? 'Password should be at least 6 characters'
     : '';

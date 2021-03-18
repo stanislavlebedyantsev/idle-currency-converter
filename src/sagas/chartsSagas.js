@@ -4,6 +4,8 @@ import {
   UPLOAD_RATES_REQUEST,
   REQUEST_FOR_GET_LAST_VALUE_DATABASE,
   REQUEST_FOR_GET_VALUES_DATABASE,
+} from '@/types/actionTypes';
+import {
   initChartsData,
   changeDispayCharsData,
   setError,

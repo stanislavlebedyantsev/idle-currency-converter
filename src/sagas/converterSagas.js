@@ -1,17 +1,17 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import { converterApi } from '@/api/index';
 import {
-  CURRENCY_RATES_REQUEST,
   geolocationRequest,
   currencyRateResponce,
   initBaseCurrency,
   updateInputedValue,
   setError,
+  removeError,
   uploadRatesRequest,
 } from '@/actions/';
+import { CURRENCY_RATES_REQUEST } from '@/types/actionTypes/converterActionTypes';
 import {
   getLastFirebaseDatabase,
-  signInByGoogleAuthFirebase,
   convertBeforInput,
   checkLastUpload,
 } from '@/utils/';
@@ -20,6 +20,11 @@ function* getCurrencyRates() {
   try {
     //currency request
     const currencyResponce = yield call(converterApi.fetchCurrencyRate);
+    if (!Object.keys(currencyResponce).length) {
+      throw new Error(
+        'Something goes wrong. We cant found all rates. Try again later'
+      );
+    }
     const localStorageData = localStorage.getItem('state');
     //geolocation request
     yield put(geolocationRequest());
@@ -49,6 +54,7 @@ function* getCurrencyRates() {
     if (!localStorageData || !inputedValues.length) {
       yield put(initBaseCurrency(currencyResponce?.base));
     }
+    yield put(removeError());
   } catch (e) {
     yield put(setError(e));
   }
