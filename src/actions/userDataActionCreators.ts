@@ -6,7 +6,7 @@ import {
   SAVE_USER_DATA,
   REMOVE_USER_DATA,
   TUserActionTypes,
-} from 'src/types/actionTypes';
+} from '@/types/actionTypes';
 
 import { IUserData } from 'src/types/reducersTypes';
 

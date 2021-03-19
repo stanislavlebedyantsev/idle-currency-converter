@@ -1,4 +1,13 @@
-import { call, put, select, takeEvery } from 'redux-saga/effects';
+import {
+  call,
+  put,
+  select,
+  takeEvery,
+  CallEffect,
+  PutEffect,
+  SimpleEffect,
+  SelectEffectDescriptor,
+} from 'redux-saga/effects';
 import { converterApi } from '@/api/index';
 import {
   geolocationRequest,
@@ -9,17 +18,33 @@ import {
   removeError,
   uploadRatesRequest,
 } from '@/actions/';
-import { CURRENCY_RATES_REQUEST } from '@/types/actionTypes/converterActionTypes';
+import {
+  CURRENCY_RATES_REQUEST,
+  TConverterActionTypes,
+} from '@/types/actionTypes/converterActionTypes';
 import {
   getLastFirebaseDatabase,
   convertBeforInput,
   checkLastUpload,
 } from '@/utils/';
+import { IInputedValues, IRateReducer } from '@/types/reducersTypes/';
+import { TErrorActionTypes, TFirebaseActionTypes } from '@/types/actionTypes';
 
-function* getCurrencyRates() {
+type TGeneratorTypes =
+  | Promise<IRateReducer>
+  | PutEffect<TConverterActionTypes | TFirebaseActionTypes | TErrorActionTypes>
+  | CallEffect<IRateReducer>
+  | Array<IInputedValues>
+  | SimpleEffect<'SELECT', SelectEffectDescriptor>
+  | Promise<boolean | unknown[]>
+  | boolean;
+
+function* getCurrencyRates(): Generator<TGeneratorTypes, void, any> {
   try {
     //currency request
-    const currencyResponce = yield call(converterApi.fetchCurrencyRate);
+    const currencyResponce: IRateReducer = yield call(
+      converterApi.fetchCurrencyRate
+    );
     if (!Object.keys(currencyResponce).length) {
       throw new Error(
         'Something goes wrong. We cant found all rates. Try again later'
@@ -52,14 +77,13 @@ function* getCurrencyRates() {
     }
 
     if (!localStorageData || !inputedValues.length) {
-      yield put(initBaseCurrency(currencyResponce?.base));
+      yield put(initBaseCurrency());
     }
-    yield put(removeError());
   } catch (e) {
     yield put(setError(e));
   }
 }
 
-export function* getCurrencyRateWatcher() {
+export function* getCurrencyRateWatcher(): Generator<unknown, void, unknown> {
   yield takeEvery(CURRENCY_RATES_REQUEST, getCurrencyRates);
 }

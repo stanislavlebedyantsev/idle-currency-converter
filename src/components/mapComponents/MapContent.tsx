@@ -1,28 +1,32 @@
-import { React } from 'react';
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Marker, TileLayer, useMap, Tooltip } from 'react-leaflet';
+import { IRootState } from '@/types/rootStateTypes';
+import { IInputedValues } from '@/types/reducersTypes';
+import { LatLngExpression } from 'leaflet';
 import { isCurrencyExist } from '@/utils/';
 import { Map } from '@/components/mapComponents/styles';
 
-const MapContent = () => {
-  const [existedCurrs, setExistedCurrs] = useState([]);
+type TView = {
+  center: LatLngExpression;
+  zoom: number;
+};
+
+const MapContent = (): React.ReactElement => {
+  const [existedCurrs, setExistedCurrs] = useState<Array<IInputedValues>>([]);
   const { name, capital, latlng, population, currencies } = useSelector(
-    (state) => state.map.countryData
+    (state: IRootState) => state.map.countryData
   );
-  const allRates = useSelector((state) => {
-    try {
-      return state.converter.rate.rates;
-    } catch (e) {
-      return undefined;
-    }
-  });
+  const allRates = useSelector(
+    (state: IRootState) => state.converter.rate?.rates
+  );
 
   useEffect(() => {
     setExistedCurrs(() => isCurrencyExist(allRates, currencies));
   }, [allRates, currencies]);
 
-  const ChangeView = ({ center, zoom }) => {
+  const ChangeView = ({ center, zoom }: TView) => {
     const map = useMap();
     map.setView(center, zoom);
     return null;

@@ -1,25 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from 'src/types/rootStateTypes';
-import InputControl from 'src/components/controls/Input/';
+import { IRootState } from '@/types/rootStateTypes';
+import InputControl from '@/components/controls/Input/';
 import Button from '@material-ui/core/Button';
-import { CONVERTER_ROUTE_PATH } from 'src/constants';
+import { CONVERTER_ROUTE_PATH } from '@/constants';
 import isElectron from 'is-electron';
 import {
-  setError,
   signInGoogleAuthRequest,
   signInEmailAuthRequest,
   registateEmailAuthRequest,
   removeError,
-} from 'src/actions/';
-import { Container } from 'src/components/common/commonStyles/styles';
+} from '@/actions/';
+import { Container } from '@/components/common/commonStyles/styles';
 import {
   emailValidator,
   matchingPasswordsValidator,
   passwordLengthValidation,
-} from 'src/utils/';
-import Error from 'src/components/common/error/';
+} from '@/utils/';
+import Error from '@/components/common/error/';
 import { makeStyles } from '@material-ui/core/styles';
 import { SignInContainer } from './styles';
 

@@ -1,9 +1,9 @@
-import { TErrorResponce } from 'src/types/reducersTypes';
+import { TErrorResponce } from '@/types/reducersTypes';
 import {
   SET_ERROR,
   REMOVE_ERROR,
   TErrorActionTypes,
-} from 'src/types/actionTypes';
+} from '@/types/actionTypes';
 
 export const setError = (msg: TErrorResponce): TErrorActionTypes => ({
   type: SET_ERROR,

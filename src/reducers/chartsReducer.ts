@@ -4,8 +4,8 @@ import {
   REMOVE_SELECT_CHECKBOX_CHART,
   CHANGE_DISPLAY_CHARTS_DATA,
   TChartActionTypes,
-} from 'src/types/actionTypes/';
-import { IChartsState } from 'src/types/reducersTypes/';
+} from '@/types/actionTypes/';
+import { IChartsState } from '@/types/reducersTypes/';
 const initState: IChartsState = {
   ratesHistory: [],
   selectedCheckboxesCurrencies: [],

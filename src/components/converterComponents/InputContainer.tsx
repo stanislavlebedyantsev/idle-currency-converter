@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-closing-bracket-location */
-import { React } from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import { Input, Button } from '@material-ui/core';
@@ -8,6 +6,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/styles';
 import Autocomplete from '@/components/controls/Autocomplite';
 import { CurrField } from '@/components/converterComponents/styles';
+import { IRootState } from '@/types/rootStateTypes';
+import { IInputedValues } from '@/types/reducersTypes/';
+
+type TProps = {
+  choicenCurr: string;
+  handleInput: (valueForUpdate: IInputedValues) => void;
+  fieldValue: number;
+  handleChangeCurr: (id: number, newValue: string) => void;
+  id: number;
+  handleDelete: (id: number) => void;
+};
 
 const useStyles = makeStyles({
   autocomplete: {
@@ -26,11 +35,16 @@ const CurrInputContainer = ({
   handleChangeCurr,
   id,
   handleDelete,
-}) => {
-  const allCurrs = useSelector((state) => state.converter.allCurrs);
-  const [avaluebleCurrs, setAvaluebleCurrs] = useState(allCurrs);
-  const moneyValues = useSelector((state) => state.converter.inputedValues);
-  const [moneyValue, setFieldValue] = useState({ [choicenCurr]: fieldValue });
+}: TProps): React.ReactElement => {
+  const allCurrs = useSelector((state: IRootState) => state.converter.allCurrs);
+  const [avaluebleCurrs, setAvaluebleCurrs] = useState<Array<string>>(allCurrs);
+  const moneyValues = useSelector(
+    (state: IRootState) => state.converter.inputedValues
+  );
+  const [moneyValue, setFieldValue] = useState<IInputedValues>({
+    currency: choicenCurr,
+    value: fieldValue,
+  });
   const classes = useStyles();
 
   useEffect(() => {
@@ -42,20 +56,22 @@ const CurrInputContainer = ({
 
   useEffect(() => {
     setAvaluebleCurrs(() =>
-      allCurrs.filter((el) => {
+      allCurrs.filter((el: string) => {
         const existedElement = moneyValues.find((element) => {
           return element.currency === el;
         });
-        return el === choicenCurr || el !== existedElement?.currency ;
+        return el === choicenCurr || el !== existedElement?.currency;
       })
     );
   }, [allCurrs, moneyValues]);
 
-  const handleChange = (event) => {
-    setFieldValue(() => ({
-      currency: event.target.name,
-      value: event.target.value,
-    }));
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFieldValue(
+      (): IInputedValues => ({
+        currency: choicenCurr,
+        value: Number(event.target.value),
+      })
+    );
   };
 
   return (
@@ -75,7 +91,7 @@ const CurrInputContainer = ({
           />
           <Input
             className={classes.input}
-            min="0"
+            inputProps={{ inputProps: { min: 0 } }}
             type="number"
             value={moneyValue.value || 'typed Incorrect symbols'}
             name={choicenCurr}

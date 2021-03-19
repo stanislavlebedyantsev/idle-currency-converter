@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   CHARTS_ROUTE_PATH,
@@ -17,6 +17,7 @@ import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, EmailBlock } from './styles';
+import { IRootState } from '@/types/rootStateTypes';
 
 const useStyles = makeStyles((theme) => ({
   bar: {
@@ -33,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GlobalHeader = () => {
+const GlobalHeader = (): React.ReactElement => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const userEmail = useSelector((state) => state.user.user?.email);
+  const userEmail = useSelector((state: IRootState) => state.user.user?.email);
 
   const handleClick = () => {
     dispatch(signOutRequest());
@@ -50,7 +51,7 @@ const GlobalHeader = () => {
         </Typography>
         <div className={classes.grow} />
         <EmailBlock>{userEmail}</EmailBlock>
-        <div className={classes.sectionDesktop}>
+        <div>
           <Link to={CHARTS_ROUTE_PATH}>
             <IconButton color="inherit">
               <Badge color="secondary">

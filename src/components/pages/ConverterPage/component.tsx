@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import BasicLayout from 'src/components/layouts/BasicLayout/';
-import { currencyRateRequest } from 'src/actions/index';
-import ConverterContent from 'src/components/converterComponents/converterContent';
-import Error from 'src/components/common/error/';
-import { Container } from 'src/components/common/commonStyles/styles';
+import BasicLayout from '@/components/layouts/BasicLayout/';
+import { currencyRateRequest } from '@/actions/index';
+import ConverterContent from '@/components/converterComponents/converterContent';
+import Error from '@/components/common/error/';
+import { Container } from '@/components/common/commonStyles/styles';
 
 const ConverterPage: React.FunctionComponent = (): React.ReactElement => {
   const dispatch = useDispatch();

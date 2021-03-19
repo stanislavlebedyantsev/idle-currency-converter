@@ -1,4 +1,4 @@
-import { IUserData } from 'src/types/reducersTypes';
+import { IUserData } from '@/types/reducersTypes';
 
 export const SIGN_IN_GOOGLE_REQUEST = 'SIGN_IN_GOOGLE_REQUEST';
 export const SIGN_IN_EMAIL_REQUEST = 'SIGN_IN_EMAIL_REQUEST';
@@ -15,11 +15,11 @@ type TUserAuthData = {
 interface ISignInGoogleAuthRequest {
   type: typeof SIGN_IN_GOOGLE_REQUEST;
 }
-interface ISignInEmailAuthRequest {
+export interface ISignInEmailAuthRequest {
   type: typeof SIGN_IN_EMAIL_REQUEST;
   payload: TUserAuthData;
 }
-interface IRegistateEmailAuthRequest {
+export interface IRegistateEmailAuthRequest {
   type: typeof REGISTRATE_EMAIL_REQUEST;
   payload: TUserAuthData;
 }

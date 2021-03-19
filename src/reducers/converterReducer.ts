@@ -10,7 +10,7 @@ import {
   SET_CURRENT_GEOLOCATION,
   SWAP_CURRENCY_VIEWS,
   TConverterActionTypes,
-} from 'src/types/actionTypes/';
+} from '@/types/actionTypes/';
 
 const initState: IConverterState = {
   allCurrs: [],

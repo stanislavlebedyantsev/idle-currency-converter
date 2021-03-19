@@ -1,19 +1,30 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { ForkEffect, put, PutEffect, takeEvery } from 'redux-saga/effects';
 import {
   SIGN_IN_GOOGLE_REQUEST,
   SIGN_OUT_REQUEST,
   REGISTRATE_EMAIL_REQUEST,
   SIGN_IN_EMAIL_REQUEST,
-} from 'src/types/actionTypes';
-import { saveUserData, removeUserData, setError } from 'src/actions';
+  TUserActionTypes,
+  TErrorActionTypes,
+  ISignInEmailAuthRequest,
+  IRegistateEmailAuthRequest,
+} from '@/types/actionTypes';
+import { saveUserData, removeUserData, setError } from '@/actions';
 import {
   signInByGoogleAuthFirebase,
   signOutFirebase,
   signInByEmailAuthFirebase,
   createUserWithEmailAndPassword,
 } from '@/utils/';
+import firebase from '@/utils/firebase/firebase';
 
-function* userSignInGoogleAuth() {
+type TGeneratorTypes =
+  | Promise<firebase.auth.UserCredential | firebase.User | null>
+  | PutEffect<TUserActionTypes>
+  | PutEffect<TErrorActionTypes>
+  | Promise<void>;
+
+function* userSignInGoogleAuth(): Generator<TGeneratorTypes, void, never> {
   try {
     const userData = yield signInByGoogleAuthFirebase();
     yield put(saveUserData(userData));
@@ -22,7 +33,7 @@ function* userSignInGoogleAuth() {
   }
 }
 
-function* userSignOutGoogleAuth() {
+function* userSignOutGoogleAuth(): Generator<TGeneratorTypes, void, unknown> {
   try {
     yield signOutFirebase();
     yield put(removeUserData());
@@ -31,7 +42,9 @@ function* userSignOutGoogleAuth() {
   }
 }
 
-function* userSignInEmailAuth({ payload }) {
+function* userSignInEmailAuth({
+  payload,
+}: ISignInEmailAuthRequest): Generator<TGeneratorTypes, void, never> {
   try {
     const userData = yield signInByEmailAuthFirebase(
       payload.email,
@@ -42,7 +55,9 @@ function* userSignInEmailAuth({ payload }) {
     yield put(setError(e));
   }
 }
-function* registrateByEmailAndPassword({ payload }) {
+function* registrateByEmailAndPassword({
+  payload,
+}: IRegistateEmailAuthRequest) {
   try {
     yield createUserWithEmailAndPassword(payload.email, payload.password);
   } catch (e) {
@@ -50,7 +65,11 @@ function* registrateByEmailAndPassword({ payload }) {
   }
 }
 
-export function* userRequestsWatcher() {
+export function* userRequestsWatcher(): Generator<
+  ForkEffect<never>,
+  void,
+  unknown
+> {
   yield takeEvery(SIGN_IN_GOOGLE_REQUEST, userSignInGoogleAuth);
   yield takeEvery(SIGN_OUT_REQUEST, userSignOutGoogleAuth);
   yield takeEvery(SIGN_IN_EMAIL_REQUEST, userSignInEmailAuth);

@@ -5,7 +5,7 @@ import { getCurrencyRateWatcher } from './converterSagas';
 import { getGeolocationWatcher } from './geolocationSagas';
 import { userRequestsWatcher } from './userSagas';
 
-export function* rootSaga() {
+export function* rootSaga(): Generator<unknown, void, unknown> {
   yield all([
     getCurrencyRateWatcher(),
     getChartsWatcher(),

@@ -1,7 +1,7 @@
 import React, { ComponentType } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { IRootState } from 'src/types/rootStateTypes';
+import { IRootState } from '@/types/rootStateTypes';
 
 type Props = {
   path: string;

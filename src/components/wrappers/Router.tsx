@@ -4,12 +4,12 @@ import {
   CHARTS_ROUTE_PATH,
   MAP_ROUTE_PATH,
   CONVERTER_ROUTE_PATH,
-} from 'src/constants';
+} from '@/constants';
 import PrivateRoute from './PrivateRoute';
-import ChartsPage from 'src/components/pages/ChartsPage/';
-import MapPage from 'src/components/pages/MapPage/';
-import ConverterPage from 'src/components/pages/ConverterPage/';
-import SignInPage from 'src/components/pages/SignIn/';
+import ChartsPage from '@/components/pages/ChartsPage/';
+import MapPage from '@/components/pages/MapPage/';
+import ConverterPage from '@/components/pages/ConverterPage/';
+import SignInPage from '@/components/pages/SignIn/';
 
 const Router: React.FunctionComponent = (): React.ReactElement => {
   return (

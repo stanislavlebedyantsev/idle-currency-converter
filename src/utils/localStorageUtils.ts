@@ -1,4 +1,4 @@
-import { IRootState } from './../types/rootStateTypes';
+import { IRootState } from '@/types/rootStateTypes';
 
 export const loadFromStorage = (): IRootState | undefined => {
   try {

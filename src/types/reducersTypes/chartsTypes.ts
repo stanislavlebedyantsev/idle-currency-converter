@@ -1,4 +1,4 @@
-import { IRates } from 'src/types/apiResponces';
+import { IRates } from '@/types/apiResponces';
 
 export interface IMappedRates {
   BYN: number;
@@ -9,13 +9,14 @@ export interface IMappedRates {
   name: string;
 }
 
-export interface IRatesHistory extends IRates {
+export interface IRatesHistory {
   date: number;
-}
+  rates: IRates;
+} 
 
 export interface IChartsState {
-  ratesHistory: IRatesHistory[];
-  selectedCheckboxesCurrencies: string[];
-  mappedRates: IMappedRates[];
+  ratesHistory: Array<IRatesHistory>;
+  selectedCheckboxesCurrencies: Array<string>;
+  mappedRates: Array<IMappedRates>;
   selectedForTheChart: string;
 }

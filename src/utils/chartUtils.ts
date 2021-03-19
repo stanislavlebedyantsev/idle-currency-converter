@@ -1,26 +1,12 @@
 import moment from 'moment';
-import { IRatesHistory } from 'src/types/reducersTypes/';
-import { IRates } from 'src/types/apiResponces';
+import { IRates } from '@/types/apiResponces';
 import {
   calculateCurrencyFromBase,
   calculateBaseValueFromCurrency,
-} from 'src/utils/';
+} from '@/utils/';
+import { IRatesHistory, IMappedRates } from '@/types/reducersTypes/';
 
-type TChartUpload = {
-	date: number,
-	rates: IRates
-}
-
-type TChartsData = {
-  BYN: number;
-  USD: number;
-  RUB: number;
-  currency: string;
-  date: number;
-  name: string;
-};
-
-export const chartsUploadMapper = (rates: IRates): TChartUpload => {
+export const chartsUploadMapper = (rates: IRates): IRatesHistory => {
   const uploadTime = moment().valueOf();
   const uploadData = {
     date: uploadTime,
@@ -40,10 +26,10 @@ export const checkLastUpload = (lastUploadeData: number): boolean => {
 
 export const predisplayedChartsMapper = (
   selectedCurrency: string,
-  chartsData: any
-): TChartsData => {
-  return chartsData.reduce((acc: Array<TChartsData>, el: any) => {
-    const temp = {
+  chartsData: Array<IRatesHistory>
+): Array<IMappedRates> => {
+  return chartsData.reduce((acc: Array<IMappedRates>, el: IRatesHistory) => {
+    const temp: IMappedRates = {
       BYN: calculateCurrencyFromBase(
         1 / el.rates[selectedCurrency],
         el.rates['BYN']

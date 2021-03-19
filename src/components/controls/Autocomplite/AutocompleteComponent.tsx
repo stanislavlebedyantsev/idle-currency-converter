@@ -1,22 +1,32 @@
-import { React } from 'react';
+import React from 'react';
 import { Autocomplete } from './styles';
 import InputControl from '@/components/controls/Input/component';
+import { RenderOptions } from '@testing-library/react';
 
-const AutocompleteComponent = ({
+type AutoCompleteFieldProps<T> = {
+  onChange: (event: React.ChangeEvent, newValue: string) => void;
+  options: Array<string>;
+  defValue: string;
+  styles: T;
+  label?: string | undefined;
+};
+
+
+const AutocompleteComponent = <T extends string>({
   onChange,
   options,
   defValue,
   styles,
   label,
-}) => {
+}: AutoCompleteFieldProps<T>): React.ReactElement => {
   return (
-    <Autocomplete
+    <Autocomplete<string | React.ComponentType<any>>
       className={styles}
       name="currency"
       value={defValue}
       onChange={onChange}
       options={[...options]}
-      renderInput={(params) => {
+      renderInput={(params: RenderOptions) => {
         return (
           <InputControl
             {...params}
@@ -26,8 +36,8 @@ const AutocompleteComponent = ({
           />
         );
       }}
-      renderOption={(option) => option}
-			clearOnBlur
+      renderOption={(option: RenderOptions) => option}
+      clearOnBlur
       selectOnFocus
       disableClearable
     />

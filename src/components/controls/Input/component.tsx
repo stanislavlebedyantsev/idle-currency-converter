@@ -1,7 +1,7 @@
-import { React } from 'react';
+import React from 'react';
 import { Input } from './styles';
 
-const InputControl = (props) => {
+const InputControl = (props: any): React.ReactElement => {
   return <Input {...props} />;
 };
 

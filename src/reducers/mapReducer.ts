@@ -3,8 +3,8 @@ import {
   UPDATE_MATCHED_VALUES_LIST_DATA,
   UPDATE_COUNTRY_LIST,
   TMapActionTypes,
-} from 'src/types/actionTypes';
-import { IMapState } from 'src/types/reducersTypes';
+} from '@/types/actionTypes';
+import { IMapState } from '@/types/reducersTypes';
 
 const initState: IMapState = {
   matchedValues: [],
@@ -14,6 +14,7 @@ const initState: IMapState = {
     latlng: [54, -2],
     population: 0,
     capital: '',
+    currencies: [],
   },
 };
 

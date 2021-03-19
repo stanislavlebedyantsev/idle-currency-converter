@@ -1,18 +1,18 @@
-import { ILocalCurrency, IInputedValues } from 'src/types/reducersTypes';
-import { IRates } from 'src/types/apiResponces';
+import { ILocalCurrency, IInputedValues } from '@/types/reducersTypes';
+import { IRates } from '@/types/apiResponces';
 
-type TCountryData = {
+export type TCountryData = {
   name: string;
 };
 
 export const filterBeforeSave = (
-  allCountry: string[],
+  allCountry: Array<string>,
   typedValue: string
-): string[] => {
+): Array<string> => {
   if (typedValue.length === 0) {
     return [];
   }
-  return allCountry.reduce((acc: string[], el: string) => {
+  return allCountry.reduce((acc: Array<string>, el: string) => {
     if (el.toUpperCase().startsWith(typedValue.toUpperCase())) {
       acc.push(el);
     }
@@ -20,8 +20,8 @@ export const filterBeforeSave = (
   }, []);
 };
 
-export const filterCountryList = (countryList: TCountryData[]): string[] => {
-  return countryList.reduce((acc: string[], el: TCountryData) => {
+export const filterCountryList = (countryList: Array<TCountryData>): Array<string> => {
+  return countryList.reduce((acc: Array<string>, el: TCountryData) => {
     acc.push(el.name);
     return acc;
   }, []);
@@ -29,9 +29,9 @@ export const filterCountryList = (countryList: TCountryData[]): string[] => {
 
 export const isCurrencyExist = (
   allRates: IRates,
-  localCurrs: ILocalCurrency[]
-): IInputedValues[] => {
-  let result: IInputedValues[] = [];
+  localCurrs: Array<ILocalCurrency>
+): Array<IInputedValues> => {
+  let result: Array<IInputedValues> = [];
   try {
     localCurrs.find((el: ILocalCurrency) => {
       if (allRates[el.code])

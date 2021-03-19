@@ -5,8 +5,8 @@ import {
   UPDATE_COUNTRY_DATA,
   UPDATE_COUNTRY_LIST,
   TMapActionTypes,
-} from 'src/types/actionTypes';
-import { ICountryData } from 'src/types/reducersTypes';
+} from '@/types/actionTypes';
+import { ICountryData } from '@/types/reducersTypes';
 
 export const requestForCountryData = (code: string): TMapActionTypes => ({
   type: REQUEST_FOR_COUNRY_DATA,
@@ -22,12 +22,12 @@ export const updateCountryData = (
   payload: countryData,
 });
 export const updateMatchesValuesListData = (
-  inputData: string[]
+  inputData: Array<string>
 ): TMapActionTypes => ({
   type: UPDATE_MATCHED_VALUES_LIST_DATA,
   payload: inputData,
 });
-export const updateCountryList = (countryList: string[]): TMapActionTypes => ({
+export const updateCountryList = (countryList: Array<string>): TMapActionTypes => ({
   type: UPDATE_COUNTRY_LIST,
   payload: countryList,
 });
