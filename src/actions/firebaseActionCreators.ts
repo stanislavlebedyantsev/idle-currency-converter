@@ -3,7 +3,7 @@ import {
   REQUEST_FOR_GET_VALUES_DATABASE,
   UPLOAD_RATES_REQUEST,
   TFirebaseActionTypes,
-} from 'src/types/actionTypes';
+} from '@/types/actionTypes';
 
 export const uploadRatesRequest = (): TFirebaseActionTypes => ({
   type: UPLOAD_RATES_REQUEST,

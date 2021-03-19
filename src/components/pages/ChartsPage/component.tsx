@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import Error from 'src/components/common/error/';
-import ChartsHeader from 'src/components/common/componentsHeader/';
-import { getValuesDatabaseRequest } from 'src/actions/';
-import ChartTopToolArea from 'src/components/chartsComponents/ChartTopToolArea';
-import LineChartContainer from 'src/components/chartsComponents/LineChartContainer';
+import Error from '@/components/common/error/';
+import ChartsHeader from '@/components/common/componentsHeader/';
+import { getValuesDatabaseRequest } from '@/actions/';
+import ChartTopToolArea from '@/components/chartsComponents/ChartTopToolArea';
+import LineChartContainer from '@/components/chartsComponents/LineChartContainer';
 import {
   Container,
   ContentContainer,
-} from 'src/components/common/commonStyles/styles';
-import BasicLayout from 'src/components/layouts/BasicLayout/index';
+} from '@/components/common/commonStyles/styles';
+import BasicLayout from '@/components/layouts/BasicLayout/index';
 
-const ChartsPage = (): React.ReactElement => {
+const ChartsPage: React.FunctionComponent = (): React.ReactElement => {
   const dispatch = useDispatch();
 
   useEffect(() => {

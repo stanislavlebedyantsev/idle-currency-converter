@@ -1,10 +1,10 @@
-import { IInputedValues } from 'src/types/reducersTypes/';
+import { IInputedValues } from '@/types/reducersTypes/';
 
 export const dropCurrencyAfterDragging = (
-  moneyValues: IInputedValues[],
+  moneyValues: Array<IInputedValues>,
   startIndex: number,
   endIndex: number
-): IInputedValues[] => {
+): Array<IInputedValues> => {
   const result = [...moneyValues];
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);

@@ -2,7 +2,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
-import { IRatesHistory } from 'src/types/reducersTypes/';
+import { IRatesHistory } from '@/types/reducersTypes/';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -24,7 +24,7 @@ export default firebase;
 export const pushFirebaseDatabase = (rates: IRatesHistory): void => {
   firebase.database().ref('/rates').push(rates);
 };
-export const getLastFirebaseDatabase = (): Promise<boolean | unknown[]> => {
+export const getLastFirebaseDatabase = (): Promise<boolean | Array<unknown>> => {
   return firebase
     .database()
     .ref('/rates')
@@ -33,7 +33,7 @@ export const getLastFirebaseDatabase = (): Promise<boolean | unknown[]> => {
     .then((snapshot) => Object.values(snapshot.val()))
     .catch(() => false);
 };
-export const getValuesFirebaseDatabase = (): Promise<void | unknown[]> => {
+export const getValuesFirebaseDatabase = (): Promise<void | Array<unknown>> => {
   return firebase
     .database()
     .ref('/rates')

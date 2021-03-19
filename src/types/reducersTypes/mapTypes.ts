@@ -1,12 +1,16 @@
-export interface ICountryData{
-	name: string,
-	latlng: number[],
-	population: number,
-	capital: string,
+import { LatLngExpression } from 'leaflet';
+import { ILocalCurrency } from './converterTypes';
+
+export interface ICountryData {
+  name: string;
+  latlng: LatLngExpression ;
+  population: number;
+  capital: string;
+  currencies: Array<ILocalCurrency>;
 }
 
 export interface IMapState {
-  matchedValues: string[];
-  countryList: string[];
+  matchedValues: Array<string>;
+  countryList: Array<string>;
   countryData: ICountryData;
 }

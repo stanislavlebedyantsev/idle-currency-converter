@@ -1,4 +1,4 @@
-import { IRates } from 'src/types/apiResponces';
+import { IRates } from '@/types/apiResponces';
 
 interface ICalculateCurrency {
   (baseValue: number, newCurrency: number): number;

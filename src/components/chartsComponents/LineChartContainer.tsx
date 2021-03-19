@@ -1,4 +1,4 @@
-import { React } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import {
   LineChart,
@@ -11,11 +11,12 @@ import {
 } from 'recharts';
 import { toHashCode } from '@/utils/';
 import { Chart, ChartContainer } from './styles';
+import { IRootState } from '@/types/rootStateTypes';
 
-const LineChartContainer = () => {
-  const chartsData = useSelector((store) => store.charts.mappedRates);
+const LineChartContainer = (): React.ReactElement => {
+  const chartsData = useSelector((store: IRootState) => store.charts.mappedRates);
   const selectedCharts = useSelector(
-    (store) => store.charts.selectedCheckboxesCurrencies
+    (store: IRootState) => store.charts.selectedCheckboxesCurrencies
   );
 
   return (

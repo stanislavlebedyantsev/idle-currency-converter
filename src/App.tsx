@@ -4,11 +4,11 @@ import Router from '@/components/wrappers/Router';
 import { store } from '@/reducers/index';
 import '@/App.css';
 
-function App() {
+function App(): React.ReactElement {
   return (
-      <Provider store={store}>
-        <Router />
-      </Provider>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   );
 }
 

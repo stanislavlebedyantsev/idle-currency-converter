@@ -2,8 +2,8 @@ import {
   GEOLOCATION_REQUEST,
   SET_CURRENT_GEOLOCATION,
   TConverterActionTypes,
-} from 'src/types/actionTypes';
-import { ILocalCurrency } from 'src/types/reducersTypes';
+} from '@/types/actionTypes';
+import { ILocalCurrency } from '@/types/reducersTypes';
 
 export const geolocationRequest = (): TConverterActionTypes => ({
   type: GEOLOCATION_REQUEST,

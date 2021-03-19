@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
@@ -8,6 +8,11 @@ import {
   ToolsArea,
   UpdateButton,
 } from '@/components/converterComponents/styles';
+import { IRootState } from '@/types/rootStateTypes';
+
+type TProps = {
+  onChangeHandle: (event: React.ChangeEvent<Element>, newValue: string) => void;
+};
 
 const useStyles = makeStyles({
   autocomplete: {
@@ -18,10 +23,12 @@ const useStyles = makeStyles({
   },
 });
 
-const ToolsAreaComponent = ({ onChangeHandle }) => {
-  const allCurrs = useSelector((state) => state.converter.allCurrs);
-  const [avaluebleCurrs, setAvaluebleCurrs] = useState(allCurrs);
-  const moneyValues = useSelector((state) => state.converter.inputedValues);
+const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
+  const allCurrs = useSelector((state: IRootState) => state.converter.allCurrs);
+  const [avaluebleCurrs, setAvaluebleCurrs] = useState<Array<string>>(allCurrs);
+  const moneyValues = useSelector(
+    (state: IRootState) => state.converter.inputedValues
+  );
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -38,7 +45,7 @@ const ToolsAreaComponent = ({ onChangeHandle }) => {
       })
     );
   }, [allCurrs, moneyValues]);
-  const onSelect = (event, newValue) => {
+  const onSelect = (event: React.ChangeEvent<Element>, newValue: string) => {
     onChangeHandle(event, newValue);
   };
 

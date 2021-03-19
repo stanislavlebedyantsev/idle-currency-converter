@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState } from 'src/types/rootStateTypes';
-import MapHeader from 'src/components/common/componentsHeader/';
+import { IRootState } from '@/types/rootStateTypes';
+import MapHeader from '@/components/common/componentsHeader/';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { filterBeforeSave } from 'src/utils/';
+import { filterBeforeSave } from '@/utils/';
 import {
   requestForCountryData,
   updateMatchesValuesListData,
   requestCountryList,
-} from 'src/actions/';
-import Error from 'src/components/common/error/';
-import MapContent from 'src/components/mapComponents/MapContent';
-import BasicLayout from 'src/components/layouts/BasicLayout/index';
-import ListAutocomplete from 'src/components/controls/ListAutocomplete/component';
+} from '@/actions/';
+import Error from '@/components/common/error/';
+import MapContent from '@/components/mapComponents/MapContent';
+import BasicLayout from '@/components/layouts/BasicLayout/index';
+import ListAutocomplete from '@/components/controls/ListAutocomplete/component';
 import {
   Container,
   ContentContainer,
-} from 'src/components/common/commonStyles/styles';
+} from '@/components/common/commonStyles/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { MapBlock } from './styles';
 
@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     overflow: 'auto',
     maxHeight: '80%',
-  },
-  listSection: {
-    backgroundColor: 'inherit',
   },
 }));
 
@@ -80,8 +77,8 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
             discription="Here you can write the name of the country you want to receive information about. To get information about the selected country, move the mouse over the marker on the map."
           />
           <MapBlock>
-            <ListAutocomplete
-              classes={classes}
+            <ListAutocomplete<typeof classes.root>
+              classes={classes.root}
               textFieldState={textFieldState}
               listFilter={listFilter}
               handleTextFieldChange={handleTextFieldChange}

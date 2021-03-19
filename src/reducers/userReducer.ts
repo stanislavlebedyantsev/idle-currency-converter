@@ -2,8 +2,8 @@ import {
   SAVE_USER_DATA,
   REMOVE_USER_DATA,
   TUserActionTypes,
-} from 'src/types/actionTypes';
-import { IUserState } from 'src/types/reducersTypes';
+} from '@/types/actionTypes';
+import { IUserState } from '@/types/reducersTypes';
 
 const initState: IUserState = {
   user: {

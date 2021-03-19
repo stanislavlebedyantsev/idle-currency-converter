@@ -1,3 +1,7 @@
 export interface IRates {
-	[key: string]: number;
+  [key: string]: number;
+}
+
+export interface IResponce<T> {
+  data: T;
 }

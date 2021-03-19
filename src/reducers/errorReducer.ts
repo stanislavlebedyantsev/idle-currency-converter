@@ -1,9 +1,9 @@
-import { IErrorState } from 'src/types/reducersTypes';
+import { IErrorState } from '@/types/reducersTypes';
 import {
   SET_ERROR,
   REMOVE_ERROR,
   TErrorActionTypes,
-} from 'src/types/actionTypes';
+} from '@/types/actionTypes';
 
 const initState: IErrorState = {
   errorValue: '',
