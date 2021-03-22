@@ -7,6 +7,7 @@ import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 import { LatLngExpression } from 'leaflet';
 import { isCurrencyExist } from '@/utils/';
 import { Map } from '@/components/mapComponents/styles';
+import { useTranslation } from 'react-i18next';
 
 type TView = {
   center: LatLngExpression;
@@ -14,6 +15,7 @@ type TView = {
 };
 
 const MapContent = (): React.ReactElement => {
+	const {t} = useTranslation()
   const [existedCurrencies, setExistedCurrs] = useState<Array<IInputedCurrenciesValues>>([]);
   const { name, capital, latlng, population, currencies } = useSelector(
     (state: IRootState) => state.map.countryData
@@ -43,13 +45,13 @@ const MapContent = (): React.ReactElement => {
         <Marker position={latlng}>
           <Tooltip>
             <span>
-              Country name: {name}
+              {t('countryName')} {name}
               <br />
-              Capital: {capital}
+              {t('capital')} {capital}
               <br />
-              Population: {population}
+							{t('population')}  {population}
               <br />
-              Currencies to USD:{' '}
+              {t('currenciesToUSD')}{' '}
               {existedCurrencies.length
                 ? existedCurrencies.map((el) => `${el.currency} - ${el.value}`)
                 : 'unknowed'}

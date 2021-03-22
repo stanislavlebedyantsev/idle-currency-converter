@@ -8,6 +8,7 @@ import {
   UpdateButton,
 } from '@/components/converterComponents/styles';
 import { IRootState } from '@/types/rootStateTypes';
+import { useTranslation } from 'react-i18next';
 
 type TProps = {
   onChangeHandle: (event: React.ChangeEvent<Element>, newValue: string) => void;
@@ -23,6 +24,7 @@ const useStyles = makeStyles({
 });
 
 const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
+  const { t } = useTranslation();
   const allCurrencies = useSelector(
     (state: IRootState) => state.converter.allCurrencies
   );
@@ -59,12 +61,12 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
         color="primary"
         variant="contained"
         onClick={onClickHandle}>
-        Click for update currency rates
+        {t('converterButton')}
       </UpdateButton>
       <Autocomplete
         onChange={onSelect}
         options={avaluebleCurrencies}
-        label={'Type here for choice new currency'}
+        label={t('converterLabel')}
         defValue={''}
         styles={classes.autocomplete}
       />

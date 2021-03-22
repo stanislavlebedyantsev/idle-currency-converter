@@ -2,6 +2,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import InputControl from '@/components/controls/Input/component';
 import { AutoCompleteListContainer } from './styles';
+import { useTranslation } from 'react-i18next';
 
 type TProps<T> = {
   textFieldState: string;
@@ -20,6 +21,7 @@ const ListAutocomplete = <T extends string>({
   countryList,
   listFilter,
 }: TProps<T>): React.ReactElement => {
+  const { t } = useTranslation();
   const listChild = () => {
     if (matchedValues.length && textFieldState.length) {
       return listFilter(matchedValues);
@@ -33,7 +35,7 @@ const ListAutocomplete = <T extends string>({
     <AutoCompleteListContainer>
       <InputControl
         id="standard-basic"
-        label="Type country"
+        label={t('mapsLabel')}
         value={textFieldState}
         onChange={handleTextFieldChange}
       />

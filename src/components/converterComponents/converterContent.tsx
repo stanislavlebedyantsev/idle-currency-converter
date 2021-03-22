@@ -10,7 +10,9 @@ import {
   updateCurrencySelector,
   deleteCurrencyField,
   swapCurrencyViews,
-} from '@/actions/';
+} from '@/actions';
+import { IRootState } from '@/types/rootStateTypes';
+import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 import {
   updateAfterChange,
   convertBeforInput,
@@ -19,11 +21,11 @@ import {
   dropCurrencyAfterDragging,
 } from '@/utils/';
 import { InputContainer } from '@/components/converterComponents/styles';
-import { ContentContainer } from '@/components/common/commonStyles/styles';
-import { IRootState } from '@/types/rootStateTypes';
-import { IInputedCurrenciesValues } from '@/types/reducersTypes';
+import { ContentContainer } from '@/theme/styles';
+import { useTranslation } from 'react-i18next';
 
 const ConverterContent = (): React.ReactElement => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const values = useSelector(
     (state: IRootState) => state.converter.inputedValues
@@ -91,8 +93,8 @@ const ConverterContent = (): React.ReactElement => {
   return (
     <ContentContainer>
       <ConverterHeader
-        title="Welcome to currency converter page"
-        discription="If you want to swap fields you can drag them and drop"
+        title={t('converterTitle')}
+        description={t('converterDescription')}
       />
       <InputContainer>
         <DragDropContext onDragEnd={onDragEnd}>

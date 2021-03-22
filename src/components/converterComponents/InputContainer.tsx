@@ -97,7 +97,7 @@ const CurrInputContainer = ({
             className={classes.input}
             inputProps={{ inputProps: { min: 0 } }}
             type="number"
-            value={moneyValue.value || 'typed Incorrect symbols'}
+            value={moneyValue.value}
             name={choicenCurrencies}
             onBlur={() => handleInput(moneyValue)}
             onChange={handleChange}

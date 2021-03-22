@@ -6,13 +6,14 @@ import InputControl from '@/components/controls/Input/';
 import Button from '@material-ui/core/Button';
 import { CONVERTER_ROUTE_PATH } from '@/constants';
 import isElectron from 'is-electron';
+import { useTranslation } from 'react-i18next';
 import {
   signInGoogleAuthRequest,
   signInEmailAuthRequest,
   registateEmailAuthRequest,
   removeError,
 } from '@/actions/';
-import { Container } from '@/components/common/commonStyles/styles';
+import { Container } from '@/theme/styles';
 import {
   emailValidator,
   matchingPasswordsValidator,
@@ -36,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignInPage: React.FunctionComponent = (): React.ReactElement => {
+  const { t, i18n } = useTranslation();
   const [isEmailValid, setIsEmailValid] = useState<string>('');
   const [isPasswordValid, setIsPasswordValid] = useState<string>('');
   const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState<string>(
@@ -102,7 +104,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
       <Error />
       <SignInContainer id="signIn">
         <form onSubmit={handleLoginClick}>
-          Email:
+          {t('email')}
           <InputControl
             error={isEmailValid}
             type="email"
@@ -111,7 +113,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             onChange={handleEmailChange}
             helperText={isEmailValid}
           />
-          Password:
+          {t('password')}
           <InputControl
             error={isPasswordValid || (isRegistering && arePasswordsMatching)}
             type="password"
@@ -124,9 +126,9 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
           />
           {isRegistering ? (
             <>
-              Confirm Password:
+              {t('confirmPassword')}
               <InputControl
-                error={ 
+                error={
                   isConfirmPasswordValid ||
                   (isRegistering && arePasswordsMatching)
                 }
@@ -146,7 +148,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             variant="contained"
             color="primary"
             onClick={handleLoginClick}>
-            {!isRegistering ? 'Sign-In by Email' : 'Sign-Up'}
+            {!isRegistering ? t('singInByEmail') : t('singUp')}
           </Button>
         </form>
         {!isElectron() ? (
@@ -155,16 +157,12 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             variant="contained"
             color="primary"
             onClick={handleGoogleClick}>
-            Sign In by google
+            {t('singInByGoogle')}
           </Button>
         ) : null}
 
         <Button color="primary" onClick={handleChangeIsRegistrate}>
-          {isRegistering ? (
-            <>Already have account? Go and Sign-In</>
-          ) : (
-            <>No account? Go and Sing-Up new one</>
-          )}
+          {isRegistering ? t('goSignIn') : t('goSignUp')}
         </Button>
       </SignInContainer>
     </Container>

@@ -5,14 +5,13 @@ import ChartsHeader from '@/components/common/componentsHeader';
 import { getValuesDatabaseRequest } from '@/actions';
 import ChartTopToolArea from '@/components/chartsComponents/ChartTopToolArea';
 import LineChartContainer from '@/components/chartsComponents/LineChartContainer';
-import {
-  Container,
-  ContentContainer,
-} from '@/components/common/commonStyles/styles';
+import { Container, ContentContainer } from '@/theme/styles';
 import BasicLayout from '@/components/layouts/BasicLayout/';
+import { useTranslation } from 'react-i18next';
 
 const ChartsPage: React.FunctionComponent = (): React.ReactElement => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     dispatch(getValuesDatabaseRequest());
@@ -24,8 +23,8 @@ const ChartsPage: React.FunctionComponent = (): React.ReactElement => {
         <Error />
         <ContentContainer>
           <ChartsHeader
-            title="Welcome to charts page"
-            discription="On the chart you will see the ratio of the selected currency to the currencies selected by the checkboxes. The value is taken from 1 unit of the selected currency to 1 unit of the currency selected by the checkbox"
+            title={t('chartsTitle')}
+            description={t('chartsDescription')}
           />
           <ChartTopToolArea />
           <LineChartContainer />

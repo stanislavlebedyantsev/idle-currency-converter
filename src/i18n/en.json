@@ -1,0 +1,27 @@
+{
+  "translation": {
+    "email": "Email:",
+    "password": "Password:",
+    "confirmPassword": "Confirm Password:",
+    "singInByEmail": "Sign In by Email",
+    "singInByGoogle": "Sign In by google",
+    "singUp": "Sign Up",
+    "goSignIn": "Already have account? Go and Sign-In",
+    "goSignUp": "No account? Go and Sing-Up new one",
+		"chartsError": "Error",
+		"defaultLabel": "Currency",
+		"converterTitle": "Welcome to currency converter page",
+		"converterDescription": "If you want to swap fields you can drag them and drop",
+		"chartsTitle": "Welcome to charts page",
+		"chartsDescription": "On the chart you will see the ratio of the selected currency to the currencies selected by the checkboxes. The value is taken from 1 unit of the selected currency to 1 unit of the currency selected by the checkbox",
+		"mapsTitle": "Welcome to map page",
+		"mapsDescription": "Here you can write the name of the country you want to receive information about. To get information about the selected country, move the mouse over the marker on the map.",
+		"converterLabel": "Type here for choice new currency",
+		"mapsLabel": "Type country",
+		"converterButton": "Click for update currency rates",
+		"countryName": "Country name:",
+		"capital": "Capital:",
+		"population": "Population:",
+		"currenciesToUSD": "Currencies to USD:"
+  }
+}

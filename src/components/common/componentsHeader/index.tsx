@@ -3,17 +3,17 @@ import { HeaderContainer, MainTitle, SecondTitle } from './styles';
 
 type TProps = {
   title: string;
-  discription: string;
+  description: string;
 };
 
 const ConverterHeader = ({
   title,
-  discription,
+  description,
 }: TProps): React.ReactElement => {
   return (
     <HeaderContainer>
       <MainTitle>{title}</MainTitle>
-      <SecondTitle>{discription}</SecondTitle>
+      <SecondTitle>{description}</SecondTitle>
     </HeaderContainer>
   );
 };
