@@ -5,13 +5,14 @@ import {
   TMapActionTypes,
 } from '@/types/actionTypes';
 import { IMapState } from '@/types/reducersTypes';
+import { INIT_MAP_LAT_LNG } from '@/constants';
 
 const initState: IMapState = {
   matchedValues: [],
   countryList: [],
   countryData: {
     name: '',
-    latlng: [54, -2],
+    latlng: INIT_MAP_LAT_LNG,
     population: 0,
     capital: '',
     currencies: [],

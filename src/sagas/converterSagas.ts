@@ -15,9 +15,8 @@ import {
   initBaseCurrency,
   updateInputedValue,
   setError,
-  removeError,
   uploadRatesRequest,
-} from '@/actions/';
+} from '@/actions';
 import {
   CURRENCY_RATES_REQUEST,
   TConverterActionTypes,
@@ -26,15 +25,15 @@ import {
   getLastFirebaseDatabase,
   convertBeforInput,
   checkLastUpload,
-} from '@/utils/';
-import { IInputedValues, IRateReducer } from '@/types/reducersTypes/';
+} from '@/utils';
+import { IInputedCurrenciesValues, IRateReducer } from '@/types/reducersTypes';
 import { TErrorActionTypes, TFirebaseActionTypes } from '@/types/actionTypes';
 
 type TGeneratorTypes =
   | Promise<IRateReducer>
   | PutEffect<TConverterActionTypes | TFirebaseActionTypes | TErrorActionTypes>
   | CallEffect<IRateReducer>
-  | Array<IInputedValues>
+  | Array<IInputedCurrenciesValues>
   | SimpleEffect<'SELECT', SelectEffectDescriptor>
   | Promise<boolean | unknown[]>
   | boolean;

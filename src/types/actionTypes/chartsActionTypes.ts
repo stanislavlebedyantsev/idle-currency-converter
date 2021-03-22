@@ -1,4 +1,4 @@
-import { IRatesHistory, IMappedRates } from '@/types/reducersTypes/';
+import { IRatesHistory, IMappedRates } from '@/types/reducersTypes';
 
 export const INIT_CHARTS_DATA = 'INIT_CHARTS_DATA';
 export const CHANGE_DISPLAY_CHARTS_DATA = 'CHANGE_DISPLAY_CHARTS_DATA';

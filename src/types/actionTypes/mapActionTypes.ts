@@ -1,4 +1,4 @@
-import { ICountryData } from '@/types/reducersTypes/';
+import { ICountryData } from '@/types/reducersTypes';
 
 export const REQUEST_FOR_COUNRY_DATA = 'REQUEST_FOR_COUNRY_DATA';
 export const REQUEST_FOR_COUNRY_LIST = 'REQUEST_FOR_COUNRY_LIST';

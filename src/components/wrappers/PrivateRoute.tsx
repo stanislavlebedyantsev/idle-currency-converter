@@ -10,8 +10,8 @@ type Props = {
 
 const PrivateRoute = (props: Props): React.ReactElement => {
   const { path, component } = props;
-  const isAuth = useSelector((state: IRootState) => state.user.isAuth);
-  return isAuth ? (
+  const isAuthed = useSelector((state: IRootState) => state.user.isAuthed);
+  return isAuthed ? (
     <Route path={path} component={component} />
   ) : (
     <Redirect to="/" />

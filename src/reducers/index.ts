@@ -6,7 +6,7 @@ import mapReducer from './mapReducer';
 import errorReducer from './errorReducer';
 import userReducer from './userReducer';
 import { rootSaga } from '@/sagas/index';
-import { loadFromStorage, saveState } from '@/utils/';
+import { loadFromStorage, saveState } from '@/utils';
 
 declare global {
   interface Window {

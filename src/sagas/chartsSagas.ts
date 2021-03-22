@@ -6,20 +6,20 @@ import {
   SelectEffectDescriptor,
   PutEffect,
 } from 'redux-saga/effects';
-import { chartsUploadMapper, predisplayedChartsMapper } from '@/utils/';
+import { chartsUploadMapper, predisplayedChartsMapper } from '@/utils';
 import {
   UPLOAD_RATES_REQUEST,
   REQUEST_FOR_GET_LAST_VALUE_DATABASE,
   REQUEST_FOR_GET_VALUES_DATABASE,
 } from '@/types/actionTypes';
-import { initChartsData, changeDispayCharsData, setError } from '@/actions/';
-import { pushFirebaseDatabase, getValuesFirebaseDatabase } from '@/utils/';
+import { initChartsData, changeDispayCharsData, setError } from '@/actions';
+import { pushFirebaseDatabase, getValuesFirebaseDatabase } from '@/utils';
 import {
   ILocalCurrency,
   IRatesHistory,
   IMappedRates,
 } from '@/types/reducersTypes';
-import { TChartActionTypes, TErrorActionTypes } from '@/types/actionTypes/';
+import { TChartActionTypes, TErrorActionTypes } from '@/types/actionTypes';
 
 type TGeneratorTypes =
   | Promise<void | unknown[]>
@@ -30,17 +30,17 @@ type TGeneratorTypes =
   | IRatesHistory
   | void;
 
-function* getAllValuesFromDatabase(): Generator<TGeneratorTypes, void, never> {
+function* getAllCurrenciesValuesFromDatabase(): Generator<TGeneratorTypes, void, never> {
   try {
     const allRates: IRatesHistory[] = yield getValuesFirebaseDatabase();
-    const localCurr: ILocalCurrency = yield select(
+    const localCurrency: ILocalCurrency = yield select(
       (state) => state.converter.localCurrency
     );
-    if (!allRates && !localCurr) {
+    if (!allRates && !localCurrency) {
       throw new Error('We cant load data. Try again later');
     }
     const mappedDisplayCurrency = yield predisplayedChartsMapper(
-      localCurr.code,
+      localCurrency.code,
       allRates
     );
     //here call action for put values in state
@@ -64,5 +64,5 @@ function* pushValueToDatabase(): Generator<TGeneratorTypes, void, never> {
 export function* getChartsWatcher(): Generator<unknown, void, unknown> {
   yield takeEvery(UPLOAD_RATES_REQUEST, pushValueToDatabase);
   yield takeEvery(REQUEST_FOR_GET_LAST_VALUE_DATABASE, pushValueToDatabase);
-  yield takeEvery(REQUEST_FOR_GET_VALUES_DATABASE, getAllValuesFromDatabase);
+  yield takeEvery(REQUEST_FOR_GET_VALUES_DATABASE, getAllCurrenciesValuesFromDatabase);
 }

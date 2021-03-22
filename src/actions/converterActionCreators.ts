@@ -1,4 +1,4 @@
-import { IRateReducer, IInputedValues } from '@/types/reducersTypes/';
+import { IRateReducer, IInputedCurrenciesValues } from '@/types/reducersTypes';
 import {
   CURRENCY_RATES_RESPONCE,
   INIT_BASE_CURRENCY,
@@ -9,7 +9,7 @@ import {
   DELETE_CURRENCY_FIELD,
   SWAP_CURRENCY_VIEWS,
   TConverterActionTypes,
-} from '@/types/actionTypes/';
+} from '@/types/actionTypes';
 
 export const currencyRateResponce = (
   data: IRateReducer
@@ -26,32 +26,32 @@ export const currencyRateRequest = (): TConverterActionTypes => ({
 });
 
 export const updateInputedValue = (
-  inputData: Array<IInputedValues>
+  inputData: Array<IInputedCurrenciesValues>
 ): TConverterActionTypes => ({
   type: UPDATE_INPUTED_DATA,
   payload: inputData,
 });
 
 export const addNewValueFromSelect = (
-  selectValue: Array<IInputedValues>
+  selectValue: Array<IInputedCurrenciesValues>
 ): TConverterActionTypes => ({
   type: ADD_SELECT_VALUE,
   payload: selectValue,
 });
 export const updateCurrencySelector = (
-  newValue: Array<IInputedValues>
+  newValue: Array<IInputedCurrenciesValues>
 ): TConverterActionTypes => ({
   type: UPDATE_CURRENCY_SELECTOR,
   payload: newValue,
 });
 export const deleteCurrencyField = (
-  newInput: Array<IInputedValues>
+  newInput: Array<IInputedCurrenciesValues>
 ): TConverterActionTypes => ({
   type: DELETE_CURRENCY_FIELD,
   payload: newInput,
 });
 export const swapCurrencyViews = (
-  swappedValues: Array<IInputedValues>
+  swappedValues: Array<IInputedCurrenciesValues>
 ): TConverterActionTypes => ({
   type: SWAP_CURRENCY_VIEWS,
   payload: swappedValues,

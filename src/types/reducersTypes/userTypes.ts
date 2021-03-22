@@ -6,7 +6,7 @@ export interface IUserData {
 }
 
 export interface IUserState {
-  user: IUserData; 
-  isAuth: boolean;
+  user: IUserData;
+  isAuthed: boolean;
   isExist: boolean;
 }

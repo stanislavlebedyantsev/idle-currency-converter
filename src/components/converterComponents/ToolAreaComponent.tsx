@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/styles';
 import Autocomplete from '@/components/controls/Autocomplite';
-import { currencyRateRequest } from '@/actions/';
+import { currencyRateRequest } from '@/actions';
 import {
   ToolsArea,
   UpdateButton,
@@ -24,9 +23,13 @@ const useStyles = makeStyles({
 });
 
 const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
-  const allCurrs = useSelector((state: IRootState) => state.converter.allCurrs);
-  const [avaluebleCurrs, setAvaluebleCurrs] = useState<Array<string>>(allCurrs);
-  const moneyValues = useSelector(
+  const allCurrencies = useSelector(
+    (state: IRootState) => state.converter.allCurrencies
+  );
+  const [avaluebleCurrencies, setAvaluebleCurrs] = useState<Array<string>>(
+    allCurrencies
+  );
+  const values = useSelector(
     (state: IRootState) => state.converter.inputedValues
   );
   const classes = useStyles();
@@ -37,14 +40,14 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
   };
   useEffect(() => {
     setAvaluebleCurrs(() =>
-      allCurrs.filter((el) => {
-        const existedElement = moneyValues.find((element) => {
+      allCurrencies.filter((el) => {
+        const existedElement = values.find((element) => {
           return element.currency === el;
         });
         return el !== existedElement?.currency;
       })
     );
-  }, [allCurrs, moneyValues]);
+  }, [allCurrencies, values]);
   const onSelect = (event: React.ChangeEvent<Element>, newValue: string) => {
     onChangeHandle(event, newValue);
   };
@@ -60,7 +63,7 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
       </UpdateButton>
       <Autocomplete
         onChange={onSelect}
-        options={avaluebleCurrs}
+        options={avaluebleCurrencies}
         label={'Type here for choice new currency'}
         defValue={''}
         styles={classes.autocomplete}

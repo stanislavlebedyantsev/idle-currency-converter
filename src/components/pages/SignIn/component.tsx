@@ -18,7 +18,7 @@ import {
   matchingPasswordsValidator,
   passwordLengthValidation,
 } from '@/utils/';
-import Error from '@/components/common/error/';
+import Error from '@/components/common/error';
 import { makeStyles } from '@material-ui/core/styles';
 import { SignInContainer } from './styles';
 
@@ -41,7 +41,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
   const [isConfirmPasswordValid, setIsConfirmPasswordValid] = useState<string>(
     ''
   );
-  const [isPasswordsMatching, setIsPasswordsMatching] = useState<string>('');
+  const [arePasswordsMatching, setArePasswordsMatching] = useState<string>('');
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
 
   const [email, setEmail] = useState<string>('');
@@ -50,13 +50,13 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
 
   const classes = useStyles();
   const dispatch = useDispatch();
-  const isAuth = useSelector((state: IRootState) => state.user.isAuth);
+  const isAuthed = useSelector((state: IRootState) => state.user.isAuthed);
 
   useEffect(() => {
     setIsEmailValid(() => emailValidator(email));
     setIsPasswordValid(() => passwordLengthValidation(password));
     setIsConfirmPasswordValid(() => passwordLengthValidation(confirmPassword));
-    setIsPasswordsMatching(() =>
+    setArePasswordsMatching(() =>
       matchingPasswordsValidator(password, confirmPassword)
     );
   }, [email, password, confirmPassword]);
@@ -74,7 +74,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
         !isEmailValid &&
         !isPasswordValid &&
         !isConfirmPasswordValid &&
-        !isPasswordsMatching
+        !arePasswordsMatching
       ) {
         dispatch(registateEmailAuthRequest(email, password));
         setIsRegistering(() => false);
@@ -97,7 +97,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
     dispatch(removeError());
   };
 
-  return !isAuth ? (
+  return !isAuthed ? (
     <Container>
       <Error />
       <SignInContainer id="signIn">
@@ -113,25 +113,25 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
           />
           Password:
           <InputControl
-            error={isPasswordValid || (isRegistering && isPasswordsMatching)}
+            error={isPasswordValid || (isRegistering && arePasswordsMatching)}
             type="password"
             className={classes.input}
             value={password}
             onChange={handlePasswordChange}
             helperText={
-              (isRegistering && isPasswordsMatching) || isPasswordValid
+              (isRegistering && arePasswordsMatching) || isPasswordValid
             }
           />
           {isRegistering ? (
             <>
               Confirm Password:
               <InputControl
-                error={
+                error={ 
                   isConfirmPasswordValid ||
-                  (isRegistering && isPasswordsMatching)
+                  (isRegistering && arePasswordsMatching)
                 }
                 helperText={
-                  (isRegistering && isPasswordsMatching) ||
+                  (isRegistering && arePasswordsMatching) ||
                   isConfirmPasswordValid
                 }
                 type="password"

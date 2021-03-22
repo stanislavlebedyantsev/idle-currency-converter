@@ -8,9 +8,8 @@ type AutoCompleteFieldProps<T> = {
   options: Array<string>;
   defValue: string;
   styles: T;
-  label?: string | undefined;
+  label?: string;
 };
-
 
 const AutocompleteComponent = <T extends string>({
   onChange,
@@ -19,6 +18,19 @@ const AutocompleteComponent = <T extends string>({
   styles,
   label,
 }: AutoCompleteFieldProps<T>): React.ReactElement => {
+  const renderInput = (params: RenderOptions) => {
+    return (
+      <InputControl
+        {...params}
+        size="small"
+        label={label || 'Currency'}
+        variant="outlined"
+      />
+    );
+  };
+	
+	const renderOptions = (option: RenderOptions) => option
+
   return (
     <Autocomplete<string | React.ComponentType<any>>
       className={styles}
@@ -26,17 +38,8 @@ const AutocompleteComponent = <T extends string>({
       value={defValue}
       onChange={onChange}
       options={[...options]}
-      renderInput={(params: RenderOptions) => {
-        return (
-          <InputControl
-            {...params}
-            size="small"
-            label={label || 'Currency'}
-            variant="outlined"
-          />
-        );
-      }}
-      renderOption={(option: RenderOptions) => option}
+      renderInput={renderInput}
+      renderOption={renderOptions}
       clearOnBlur
       selectOnFocus
       disableClearable

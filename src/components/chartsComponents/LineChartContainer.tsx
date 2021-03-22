@@ -9,14 +9,14 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { toHashCode } from '@/utils/';
+import { toHashCode } from '@/utils';
 import { Chart, ChartContainer } from './styles';
 import { IRootState } from '@/types/rootStateTypes';
 
 const LineChartContainer = (): React.ReactElement => {
   const chartsData = useSelector((store: IRootState) => store.charts.mappedRates);
   const selectedCharts = useSelector(
-    (store: IRootState) => store.charts.selectedCheckboxesCurrencies
+    (store: IRootState) => store.charts.selectedCurrencies
   );
 
   return (
@@ -29,12 +29,12 @@ const LineChartContainer = (): React.ReactElement => {
           <Tooltip />
           <Legend />
           {selectedCharts
-            ? selectedCharts.map((el) => (
+            ? selectedCharts.map((element) => (
                 <Line
-                  key={el}
+                  key={element}
                   type="monotone"
-                  dataKey={el}
-                  stroke={`#${toHashCode(el)}`}
+                  dataKey={element}
+                  stroke={`#${toHashCode(element)}`}
                 />
               ))
             : null}

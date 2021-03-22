@@ -5,12 +5,11 @@ import {
   CHANGE_DISPLAY_CHARTS_DATA,
   TChartActionTypes,
 } from '@/types/actionTypes/';
-import { IChartsState } from '@/types/reducersTypes/';
+import { IChartsState } from '@/types/reducersTypes';
 const initState: IChartsState = {
   ratesHistory: [],
-  selectedCheckboxesCurrencies: [],
+  selectedCurrencies: [],
   mappedRates: [],
-  selectedForTheChart: '',
 };
 
 const chartsReducer = (
@@ -24,8 +23,8 @@ const chartsReducer = (
     case SELECT_CHECKBOX_CHART: {
       return {
         ...state,
-        selectedCheckboxesCurrencies: [
-          ...state.selectedCheckboxesCurrencies,
+        selectedCurrencies: [
+          ...state.selectedCurrencies,
           action.payload,
         ],
       };
@@ -33,7 +32,7 @@ const chartsReducer = (
     case REMOVE_SELECT_CHECKBOX_CHART: {
       return {
         ...state,
-        selectedCheckboxesCurrencies: state.selectedCheckboxesCurrencies.filter(
+        selectedCurrencies: state.selectedCurrencies.filter(
           (el) => el !== action.payload
         ),
       };

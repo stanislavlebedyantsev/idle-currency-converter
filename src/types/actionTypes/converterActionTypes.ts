@@ -1,8 +1,8 @@
 import {
   IRateReducer,
-  IInputedValues,
+  IInputedCurrenciesValues,
   ILocalCurrency,
-} from '@/types/reducersTypes/';
+} from '@/types/reducersTypes';
 
 export const CURRENCY_RATES_RESPONCE = 'CURRENCY_RATES_RESPONCE';
 export const INIT_BASE_CURRENCY = 'INIT_BASE_CURRENCY';
@@ -35,23 +35,23 @@ interface ICurrencyRateRequest {
 }
 interface IUpdateInputedValue {
   type: typeof UPDATE_INPUTED_DATA;
-  payload: Array<IInputedValues>;
+  payload: Array<IInputedCurrenciesValues>;
 }
 interface IAddNewValueFromSelect {
   type: typeof ADD_SELECT_VALUE;
-  payload: Array<IInputedValues>;
+  payload: Array<IInputedCurrenciesValues>;
 }
 interface IUpdateCurrencySelector {
   type: typeof UPDATE_CURRENCY_SELECTOR;
-  payload: Array<IInputedValues>;
+  payload: Array<IInputedCurrenciesValues>;
 }
 interface IDeleteCurrencyField {
   type: typeof DELETE_CURRENCY_FIELD;
-  payload: Array<IInputedValues>;
+  payload: Array<IInputedCurrenciesValues>;
 }
 interface ISwapCurrencyViews {
   type: typeof SWAP_CURRENCY_VIEWS;
-  payload: Array<IInputedValues>;
+  payload: Array<IInputedCurrenciesValues>;
 }
 
 export type TConverterActionTypes =

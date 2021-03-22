@@ -5,7 +5,7 @@ import {
   MAP_ROUTE_PATH,
   CONVERTER_ROUTE_PATH,
 } from '@/constants';
-import { signOutRequest } from '@/actions/';
+import { signOutRequest } from '@/actions';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';

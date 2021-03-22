@@ -4,8 +4,8 @@ import {
   SELECT_CHECKBOX_CHART,
   REMOVE_SELECT_CHECKBOX_CHART,
   TChartActionTypes,
-} from '@/types/actionTypes/';
-import { IRatesHistory, IMappedRates } from '@/types/reducersTypes/';
+} from '@/types/actionTypes';
+import { IRatesHistory, IMappedRates } from '@/types/reducersTypes';
 
 export const initChartsData = (
   chartsData: Array<IRatesHistory>

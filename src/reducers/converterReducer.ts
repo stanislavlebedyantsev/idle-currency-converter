@@ -10,10 +10,10 @@ import {
   SET_CURRENT_GEOLOCATION,
   SWAP_CURRENCY_VIEWS,
   TConverterActionTypes,
-} from '@/types/actionTypes/';
+} from '@/types/actionTypes';
 
 const initState: IConverterState = {
-  allCurrs: [],
+  allCurrencies: [],
   inputedValues: [],
   localCurrency: {
     name: '',
@@ -24,9 +24,7 @@ const initState: IConverterState = {
   },
   rate: {
     base: '',
-    rates: {
-      USD: 0,
-    },
+    rates: {},
   },
 };
 
@@ -39,7 +37,7 @@ const converterReducer = (
       return {
         ...state,
         rate: { ...action.payload },
-        allCurrs: [...Object.keys((action.payload as IRateReducer).rates)],
+        allCurrencies: [...Object.keys((action.payload as IRateReducer).rates)],
       };
     }
     case INIT_BASE_CURRENCY: {

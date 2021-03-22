@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import CurrInputContainer from './InputContainer';
 import ToolsAreaComponent from './ToolAreaComponent';
-import ConverterHeader from '@/components/common/componentsHeader/';
+import ConverterHeader from '@/components/common/componentsHeader';
 import {
   updateInputedValue,
   addNewValueFromSelect,
@@ -21,22 +21,22 @@ import {
 import { InputContainer } from '@/components/converterComponents/styles';
 import { ContentContainer } from '@/components/common/commonStyles/styles';
 import { IRootState } from '@/types/rootStateTypes';
-import { IInputedValues } from '@/types/reducersTypes';
+import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 
 const ConverterContent = (): React.ReactElement => {
   const dispatch = useDispatch();
-  const moneyValues = useSelector(
+  const values = useSelector(
     (state: IRootState) => state.converter.inputedValues
   );
   const converterState = useSelector((state: IRootState) => state.converter);
   const { base, rates } = converterState.rate || { undefined };
 
-  const handleInput = (valueForUpdate: IInputedValues) => {
-    const updatedCurrency: Array<IInputedValues> = convertBeforInput(
+  const handleInput = (valueForUpdate: IInputedCurrenciesValues) => {
+    const updatedCurrency: Array<IInputedCurrenciesValues> = convertBeforInput(
       valueForUpdate,
       base,
       rates,
-      moneyValues
+      values
     );
     dispatch(updateInputedValue(updatedCurrency));
   };
@@ -49,7 +49,7 @@ const ConverterContent = (): React.ReactElement => {
       base,
       rates,
       newValue,
-      moneyValues
+      values
     );
     dispatch(addNewValueFromSelect(updatedValue));
   };
@@ -60,13 +60,13 @@ const ConverterContent = (): React.ReactElement => {
       newValue,
       base,
       rates,
-      moneyValues
+      values
     );
     dispatch(updateCurrencySelector(updatedCurrency));
   };
 
   const handleDelete = (id: number) => {
-    const newInputFields = deleteCurrencyFromField(id, moneyValues);
+    const newInputFields = deleteCurrencyFromField(id, values);
     dispatch(deleteCurrencyField(newInputFields));
   };
 
@@ -80,7 +80,7 @@ const ConverterContent = (): React.ReactElement => {
     }
 
     const currencyList = dropCurrencyAfterDragging(
-      moneyValues,
+      values,
       result.source.index,
       result.destination.index
     );
@@ -99,12 +99,12 @@ const ConverterContent = (): React.ReactElement => {
           <Droppable droppableId="list">
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
-                {moneyValues.map((el, id) => (
+                {values.map((element, id) => (
                   <CurrInputContainer
-                    choicenCurr={el.currency}
-                    key={el.currency + id}
+                    choicenCurrencies={element.currency}
+                    key={element.currency + id}
                     id={id}
-                    fieldValue={el.value}
+                    fieldValue={element.value}
                     handleInput={handleInput}
                     handleChangeCurr={handleChangeCurr}
                     handleDelete={handleDelete}
