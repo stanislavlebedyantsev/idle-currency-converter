@@ -30,10 +30,10 @@ const useStyles = makeStyles({
 
 const ChartTopToolArea = (): React.ReactElement => {
   const selectedCurrencies = useSelector(
-    (store: IRootState) => store.charts.selectedCheckboxesCurrencies
+    (store: IRootState) => store.charts.selectedCurrencies
   );
-  const allCurrencys = useSelector(
-    (store: IRootState) => store.converter.allCurrs
+  const allCurrencies = useSelector(
+    (store: IRootState) => store.converter.allCurrencies
   );
   const chartsRatesHistory = useSelector(
     (store: IRootState) => store.charts.ratesHistory
@@ -41,7 +41,7 @@ const ChartTopToolArea = (): React.ReactElement => {
   const localCurrency = useSelector(
     (store: IRootState) => store.converter.localCurrency
   );
-  const [choisenCurr, setChoisenCurr] = useState<string>('');
+  const [choisenCurrencies, setChoisenCurrencies] = useState<string>('');
   const [checkboxes, setCheckboxes] = useState<Array<string>>([
     'USD',
     'BYN',
@@ -56,24 +56,24 @@ const ChartTopToolArea = (): React.ReactElement => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setChoisenCurr(() => localCurrency.code);
+    setChoisenCurrencies(() => localCurrency.code);
   }, [localCurrency]);
   useEffect(() => {
-    const sameCurr = checkboxes?.find((el) => el === choisenCurr);
+    const sameCurr = checkboxes?.find((element) => element === choisenCurrencies);
     if (sameCurr) dispatch(removeSelectСheckboxChart(sameCurr));
     setCheckboxState(() => ({
       USD: selectedCurrencies.includes('USD'),
       BYN: selectedCurrencies.includes('BYN'),
       RUB: selectedCurrencies.includes('RUB'),
     }));
-  }, [checkboxes, choisenCurr]);
+  }, [checkboxes, choisenCurrencies, dispatch, selectedCurrencies]);
 
   const handleSelectMainCurrency = (event: ChangeEvent, newValue: string) => {
     const mappedDisplayCurrency = predisplayedChartsMapper(
       newValue,
       chartsRatesHistory
     );
-    setChoisenCurr(newValue);
+    setChoisenCurrencies(newValue);
     dispatch(changeDispayCharsData(mappedDisplayCurrency));
   };
 
@@ -94,24 +94,24 @@ const ChartTopToolArea = (): React.ReactElement => {
     <ChartToolArea>
       <Autocomplete<typeof classes.autocomplete> 
         styles={classes.autocomplete}
-        options={[...allCurrencys]}
-        defValue={choisenCurr || 'error'}
+        options={[...allCurrencies]}
+        defValue={choisenCurrencies || 'error'}
         onChange={handleSelectMainCurrency}
         label={undefined}
       />
       <FormGroup row>
-        {checkboxes.map((el) =>
-          choisenCurr !== el ? (
+        {checkboxes.map((element) =>
+          choisenCurrencies !== element ? (
             <FormControlLabel
               control={
                 <Checkbox
-                  name={el}
+                  name={element}
                   color="primary"
                   onChange={handleChangeCheckbox}
-                  checked={checkboxState[el]}
+                  checked={checkboxState[element]}
                 />
               }
-              label={el}
+              label={element}
             />
           ) : null
         )}

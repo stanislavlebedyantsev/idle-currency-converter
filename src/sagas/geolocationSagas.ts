@@ -5,18 +5,18 @@ import {
   PutEffect,
   takeEvery,
 } from 'redux-saga/effects';
-import { geolocationApi } from '@/api/';
+import { geolocationApi } from '@/api';
 import {
   setCurrentGeolocation,
   setError,
   requestForCountryData,
-} from '@/actions/';
+} from '@/actions';
 import {
   GEOLOCATION_REQUEST,
   TConverterActionTypes,
   TErrorActionTypes,
   TMapActionTypes,
-} from '@/types/actionTypes/';
+} from '@/types/actionTypes';
 import { ILocalCurrency } from '@/types/reducersTypes';
 
 type TGeneratorTypes =

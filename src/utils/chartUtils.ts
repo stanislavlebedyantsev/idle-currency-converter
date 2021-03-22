@@ -3,8 +3,8 @@ import { IRates } from '@/types/apiResponces';
 import {
   calculateCurrencyFromBase,
   calculateBaseValueFromCurrency,
-} from '@/utils/';
-import { IRatesHistory, IMappedRates } from '@/types/reducersTypes/';
+} from '@/utils';
+import { IRatesHistory, IMappedRates } from '@/types/reducersTypes';
 
 export const chartsUploadMapper = (rates: IRates): IRatesHistory => {
   const uploadTime = moment().valueOf();

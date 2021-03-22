@@ -10,7 +10,7 @@ const initState: IUserState = {
     uid: '',
     email: '',
   },
-  isAuth: false,
+  isAuthed: false,
   isExist: false,
 };
 
@@ -20,7 +20,7 @@ const userReducer = (
 ): IUserState => {
   switch (action.type) {
     case SAVE_USER_DATA: {
-      return { ...state, user: action.payload, isAuth: true };
+      return { ...state, user: action.payload, isAuthed: true };
     }
     case REMOVE_USER_DATA: {
       return {
@@ -28,7 +28,7 @@ const userReducer = (
           uid: '',
           email: '',
         },
-        isAuth: false,
+        isAuthed: false,
         isExist: false,
       };
     }

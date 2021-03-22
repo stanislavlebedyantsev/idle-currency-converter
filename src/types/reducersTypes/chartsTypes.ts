@@ -12,11 +12,10 @@ export interface IMappedRates {
 export interface IRatesHistory {
   date: number;
   rates: IRates;
-} 
+}
 
 export interface IChartsState {
   ratesHistory: Array<IRatesHistory>;
-  selectedCheckboxesCurrencies: Array<string>;
+  selectedCurrencies: Array<string>;
   mappedRates: Array<IMappedRates>;
-  selectedForTheChart: string;
 }

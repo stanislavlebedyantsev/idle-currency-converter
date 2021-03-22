@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { CONVERTER_API_BASE, CONVERTER_API_KEY } from '@/constants';
-import { IRateReducer } from '@/types/reducersTypes/';
+import { IRateReducer } from '@/types/reducersTypes';
 import { IResponce } from '@/types/apiResponces';
 
 
@@ -13,6 +13,6 @@ export const converterApi = {
   fetchCurrencyRate(): Promise<IRateReducer> {
     return axiosTemplate
       .get(`latest.json?app_id=${CONVERTER_API_KEY}`)
-      .then((resp: IResponce<IRateReducer>) => resp.data);
+      .then((responce: IResponce<IRateReducer>) => responce.data);
   },
 };

@@ -7,7 +7,6 @@ import {
   REMOVE_USER_DATA,
   TUserActionTypes,
 } from '@/types/actionTypes';
-
 import { IUserData } from 'src/types/reducersTypes';
 
 export const signInGoogleAuthRequest = (): TUserActionTypes => ({

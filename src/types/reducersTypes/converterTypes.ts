@@ -1,6 +1,6 @@
 import { IRates } from '@/types/apiResponces';
 
-export type IInputedValues = {
+export type IInputedCurrenciesValues = {
   currency: string;
   value: number;
 };
@@ -19,8 +19,8 @@ export interface IRateReducer {
 
 
 export interface IConverterState {
-  allCurrs: Array<string>;
-  inputedValues: Array<IInputedValues>;
+  allCurrencies: Array<string>;
+  inputedValues: Array<IInputedCurrenciesValues>;
   localCurrency: ILocalCurrency;
   rate: IRateReducer;
 }

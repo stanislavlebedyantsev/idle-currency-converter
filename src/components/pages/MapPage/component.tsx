@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '@/types/rootStateTypes';
-import MapHeader from '@/components/common/componentsHeader/';
+import MapHeader from '@/components/common/componentsHeader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { filterBeforeSave } from '@/utils/';
+import { filterBeforeSave } from '@/utils';
 import {
   requestForCountryData,
   updateMatchesValuesListData,
@@ -55,10 +55,10 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
     dispatch(updateMatchesValuesListData(filtredList));
   };
 
-  const listFilter = (list: string[]) => {
-    return list.map((el: string) => (
-      <ListItem button key={el} onClick={handleSearchResult}>
-        <ListItemText primary={el} />
+  const listFilter = (list: Array<string>) => {
+    return list.map((element: string) => (
+      <ListItem button key={element} onClick={handleSearchResult}>
+        <ListItemText primary={element} />
       </ListItem>
     ));
   };

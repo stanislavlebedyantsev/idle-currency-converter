@@ -11,6 +11,6 @@ export const geolocationApi = {
   fetchGeolocation(): Promise<ILocalCurrency> {
     return axiosTemplate
       .get(`${GEOLOCATION_API_BASE}${GEOLOCATION_API_KEY}`)
-      .then((resp: IResponce<ILocalCurrency>) => resp.data);
+      .then((responce: IResponce<ILocalCurrency>) => responce.data);
   },
 };

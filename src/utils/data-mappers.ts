@@ -1,27 +1,31 @@
-import { calculateCurrencyFromBase, choiceConverterType } from '@/utils/';
+import { calculateCurrencyFromBase, choiceConverterType } from '@/utils';
 import { IRates } from '@/types/apiResponces';
-import { IInputedValues } from '@/types/reducersTypes/';
+import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 
 export const updateAfterChange = (
   id: number,
   newCurrency: string,
   base: string,
   rates: IRates,
-  moneyValues: Array<IInputedValues>
-): Array<IInputedValues> => {
+  moneyValues: Array<IInputedCurrenciesValues>
+): Array<IInputedCurrenciesValues> => {
   return moneyValues.reduce(
-    (acc: Array<IInputedValues>, el: IInputedValues, index: number) => {
+    (
+      acc: Array<IInputedCurrenciesValues>,
+      element: IInputedCurrenciesValues,
+      index: number
+    ) => {
       if (id === index) {
-        el.value = choiceConverterType(
-          el.currency,
-          el.value,
+        element.value = choiceConverterType(
+          element.currency,
+          element.value,
           base,
           newCurrency,
           rates
         );
-        el.currency = newCurrency;
+        element.currency = newCurrency;
       }
-      acc.push(el);
+      acc.push(element);
       return acc;
     },
     []
@@ -29,26 +33,29 @@ export const updateAfterChange = (
 };
 
 export const convertBeforInput = (
-  valueForUpdate: IInputedValues,
+  valueForUpdate: IInputedCurrenciesValues,
   base: string,
   rates: IRates,
-  moneyValues: Array<IInputedValues>
-): Array<IInputedValues> => {
+  moneyValues: Array<IInputedCurrenciesValues>
+): Array<IInputedCurrenciesValues> => {
   if (valueForUpdate) {
     const { currency, value } = valueForUpdate;
     return moneyValues.reduce(
-      (acc: Array<IInputedValues>, el: IInputedValues) => {
-        if (el.currency === currency) {
-          el = valueForUpdate;
-        } else if (el.currency !== currency && currency !== base) {
-          el.value = calculateCurrencyFromBase(
+      (
+        acc: Array<IInputedCurrenciesValues>,
+        element: IInputedCurrenciesValues
+      ) => {
+        if (element.currency === currency) {
+          element = valueForUpdate;
+        } else if (element.currency !== currency && currency !== base) {
+          element.value = calculateCurrencyFromBase(
             value / rates[currency],
-            rates[el.currency] || 1
+            rates[element.currency] || 1
           );
-        } else if (el.currency !== currency && currency === base) {
-          el.value = calculateCurrencyFromBase(value, rates[el.currency]);
+        } else if (element.currency !== currency && currency === base) {
+          element.value = calculateCurrencyFromBase(value, rates[element.currency]);
         }
-        acc.push(el);
+        acc.push(element);
         return acc;
       },
       []
@@ -61,8 +68,8 @@ export const updateCurrencyBeforeSelect = (
   base: string,
   rates: IRates,
   newCurrency: string,
-  moneyValues: Array<IInputedValues>
-): Array<IInputedValues> => {
+  moneyValues: Array<IInputedCurrenciesValues>
+): Array<IInputedCurrenciesValues> => {
   const copyValues = [...moneyValues];
   const newValue = choiceConverterType(
     copyValues[0]?.currency || newCurrency,
@@ -80,7 +87,7 @@ export const updateCurrencyBeforeSelect = (
 
 export const deleteCurrencyFromField = (
   id: number,
-  inputValues: Array<IInputedValues>
-): Array<IInputedValues> => {
+  inputValues: Array<IInputedCurrenciesValues>
+): Array<IInputedCurrenciesValues> => {
   return inputValues.filter((el, i) => i !== id);
 };

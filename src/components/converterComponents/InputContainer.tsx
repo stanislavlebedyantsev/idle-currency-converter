@@ -7,11 +7,11 @@ import { makeStyles } from '@material-ui/styles';
 import Autocomplete from '@/components/controls/Autocomplite';
 import { CurrField } from '@/components/converterComponents/styles';
 import { IRootState } from '@/types/rootStateTypes';
-import { IInputedValues } from '@/types/reducersTypes/';
+import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 
 type TProps = {
-  choicenCurr: string;
-  handleInput: (valueForUpdate: IInputedValues) => void;
+  choicenCurrencies: string;
+  handleInput: (valueForUpdate: IInputedCurrenciesValues) => void;
   fieldValue: number;
   handleChangeCurr: (id: number, newValue: string) => void;
   id: number;
@@ -29,53 +29,57 @@ const useStyles = makeStyles({
 });
 
 const CurrInputContainer = ({
-  choicenCurr,
+  choicenCurrencies,
   handleInput,
   fieldValue,
   handleChangeCurr,
   id,
   handleDelete,
 }: TProps): React.ReactElement => {
-  const allCurrs = useSelector((state: IRootState) => state.converter.allCurrs);
-  const [avaluebleCurrs, setAvaluebleCurrs] = useState<Array<string>>(allCurrs);
-  const moneyValues = useSelector(
+  const allCurrencies = useSelector(
+    (state: IRootState) => state.converter.allCurrencies
+  );
+  const [avaluebleCurrencies, setAvaluebleCurrs] = useState<Array<string>>(
+    allCurrencies
+  );
+  const values = useSelector(
     (state: IRootState) => state.converter.inputedValues
   );
-  const [moneyValue, setFieldValue] = useState<IInputedValues>({
-    currency: choicenCurr,
+  const [moneyValue, setFieldValue] = useState<IInputedCurrenciesValues>({
+    currency: choicenCurrencies,
     value: fieldValue,
   });
   const classes = useStyles();
 
   useEffect(() => {
     setFieldValue(() => ({
-      currency: choicenCurr,
+      currency: choicenCurrencies,
       value: fieldValue,
     }));
-  }, [fieldValue, choicenCurr]);
+  }, [fieldValue, choicenCurrencies]);
 
   useEffect(() => {
     setAvaluebleCurrs(() =>
-      allCurrs.filter((el: string) => {
-        const existedElement = moneyValues.find((element) => {
-          return element.currency === el;
+      allCurrencies.filter((element: string) => {
+        const existedElement = values.find((valuesElement) => {
+          return valuesElement.currency === element;
         });
-        return el === choicenCurr || el !== existedElement?.currency;
+        return element === choicenCurrencies || element !== existedElement?.currency;
       })
     );
-  }, [allCurrs, moneyValues]);
+  }, [allCurrencies, values]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(
-      (): IInputedValues => ({
-        currency: choicenCurr,
+      (): IInputedCurrenciesValues => ({
+        currency: choicenCurrencies,
         value: Number(event.target.value),
       })
     );
   };
 
   return (
-    <Draggable draggableId={`${choicenCurr}${id}`} index={id}>
+    <Draggable draggableId={`${choicenCurrencies}${id}`} index={id}>
       {(provided) => (
         <CurrField
           ref={provided.innerRef}
@@ -85,8 +89,8 @@ const CurrInputContainer = ({
             onChange={(event, newValue) => {
               handleChangeCurr(id, newValue);
             }}
-            options={avaluebleCurrs}
-            defValue={choicenCurr}
+            options={avaluebleCurrencies}
+            defValue={choicenCurrencies}
             styles={classes.autocomplete}
           />
           <Input
@@ -94,12 +98,12 @@ const CurrInputContainer = ({
             inputProps={{ inputProps: { min: 0 } }}
             type="number"
             value={moneyValue.value || 'typed Incorrect symbols'}
-            name={choicenCurr}
+            name={choicenCurrencies}
             onBlur={() => handleInput(moneyValue)}
             onChange={handleChange}
           />
           <Button
-            name={choicenCurr}
+            name={choicenCurrencies}
             startIcon={<DeleteIcon />}
             onClick={() => handleDelete(id)}
           />

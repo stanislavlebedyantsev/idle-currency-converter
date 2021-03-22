@@ -15,7 +15,7 @@ import {
   signOutFirebase,
   signInByEmailAuthFirebase,
   createUserWithEmailAndPassword,
-} from '@/utils/';
+} from '@/utils';
 import firebase from '@/utils/firebase/firebase';
 
 type TGeneratorTypes =

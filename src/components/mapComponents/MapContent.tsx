@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Marker, TileLayer, useMap, Tooltip } from 'react-leaflet';
 import { IRootState } from '@/types/rootStateTypes';
-import { IInputedValues } from '@/types/reducersTypes';
+import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 import { LatLngExpression } from 'leaflet';
 import { isCurrencyExist } from '@/utils/';
 import { Map } from '@/components/mapComponents/styles';
@@ -14,7 +14,7 @@ type TView = {
 };
 
 const MapContent = (): React.ReactElement => {
-  const [existedCurrs, setExistedCurrs] = useState<Array<IInputedValues>>([]);
+  const [existedCurrencies, setExistedCurrs] = useState<Array<IInputedCurrenciesValues>>([]);
   const { name, capital, latlng, population, currencies } = useSelector(
     (state: IRootState) => state.map.countryData
   );
@@ -50,8 +50,8 @@ const MapContent = (): React.ReactElement => {
               Population: {population}
               <br />
               Currencies to USD:{' '}
-              {existedCurrs.length
-                ? existedCurrs.map((el) => `${el.currency} - ${el.value}`)
+              {existedCurrencies.length
+                ? existedCurrencies.map((el) => `${el.currency} - ${el.value}`)
                 : 'unknowed'}
             </span>
           </Tooltip>

@@ -8,15 +8,15 @@ const axiosTemplate = axios.create({
   headers: {},
 });
 
-export const mapApi = {
+export const mapsApi = {
   fetchCountryData(name: string): Promise<ICountryData> {
     return axiosTemplate
       .get(`name/${name}`)
-      .then((resp: IResponce<ICountryData>) => resp.data);
+      .then((responce: IResponce<ICountryData>) => responce.data);
   },
   fetchCountryList(): Promise<Array<string>> {
     return axiosTemplate
       .get('')
-      .then((resp: IResponce<Array<string>>) => resp.data);
+      .then((responce: IResponce<Array<string>>) => responce.data);
   },
 };
