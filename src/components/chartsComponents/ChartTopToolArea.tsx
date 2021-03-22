@@ -13,6 +13,7 @@ import Autocomplete from '@/components/controls/Autocomplite';
 import { makeStyles } from '@material-ui/styles';
 import { ChartToolArea } from '@/components/chartsComponents/styles';
 import { IRootState } from '@/types/rootStateTypes';
+import { useTranslation } from 'react-i18next';
 
 type TCheckboxesState = {
   [key: string]: boolean;
@@ -29,6 +30,7 @@ const useStyles = makeStyles({
 });
 
 const ChartTopToolArea = (): React.ReactElement => {
+  const { t } = useTranslation();
   const selectedCurrencies = useSelector(
     (store: IRootState) => store.charts.selectedCurrencies
   );
@@ -59,14 +61,16 @@ const ChartTopToolArea = (): React.ReactElement => {
     setChoisenCurrencies(() => localCurrency.code);
   }, [localCurrency]);
   useEffect(() => {
-    const sameCurr = checkboxes?.find((element) => element === choisenCurrencies);
+    const sameCurr = checkboxes?.find(
+      (element) => element === choisenCurrencies
+    );
     if (sameCurr) dispatch(removeSelectСheckboxChart(sameCurr));
     setCheckboxState(() => ({
       USD: selectedCurrencies.includes('USD'),
       BYN: selectedCurrencies.includes('BYN'),
       RUB: selectedCurrencies.includes('RUB'),
     }));
-  }, [checkboxes, choisenCurrencies, dispatch, selectedCurrencies]);
+  }, [checkboxes, choisenCurrencies]);
 
   const handleSelectMainCurrency = (event: ChangeEvent, newValue: string) => {
     const mappedDisplayCurrency = predisplayedChartsMapper(
@@ -92,10 +96,10 @@ const ChartTopToolArea = (): React.ReactElement => {
 
   return (
     <ChartToolArea>
-      <Autocomplete<typeof classes.autocomplete> 
+      <Autocomplete<typeof classes.autocomplete>
         styles={classes.autocomplete}
         options={[...allCurrencies]}
-        defValue={choisenCurrencies || 'error'}
+        defValue={choisenCurrencies || t('chartsError')}
         onChange={handleSelectMainCurrency}
         label={undefined}
       />

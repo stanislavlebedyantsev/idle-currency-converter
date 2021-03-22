@@ -14,12 +14,10 @@ import Error from '@/components/common/error/';
 import MapContent from '@/components/mapComponents/MapContent';
 import BasicLayout from '@/components/layouts/BasicLayout/index';
 import ListAutocomplete from '@/components/controls/ListAutocomplete/component';
-import {
-  Container,
-  ContentContainer,
-} from '@/components/common/commonStyles/styles';
+import { Container, ContentContainer } from '@/theme/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { MapBlock } from './styles';
+import { useTranslation } from 'react-i18next';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MapPage: React.FunctionComponent = (): React.ReactElement => {
+  const { t } = useTranslation();
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -42,7 +41,7 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
   );
 
   const handleSearchResult = (event: React.MouseEvent<HTMLDivElement>) => {
-    setTextFieldState(''); 
+    setTextFieldState('');
     dispatch(requestForCountryData((event.target as HTMLElement).innerText));
     const filtredList = filterBeforeSave(countryList, '');
     dispatch(updateMatchesValuesListData(filtredList));
@@ -73,8 +72,8 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
         <Error />
         <ContentContainer>
           <MapHeader
-            title="Welcome to map page"
-            discription="Here you can write the name of the country you want to receive information about. To get information about the selected country, move the mouse over the marker on the map."
+            title={t('mapsTitle')}
+            description={t('mapsDescription')}
           />
           <MapBlock>
             <ListAutocomplete<typeof classes.root>
