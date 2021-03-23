@@ -5,6 +5,7 @@ import chartsReducer from './chartsReducer';
 import mapReducer from './mapReducer';
 import errorReducer from './errorReducer';
 import userReducer from './userReducer';
+import languageReducer from './languageReducer';
 import { rootSaga } from '@/sagas/index';
 import { loadFromStorage, saveState } from '@/utils';
 
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   map: mapReducer,
   error: errorReducer,
   user: userReducer,
+  language: languageReducer,
 });
 
 const preloadedState = loadFromStorage();

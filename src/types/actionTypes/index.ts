@@ -4,3 +4,4 @@ export * from './errorActionTypes';
 export * from './firebaseActionTypes';
 export * from './mapActionTypes';
 export * from './userActionTypes';
+export * from './languageActionTypes';
