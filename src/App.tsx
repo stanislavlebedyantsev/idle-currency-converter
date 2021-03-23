@@ -13,7 +13,7 @@ function App(): React.ReactElement {
     (element: string) => element === language
   );
   useEffect(() => {
-    if (!language) {
+    if (!language && isLanguageExist) {
       dispatch(setLanguage(navigator.language));
     }
     if (language && isLanguageExist) {
@@ -21,7 +21,7 @@ function App(): React.ReactElement {
     } else if (!isLanguageExist) {
       i18next.changeLanguage('en-US');
     }
-  }, [dispatch]);
+  }, [dispatch, language, isLanguageExist]);
   return <Router />;
 }
 
