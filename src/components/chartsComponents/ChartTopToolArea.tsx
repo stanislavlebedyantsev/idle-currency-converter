@@ -61,10 +61,10 @@ const ChartTopToolArea = (): React.ReactElement => {
     setChoisenCurrencies(() => localCurrency.code);
   }, [localCurrency]);
   useEffect(() => {
-    const sameCurr = checkboxes?.find(
+    const sameCurrencies = checkboxes?.find(
       (element) => element === choisenCurrencies
     );
-    if (sameCurr) dispatch(removeSelectСheckboxChart(sameCurr));
+    if (sameCurrencies) dispatch(removeSelectСheckboxChart(sameCurrencies));
     setCheckboxState(() => ({
       USD: selectedCurrencies.includes('USD'),
       BYN: selectedCurrencies.includes('BYN'),
