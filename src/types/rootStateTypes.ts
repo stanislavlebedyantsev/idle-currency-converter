@@ -1,4 +1,5 @@
 import {
+	ILanguageState,
   IConverterState,
   IChartsState,
   IMapState,
@@ -12,4 +13,5 @@ export interface IRootState {
   map: IMapState;
   error: IErrorState;
   user: IUserState;
+	language: ILanguageState
 }
