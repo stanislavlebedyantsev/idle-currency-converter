@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IRootState } from '@/types/rootStateTypes';
 import MapHeader from '@/components/common/componentsHeader';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { filterBeforeSave } from '@/utils';
 import {
   requestForCountryData,
   updateMatchesValuesListData,
@@ -46,21 +43,7 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
     const filtredList = filterBeforeSave(countryList, '');
     dispatch(updateMatchesValuesListData(filtredList));
   };
-  const handleTextFieldChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setTextFieldState(event.target.value);
-    const filtredList = filterBeforeSave(countryList, event.target.value);
-    dispatch(updateMatchesValuesListData(filtredList));
-  };
-
-  const listFilter = (list: Array<string>) => {
-    return list.map((element: string) => (
-      <ListItem button key={element} onClick={handleSearchResult}>
-        <ListItemText primary={element} />
-      </ListItem>
-    ));
-  };
+ 
 
   useEffect(() => {
     dispatch(requestCountryList());
@@ -78,11 +61,9 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
           <MapBlock>
             <ListAutocomplete<typeof classes.root>
               classes={classes.root}
-              textFieldState={textFieldState}
-              listFilter={listFilter}
-              handleTextFieldChange={handleTextFieldChange}
               matchedValues={matchedValues}
               countryList={countryList}
+							handleSearchResult={handleSearchResult}
             />
             <MapContent />
           </MapBlock>

@@ -2,11 +2,11 @@ import React from 'react';
 import { HeaderContainer, MainTitle, SecondTitle } from './styles';
 
 type TProps = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 };
 
-const ConverterHeader = ({
+const ComponentHeader = ({
   title,
   description,
 }: TProps): React.ReactElement => {
@@ -18,4 +18,4 @@ const ConverterHeader = ({
   );
 };
 
-export default ConverterHeader;
+export default ComponentHeader;
