@@ -13,7 +13,7 @@ export const Link = styles(NavLink).attrs((props) => ({ ...props }))`
   }
 `;
 
-export const EmailBlock = styles.div`
+export const EmailBlock = styles.p`
 margin-right:1%;
   @media (max-width: 760px) {
     display: none;
