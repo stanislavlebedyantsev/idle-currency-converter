@@ -31,11 +31,10 @@ it('error is render', () => {
     );
   });
   expect(container.textContent).toBe('');
-	
-	store = mockStore({ error: { errorValue: 'asd', isError: false } });
 
+  store = mockStore({ error: { errorValue: 'asd', isError: false } });
 
-	act(() => {
+  act(() => {
     render(
       <Provider store={store}>
         <Error />

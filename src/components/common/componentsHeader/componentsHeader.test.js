@@ -27,12 +27,12 @@ it('Component header is render with props', () => {
     render(<ComponentHeader title="test" />, container);
   });
   expect(container.textContent).toBe('test');
-	act(() => {
+  act(() => {
     render(<ComponentHeader description="test" />, container);
   });
   expect(container.textContent).toBe('test');
-	act(() => {
-    render(<ComponentHeader title='test' description="test" />, container);
+  act(() => {
+    render(<ComponentHeader title="test" description="test" />, container);
   });
   expect(container.textContent).toBe('testtest');
 });
