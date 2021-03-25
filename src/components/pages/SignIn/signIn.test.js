@@ -67,7 +67,7 @@ it('Sign in is render with value on 1 field', () => {
     );
   });
   const inputArray = container.querySelectorAll('input');
-	inputArray[0].value = 'asd'
+  inputArray[0].value = 'asd';
   expect(inputArray.length).toBe(2);
   expect(inputArray[0].value).toBe('asd');
   expect(inputArray[1].value).toBe('');
@@ -90,10 +90,10 @@ it('Sign in is render with click on Sign-up button', () => {
       container
     );
   });
-	const button = document.querySelector("[data-testid=signUp]");
-	act(() => {
-		button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
-	})
+  const button = document.querySelector('[data-testid=signUp]');
+  act(() => {
+    button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  });
   const inputArray = container.querySelectorAll('input');
   expect(inputArray.length).toBe(3);
 });
@@ -115,15 +115,15 @@ it('Sign in is render with click on Sign-up button twice', () => {
       container
     );
   });
-	const button = document.querySelector("[data-testid=signUp]");
-	act(() => {
-		button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
-	})
+  const button = document.querySelector('[data-testid=signUp]');
+  act(() => {
+    button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  });
   let inputArray = container.querySelectorAll('input');
   expect(inputArray.length).toBe(3);
-	act(() => {
-		button.dispatchEvent(new MouseEvent('click', {bubbles: true}))
-	})
+  act(() => {
+    button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+  });
   inputArray = container.querySelectorAll('input');
   expect(inputArray.length).toBe(2);
 });

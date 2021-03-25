@@ -49,7 +49,7 @@ it('Converter content is render', () => {
       container
     );
   });
-	const inputArray = container.querySelectorAll('input');
+  const inputArray = container.querySelectorAll('input');
   expect(inputArray.length).toBe(1);
 });
 it('Converter content is render with 1 field', () => {

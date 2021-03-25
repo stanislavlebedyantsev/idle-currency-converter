@@ -18,7 +18,6 @@ afterEach(() => {
 });
 
 it('Autocomplete is render', () => {
-
   act(() => {
     render(
       <AutocompleteComponent defValue={''} label={''} options={[]} />,

@@ -4,7 +4,7 @@ import { store } from '@/reducers/index';
 import { act } from 'react-dom/test-utils';
 import LineChartContainer from './LineChartContainer';
 
-it('chart is render', () => { 
+it('chart is render', () => {
   act(() => {
     render(
       <Provider store={store}>

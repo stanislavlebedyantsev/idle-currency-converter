@@ -36,7 +36,7 @@ it('Header is render', () => {
   });
   expect(container.querySelector('p').textContent).toBe('');
 
-  store = mockStore({ user: {user: {email: 'asd'}} });
+  store = mockStore({ user: { user: { email: 'asd' } } });
 
   act(() => {
     render(
