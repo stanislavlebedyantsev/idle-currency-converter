@@ -1,4 +1,3 @@
-//import { render, unmountComponentAtNode } from '@testing-library/react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import ComponentHeader from './index';
@@ -18,21 +17,29 @@ afterEach(() => {
   container = null;
 });
 
-it('Component header is render with props', () => {
-  act(() => {
-    render(<ComponentHeader />, container);
+describe('Component header tests', () => {
+  it('Component header is render without props', () => {
+    act(() => {
+      render(<ComponentHeader />, container);
+    });
+    expect(container.textContent).toBe('');
   });
-  expect(container.textContent).toBe('');
-  act(() => {
-    render(<ComponentHeader title="test" />, container);
+  it('Component header is render with title props', () => {
+    act(() => {
+      render(<ComponentHeader title="test" />, container);
+    });
+    expect(container.textContent).toBe('test');
   });
-  expect(container.textContent).toBe('test');
-  act(() => {
-    render(<ComponentHeader description="test" />, container);
+  it('Component header is render with description props', () => {
+    act(() => {
+      render(<ComponentHeader description="test" />, container);
+    });
+    expect(container.textContent).toBe('test');
   });
-  expect(container.textContent).toBe('test');
-  act(() => {
-    render(<ComponentHeader title="test" description="test" />, container);
+  it('Component header is render with all props', () => {
+    act(() => {
+      render(<ComponentHeader title="test" description="test" />, container);
+    });
+    expect(container.textContent).toBe('testtest');
   });
-  expect(container.textContent).toBe('testtest');
 });

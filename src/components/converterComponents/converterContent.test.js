@@ -20,99 +20,101 @@ afterEach(() => {
   container = null;
 });
 
-it('Converter content is render', () => {
-  let store = mockStore({
-    converter: {
-      allCurrencies: [],
-      inputedValues: [],
-      localCurrency: {
-        name: '',
-        code: '',
-        symbol: '',
-        native: '',
-        plural: '',
+describe('converter content tests', () => {
+  it('Converter content is render', () => {
+    let store = mockStore({
+      converter: {
+        allCurrencies: [],
+        inputedValues: [],
+        localCurrency: {
+          name: '',
+          code: '',
+          symbol: '',
+          native: '',
+          plural: '',
+        },
+        rate: {
+          base: '',
+          rates: {},
+        },
       },
-      rate: {
-        base: '',
-        rates: {},
+    });
+    act(() => {
+      render(
+        <Provider store={store}>
+          <ConverterContent />
+        </Provider>,
+        container
+      );
+    });
+    const inputArray = container.querySelectorAll('input');
+    expect(inputArray.length).toBe(1);
+  });
+  it('Converter content is render with 1 field', () => {
+    let store = mockStore({
+      converter: {
+        allCurrencies: ['BYN', 'USD'],
+        inputedValues: [{ currency: 'BYN', value: 1 }],
+        localCurrency: {
+          name: '',
+          code: '',
+          symbol: '',
+          native: '',
+          plural: '',
+        },
+        rate: {
+          base: '',
+          rates: {},
+        },
       },
-    },
+    });
+    act(() => {
+      render(
+        <Provider store={store}>
+          <ConverterContent />
+        </Provider>,
+        container
+      );
+    });
+    const inputArray = container.querySelectorAll('input');
+    expect(inputArray[0].value).toBe('BYN');
+    expect(inputArray[1].value).toBe('1');
+    expect(inputArray[inputArray.length - 1].value).toBe('');
   });
-  act(() => {
-    render(
-      <Provider store={store}>
-        <ConverterContent />
-      </Provider>,
-      container
-    );
-  });
-  const inputArray = container.querySelectorAll('input');
-  expect(inputArray.length).toBe(1);
-});
-it('Converter content is render with 1 field', () => {
-  let store = mockStore({
-    converter: {
-      allCurrencies: ['BYN', 'USD'],
-      inputedValues: [{ currency: 'BYN', value: 1 }],
-      localCurrency: {
-        name: '',
-        code: '',
-        symbol: '',
-        native: '',
-        plural: '',
+  it('Converter content is render with 2 field', () => {
+    let store = mockStore({
+      converter: {
+        allCurrencies: ['BYN', 'USD'],
+        inputedValues: [
+          { currency: 'BYN', value: 1 },
+          { currency: 'USD', value: 1 },
+        ],
+        localCurrency: {
+          name: '',
+          code: '',
+          symbol: '',
+          native: '',
+          plural: '',
+        },
+        rate: {
+          base: '',
+          rates: {},
+        },
       },
-      rate: {
-        base: '',
-        rates: {},
-      },
-    },
+    });
+    act(() => {
+      render(
+        <Provider store={store}>
+          <ConverterContent />
+        </Provider>,
+        container
+      );
+    });
+    const inputArray = container.querySelectorAll('input');
+    expect(inputArray[0].value).toBe('BYN');
+    expect(inputArray[1].value).toBe('1');
+    expect(inputArray[2].value).toBe('USD');
+    expect(inputArray[3].value).toBe('1');
+    expect(inputArray[inputArray.length - 1].value).toBe('');
   });
-  act(() => {
-    render(
-      <Provider store={store}>
-        <ConverterContent />
-      </Provider>,
-      container
-    );
-  });
-  const inputArray = container.querySelectorAll('input');
-  expect(inputArray[0].value).toBe('BYN');
-  expect(inputArray[1].value).toBe('1');
-  expect(inputArray[inputArray.length - 1].value).toBe('');
-});
-it('Converter content is render with 2 field', () => {
-  let store = mockStore({
-    converter: {
-      allCurrencies: ['BYN', 'USD'],
-      inputedValues: [
-        { currency: 'BYN', value: 1 },
-        { currency: 'USD', value: 1 },
-      ],
-      localCurrency: {
-        name: '',
-        code: '',
-        symbol: '',
-        native: '',
-        plural: '',
-      },
-      rate: {
-        base: '',
-        rates: {},
-      },
-    },
-  });
-  act(() => {
-    render(
-      <Provider store={store}>
-        <ConverterContent />
-      </Provider>,
-      container
-    );
-  });
-  const inputArray = container.querySelectorAll('input');
-  expect(inputArray[0].value).toBe('BYN');
-  expect(inputArray[1].value).toBe('1');
-  expect(inputArray[2].value).toBe('USD');
-  expect(inputArray[3].value).toBe('1');
-  expect(inputArray[inputArray.length - 1].value).toBe('');
 });

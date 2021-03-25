@@ -22,31 +22,33 @@ afterEach(() => {
   container = null;
 });
 
-it('Header is render', () => {
-  let store = mockStore({ user: {} });
-  act(() => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      </Provider>,
-      container
-    );
+describe('header tests', () => {
+  it('Header is render without email', () => {
+    let store = mockStore({ user: {} });
+    act(() => {
+      render(
+        <Provider store={store}>
+          <BrowserRouter>
+            <Header />
+          </BrowserRouter>
+        </Provider>,
+        container
+      );
+    });
+    expect(container.querySelector('p').textContent).toBe('');
   });
-  expect(container.querySelector('p').textContent).toBe('');
-
-  store = mockStore({ user: { user: { email: 'asd' } } });
-
-  act(() => {
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <Header />
-        </BrowserRouter>
-      </Provider>,
-      container
-    );
+  it('Header is render with email', () => {
+    const store = mockStore({ user: { user: { email: 'asd' } } });
+    act(() => {
+      render(
+        <Provider store={store}>
+          <BrowserRouter>
+            <Header />
+          </BrowserRouter>
+        </Provider>,
+        container
+      );
+    });
+    expect(container.querySelector('p').textContent).toBe('asd');
   });
-  expect(container.querySelector('p').textContent).toBe('asd');
 });

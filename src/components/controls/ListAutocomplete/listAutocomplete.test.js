@@ -23,31 +23,33 @@ afterEach(() => {
   container = null;
 });
 
-it('List autocomplete is render witout props', () => {
-  act(() => {
-    render(
-      <Provider store={store}>
-        <ListAutocomplete countryList={[]} matchedValues={[]} />
-      </Provider>,
-      container
-    );
+describe('List autocomplete tests', () => {
+  it('List autocomplete is render witout props', () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <ListAutocomplete countryList={[]} matchedValues={[]} />
+        </Provider>,
+        container
+      );
+    });
+    expect(container.querySelector('input').value).toBe('');
+    expect(container.querySelector('ul').childElementCount).toBe(0);
   });
-  expect(container.querySelector('input').value).toBe('');
-  expect(container.querySelector('ul').childElementCount).toBe(0);
-});
 
-it('List autocomplete is render with props', () => {
-  act(() => {
-    render(
-      <Provider store={store}>
-        <ListAutocomplete
-          countryList={['asd', 'qwe', 'zxc']}
-          matchedValues={[]}
-        />
-      </Provider>,
-      container
-    );
+  it('List autocomplete is render with props', () => {
+    act(() => {
+      render(
+        <Provider store={store}>
+          <ListAutocomplete
+            countryList={['asd', 'qwe', 'zxc']}
+            matchedValues={[]}
+          />
+        </Provider>,
+        container
+      );
+    });
+    expect(container.querySelector('input').value).toBe('');
+    expect(container.querySelector('ul').childElementCount).toBe(3);
   });
-  expect(container.querySelector('input').value).toBe('');
-  expect(container.querySelector('ul').childElementCount).toBe(3);
 });

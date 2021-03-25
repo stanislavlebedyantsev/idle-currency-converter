@@ -20,27 +20,30 @@ afterEach(() => {
   container = null;
 });
 
-it('error is render', () => {
-  let store = mockStore({ error: { errorValue: '', isError: false } });
-  act(() => {
-    render(
-      <Provider store={store}>
-        <Error />
-      </Provider>,
-      container
-    );
+describe('error tests', () => {
+  it('error is render without value', () => {
+    let store = mockStore({ error: { errorValue: '', isError: false }});
+    act(() => {
+      render(
+        <Provider store={store}>
+          <Error />
+        </Provider>,
+        container
+      );
+    });
+    expect(container.textContent).toBe('');
   });
-  expect(container.textContent).toBe('');
+  it('error is render with value', () => {
+    const store = mockStore({ error: { errorValue: 'asd', isError: false }});
 
-  store = mockStore({ error: { errorValue: 'asd', isError: false } });
-
-  act(() => {
-    render(
-      <Provider store={store}>
-        <Error />
-      </Provider>,
-      container
-    );
+    act(() => {
+      render(
+        <Provider store={store}>
+          <Error />
+        </Provider>,
+        container
+      );
+    });
+    expect(container.textContent).toBe('asd');
   });
-  expect(container.textContent).toBe('asd');
 });
