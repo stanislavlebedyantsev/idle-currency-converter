@@ -2,22 +2,17 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 import SignInPage from './component';
 
-Enzyme.configure({ adapter: new Adapter() });
 let container = null;
 const mockStore = configureMockStore();
 
 beforeEach(() => {
-  // подготавливаем DOM-элемент, куда будем рендерить
   container = document.createElement('div');
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // подчищаем после завершения
   unmountComponentAtNode(container);
   container.remove();
   container = null;

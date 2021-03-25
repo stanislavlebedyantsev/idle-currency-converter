@@ -8,13 +8,11 @@ let container = null;
 const mockStore = configureMockStore();
 
 beforeEach(() => {
-  // подготавливаем DOM-элемент, куда будем рендерить
   container = document.createElement('div');
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // подчищаем после завершения
   unmountComponentAtNode(container);
   container.remove();
   container = null;
