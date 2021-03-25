@@ -161,7 +161,10 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
           </Button>
         ) : null}
 
-        <Button color="primary" onClick={handleChangeIsRegistrate}>
+        <Button
+          color="primary"
+          onClick={handleChangeIsRegistrate}
+          data-testid="signUp">
           {isRegistering ? t('goSignIn') : t('goSignUp')}
         </Button>
       </SignInContainer>

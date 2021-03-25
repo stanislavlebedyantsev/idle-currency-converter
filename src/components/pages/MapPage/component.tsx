@@ -15,6 +15,7 @@ import { Container, ContentContainer } from '@/theme/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { MapBlock } from './styles';
 import { useTranslation } from 'react-i18next';
+import { filterBeforeSave } from '@/utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {

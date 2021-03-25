@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import CurrInputContainer from './InputContainer';
+import CurrencyInputContainer from './InputContainer';
 import ToolsAreaComponent from './ToolAreaComponent';
 import ConverterHeader from '@/components/common/componentsHeader';
 import {
@@ -102,7 +102,7 @@ const ConverterContent = (): React.ReactElement => {
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 {values.map((element, id) => (
-                  <CurrInputContainer
+                  <CurrencyInputContainer
                     choicenCurrencies={element.currency}
                     key={element.currency + id}
                     id={id}
