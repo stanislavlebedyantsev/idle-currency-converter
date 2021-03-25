@@ -17,39 +17,43 @@ afterEach(() => {
   container = null;
 });
 
-it('Autocomplete is render', () => {
-  act(() => {
-    render(
-      <AutocompleteComponent defValue={''} label={''} options={[]} />,
-      container
-    );
+describe('autocomplete tests', () => {
+  it('Autocomplete is render with empty props', () => {
+    act(() => {
+      render(
+        <AutocompleteComponent defValue={''} label={''} options={[]} />,
+        container
+      );
+    });
+    expect(container.querySelector('input').value).toBe('');
+    expect(container.querySelector('label').textContent).toBe('defaultLabel');
   });
-  expect(container.querySelector('input').value).toBe('');
-  expect(container.querySelector('label').textContent).toBe('defaultLabel');
-
-  act(() => {
-    render(
-      <AutocompleteComponent
-        defValue={'asd'}
-        label={'asd'}
-        options={['test1', 'test2']}
-      />,
-      container
-    );
+  it('Autocomplete is render with props', () => {
+    act(() => {
+      render(
+        <AutocompleteComponent
+          defValue={'asd'}
+          label={'asd'}
+          options={['test1', 'test2']}
+        />,
+        container
+      );
+    });
+    expect(container.querySelector('input').value).toBe('asd');
+    expect(container.querySelector('label').textContent).toBe('asd');
   });
-  expect(container.querySelector('input').value).toBe('asd');
-  expect(container.querySelector('label').textContent).toBe('asd');
-
-  act(() => {
-    render(
-      <AutocompleteComponent
-        defValue={''}
-        label={'asd'}
-        options={['test1', 'test2']}
-      />,
-      container
-    );
+  it('Autocomplete is render without default value', () => {
+    act(() => {
+      render(
+        <AutocompleteComponent
+          defValue={''}
+          label={'asd'}
+          options={['test1', 'test2']}
+        />,
+        container
+      );
+    });
+    document.querySelector('input').value = 'test1';
+    expect(container.querySelector('input').value).toBe('test1');
   });
-  document.querySelector('input').value = 'test1';
-  expect(container.querySelector('input').value).toBe('test1');
 });
