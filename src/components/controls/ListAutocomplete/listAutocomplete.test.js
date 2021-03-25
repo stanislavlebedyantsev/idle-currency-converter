@@ -3,21 +3,16 @@ import { act } from 'react-dom/test-utils';
 import ListAutocomplete from './component';
 import { Provider } from 'react-redux';
 import { store } from '@/reducers/';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 
 let container = null;
 
-Enzyme.configure({ adapter: new Adapter() });
 
 beforeEach(() => {
-  // подготавливаем DOM-элемент, куда будем рендерить
   container = document.createElement('div');
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // подчищаем после завершения
   unmountComponentAtNode(container);
   container.remove();
   container = null;
