@@ -3,10 +3,7 @@ import { act } from 'react-dom/test-utils';
 import ConverterContent from './converterContent';
 import configureMockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
 
-Enzyme.configure({ adapter: new Adapter() });
 let container = null;
 const mockStore = configureMockStore();
 
