@@ -1,4 +1,4 @@
-import { render, unmountComponentAtNode, fireEvent } from 'react-dom';
+import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import AutocompleteComponent from './AutocompleteComponent';
 
