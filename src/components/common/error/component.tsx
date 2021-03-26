@@ -30,7 +30,7 @@ const Error = (): React.ReactElement => {
 
   return (
     <div className={classes.root}>
-      <Collapse in={isError}>
+      <Collapse in={isError} data-testid="error">
         <AlertError
           severity="error"
           action={
