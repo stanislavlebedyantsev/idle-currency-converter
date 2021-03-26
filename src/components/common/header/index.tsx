@@ -52,14 +52,14 @@ const GlobalHeader = (): React.ReactElement => {
         <div className={classes.grow} />
         <EmailBlock>{userEmail}</EmailBlock>
         <div>
-          <Link to={CHARTS_ROUTE_PATH}>
+          <Link to={CHARTS_ROUTE_PATH} data-testid="chartsBtn">
             <IconButton color="inherit">
               <Badge color="secondary">
                 <TimelineIcon />
               </Badge>
             </IconButton>
           </Link>
-          <Link to={MAP_ROUTE_PATH}>
+          <Link to={MAP_ROUTE_PATH} data-testid="mapBtn">
             <IconButton color="inherit">
               <Badge color="secondary">
                 <MapIcon />
@@ -75,7 +75,9 @@ const GlobalHeader = (): React.ReactElement => {
           </Link>
           <IconButton
             color="inherit"
-            onClick={handleClick}>
+            onClick={handleClick}
+						data-testid="signOutBtn"
+						>
             <Badge color="secondary">
               <ExitToAppIcon />
             </Badge>
