@@ -5,7 +5,7 @@ expect.extend({ toMatchImageSnapshot });
 const timeout = process.env.SLOWMO ? 30000 : 10000;
 
 describe('visual reg. test', () => {
-  let browser, page, image;
+  let browser, page;
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
 
@@ -22,11 +22,11 @@ describe('visual reg. test', () => {
   afterAll(async () => {
     await browser.close();
   });
-	test(
+  test(
     'testing chart page',
     async () => {
       await page.click('[data-testid=chartsBtn]');
-      image = await page.screenshot();
+      const image = await page.screenshot();
       expect(image).toMatchImageSnapshot();
     },
     timeout

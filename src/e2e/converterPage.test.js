@@ -5,7 +5,7 @@ expect.extend({ toMatchImageSnapshot });
 const timeout = process.env.SLOWMO ? 30000 : 10000;
 
 describe('visual reg. test', () => {
-  let browser, page, image;
+  let browser, page;
   beforeAll(async () => {
     browser = await puppeteer.launch({ headless: false });
 
@@ -17,7 +17,9 @@ describe('visual reg. test', () => {
     await page.keyboard.type('123123');
     await page.click('[data-testid=signIn]');
     await page.waitForNavigation();
-		await page.goto('http://localhost:3000/converter', {"waitUntil" : "networkidle0"});
+    await page.goto('http://localhost:3000/converter', {
+      waitUntil: 'networkidle0',
+    });
   }, timeout);
 
   afterAll(async () => {
@@ -26,7 +28,7 @@ describe('visual reg. test', () => {
   test(
     'testing converter page',
     async () => {
-      image = await page.screenshot();
+      const image = await page.screenshot();
       expect(image).toMatchImageSnapshot();
     },
     timeout

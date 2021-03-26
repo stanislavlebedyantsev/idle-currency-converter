@@ -110,7 +110,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             type="email"
             className={classes.input}
             value={email}
-						data-testid="email"
+            data-testid="email"
             onChange={handleEmailChange}
             helperText={isEmailValid}
           />
@@ -120,7 +120,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             type="password"
             className={classes.input}
             value={password}
-						data-testid="password"
+            data-testid="password"
             onChange={handlePasswordChange}
             helperText={
               (isRegistering && arePasswordsMatching) || isPasswordValid
@@ -149,7 +149,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             className={classes.button}
             variant="contained"
             color="primary"
-						data-testid="signIn"
+            data-testid="signIn"
             onClick={handleLoginClick}>
             {!isRegistering ? t('singInByEmail') : t('singUp')}
           </Button>
