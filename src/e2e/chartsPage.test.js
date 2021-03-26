@@ -2,12 +2,12 @@ import puppeteer from 'puppeteer';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
 
 expect.extend({ toMatchImageSnapshot });
-const timeout = process.env.SLOWMO ? 30000 : 10000;
+const timeout = 50000;
 
-describe('visual reg. test', () => {
+describe('Charts page', () => {
   let browser, page;
   beforeAll(async () => {
-    browser = await puppeteer.launch({ headless: false });
+    browser = await puppeteer.launch({ headless: false, slowMo: 50 });
 
     page = await browser.newPage();
     await page.goto('http://localhost:3000');
@@ -17,17 +17,35 @@ describe('visual reg. test', () => {
     await page.keyboard.type('123123');
     await page.click('[data-testid=signIn]');
     await page.waitForNavigation();
+    await page.goto('http://localhost:3000/converter', {
+      waitUntil: 'networkidle0',
+    });
+    await page.goto('http://localhost:3000/charts', {
+      waitUntil: 'networkidle0',
+    });
   }, timeout);
-
-  afterAll(async () => {
+	afterAll(async () => {
     await browser.close();
   });
-  test(
-    'testing chart page',
+	test(
+    'should be rendered',
     async () => {
-      await page.click('[data-testid=chartsBtn]');
       const image = await page.screenshot();
       expect(image).toMatchImageSnapshot();
+    },
+    timeout
+  );
+  test(
+    'should add line to chart',
+    async () => {
+      await page.click('[data-testid=currencyCheckbox]');
+      await page.keyboard.type('USD');
+      await page.keyboard.press('ArrowDown');
+      await page.keyboard.press('Enter');
+      const chartsChoisenCurrency = page.$$(
+        'g[class=recharts-layer recharts-line]'
+      );
+      expect(chartsChoisenCurrency.length).toBe(1);
     },
     timeout
   );

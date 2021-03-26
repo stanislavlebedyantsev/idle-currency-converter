@@ -89,6 +89,7 @@ const CurrInputContainer = ({
             onChange={(event, newValue) => {
               handleChangeCurr(id, newValue);
             }}
+						dataTestId='inputFieldCurrencyChoice'
             options={avaluebleCurrencies}
             defValue={choicenCurrencies}
             styles={classes.autocomplete}

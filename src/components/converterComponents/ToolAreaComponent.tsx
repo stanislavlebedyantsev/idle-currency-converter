@@ -64,6 +64,7 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
         {t('converterButton')}
       </UpdateButton>
       <Autocomplete
+				dataTestId='currencyChoice'
         onChange={onSelect}
         options={avaluebleCurrencies}
         label={t('converterLabel')}

@@ -10,6 +10,7 @@ type AutoCompleteFieldProps<T> = {
   defValue: string;
   styles: T;
   label?: string;
+	dataTestId?: string
 };
 
 const AutocompleteComponent = <T extends string>({
@@ -18,6 +19,7 @@ const AutocompleteComponent = <T extends string>({
   defValue,
   styles,
   label,
+	dataTestId
 }: AutoCompleteFieldProps<T>): React.ReactElement => {
   const { t } = useTranslation();
   const renderInput = (params: RenderOptions) => {
@@ -35,6 +37,7 @@ const AutocompleteComponent = <T extends string>({
 
   return (
     <Autocomplete<string | React.ComponentType<any>>
+			data-testid={dataTestId}
       className={styles}
       name="currency"
       value={defValue}
