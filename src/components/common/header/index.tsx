@@ -76,8 +76,7 @@ const GlobalHeader = (): React.ReactElement => {
           <IconButton
             color="inherit"
             onClick={handleClick}
-						data-testid="signOutBtn"
-						>
+            data-testid="signOutBtn">
             <Badge color="secondary">
               <ExitToAppIcon />
             </Badge>
