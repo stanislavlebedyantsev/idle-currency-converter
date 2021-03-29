@@ -7,7 +7,7 @@ const timeout = 50000;
 describe('Converter page', () => {
   let browser, page;
   beforeAll(async () => {
-    browser = await puppeteer.launch({ headless: false, slowMo: 50 });
+    browser = await puppeteer.launch({ headless: false });
 
     page = await browser.newPage();
     await page.goto('http://localhost:3000');
@@ -73,7 +73,7 @@ describe('Converter page', () => {
       'input[name=USD]',
       (element) => element.value
     );
-    expect(converterFieldsValue).toBe('4.56');
+    expect(converterFieldsValue).toBe('4.57');
   });
   test('should delete field', async () => {
     await page.click('button[name=USD]');

@@ -97,7 +97,7 @@ const ChartTopToolArea = (): React.ReactElement => {
   return (
     <ChartToolArea>
       <Autocomplete<typeof classes.autocomplete>
-				dataTestId='chartsCurrencies'
+        dataTestId="chartsCurrencies"
         styles={classes.autocomplete}
         options={[...allCurrencies]}
         defValue={choisenCurrencies || t('chartsError')}
@@ -110,7 +110,7 @@ const ChartTopToolArea = (): React.ReactElement => {
             <FormControlLabel
               control={
                 <Checkbox
-								data-testid='currencyCheckbox'
+                  data-testid="currencyCheckbox"
                   name={element}
                   color="primary"
                   onChange={handleChangeCheckbox}

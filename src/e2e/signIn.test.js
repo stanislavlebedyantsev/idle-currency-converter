@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
 
 expect.extend({ toMatchImageSnapshot });
-const timeout = process.env.SLOWMO ? 30000 : 10000;
+const timeout = 50000;
 
 describe('Sign-In page', () => {
   let browser, page;
