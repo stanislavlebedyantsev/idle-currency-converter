@@ -7,7 +7,7 @@ const timeout = 50000;
 describe('Charts page', () => {
   let browser, page;
   beforeAll(async () => {
-    browser = await puppeteer.launch({ headless: false, slowMo: 50 });
+    browser = await puppeteer.launch({ headless: false});
 
     page = await browser.newPage();
     await page.goto('http://localhost:3000');
@@ -24,10 +24,10 @@ describe('Charts page', () => {
       waitUntil: 'networkidle0',
     });
   }, timeout);
-	afterAll(async () => {
+  afterAll(async () => {
     await browser.close();
   });
-	test(
+  test(
     'should be rendered',
     async () => {
       const image = await page.screenshot();
@@ -36,15 +36,25 @@ describe('Charts page', () => {
     timeout
   );
   test(
-    'should add line to chart',
+    'should change value in autocomplete',
     async () => {
-      await page.click('[data-testid=currencyCheckbox]');
+      await page.click('[data-testid=chartsCurrencies]');
       await page.keyboard.type('USD');
       await page.keyboard.press('ArrowDown');
       await page.keyboard.press('Enter');
-      const chartsChoisenCurrency = page.$$(
-        'g[class=recharts-layer recharts-line]'
+      const chartsChoisenCurrency = await page.$eval(
+        'input[type=text]',
+        (element) => element.value
       );
+      expect(chartsChoisenCurrency).toBe('USD');
+    },
+    timeout
+  );
+  test(
+    'should add line to chart',
+    async () => {
+      await page.click('[data-testid=currencyCheckbox]');
+      const chartsChoisenCurrency = await page.$$('.recharts-line');
       expect(chartsChoisenCurrency.length).toBe(1);
     },
     timeout
