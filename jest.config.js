@@ -1,8 +1,5 @@
 module.exports = {
   preset: 'jest-puppeteer',
-  globals: {
-    URL: 'http://localhost:3000',
-  },
   transform: { '^.+\\.ts?$': 'ts-jest' },
   testEnvironment: 'node',
   testRegex: '/tests/.*\\.(test|spec)?\\.(ts|tsx)$',

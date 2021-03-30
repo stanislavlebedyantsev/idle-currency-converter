@@ -138,6 +138,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
                   (isRegistering && arePasswordsMatching) ||
                   isConfirmPasswordValid
                 }
+								data-testid="confirmPassword"
                 type="password"
                 className={classes.input}
                 value={confirmPassword}

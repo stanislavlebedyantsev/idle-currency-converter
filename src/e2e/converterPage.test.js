@@ -1,26 +1,11 @@
-import puppeteer from 'puppeteer';
+import {beforeAllTest, browser, page} from './'
 import { toMatchImageSnapshot } from 'jest-image-snapshot';
 
 expect.extend({ toMatchImageSnapshot });
 const timeout = 50000;
 
 describe('Converter page', () => {
-  let browser, page;
-  beforeAll(async () => {
-    browser = await puppeteer.launch({ headless: false });
-
-    page = await browser.newPage();
-    await page.goto('http://localhost:3000');
-    await page.click('[data-testid=email]');
-    await page.keyboard.type('sstom.r@gmail.com');
-    await page.click('[data-testid=password]');
-    await page.keyboard.type('123123');
-    await page.click('[data-testid=signIn]');
-    await page.waitForNavigation();
-    await page.goto('http://localhost:3000/converter', {
-      waitUntil: 'networkidle0',
-    });
-  }, timeout);
+  beforeAll(beforeAllTest, timeout);
 
   afterAll(async () => {
     await browser.close();
@@ -28,6 +13,7 @@ describe('Converter page', () => {
   test(
     'should be rendered',
     async () => {
+			await page.goto('http://localhost:3000/converter', { waitUntil: 'networkidle0' });
       const image = await page.screenshot();
       expect(image).toMatchImageSnapshot();
     },
