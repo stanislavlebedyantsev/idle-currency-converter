@@ -47,6 +47,10 @@ Package application into windows application. Don't forget to build application 
 
 Run electron application in development mode. It means that application will running on [http://localhost:3000](http://localhost:3000).
 
+### `Docker`
+
+Application is ready for build Docker image. For build image you need to install [Docker](https://docs.docker.com/desktop/), [WSL2 for Windows](https://docs.microsoft.com/en-us/windows/wsl/install-win10#step-4---download-the-linux-kernel-update-package) then you need to open your project folder on Terminal and run `docker build -t [IMAGE-NAME] .`. For run existed Docker image run `docker run -d -r [PORT1]:[PORT2] [IMAGE-NAME]`. [Link](https://hub.docker.com/repository/docker/stanislavlebedyantsev/currency-converter) to ready for run Docker image
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).

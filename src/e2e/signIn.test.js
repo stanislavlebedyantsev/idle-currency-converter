@@ -38,6 +38,7 @@ describe('Sign-In page', () => {
       const signInBtn = await page.$('[data-testid=signIn]');
       expect(signInBtn).not.toBeNull();
       await page.click('[data-testid=signIn]');
+			await page.waitForSelector('[data-testid=error]', { visible: true });
       const error = await page.$eval(
         '[data-testid=error]',
         (element) => element.innerText
@@ -57,11 +58,33 @@ describe('Sign-In page', () => {
     timeout
   );
   test(
+    "should display 'The email address is already in use by another account.' error",
+    async () => {
+      await page.click('[data-testid=signUp]');
+      await page.click('input[type=email]', { clickCount: 3 });
+      await page.keyboard.type('sstom.r@gmail.com');
+      await page.click('[data-testid=password]', { clickCount: 3 });
+      await page.keyboard.type('123123');
+      await page.click('[data-testid=confirmPassword]', { clickCount: 3 });
+      await page.keyboard.type('123123');
+      await page.click('[data-testid=signIn]');
+      await page.waitForSelector('[data-testid=error]', { visible: true });
+      const error = await page.$eval(
+        '[data-testid=error]',
+        (element) => element.innerText
+      );
+      expect(error).toBe(
+        'The email address is already in use by another account.'
+      );
+    },
+    timeout
+  );
+  test(
     'can sign in with valid credentials',
     async () => {
       await page.click('input[type=email]', { clickCount: 3 });
       await page.keyboard.type('sstom.r@gmail.com');
-      await page.click('[data-testid=password]');
+      await page.click('[data-testid=password]', { clickCount: 3 });
       await page.keyboard.type('123123');
       await page.click('[data-testid=signIn]');
       await page.waitForNavigation();
