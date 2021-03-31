@@ -1,21 +1,20 @@
-kind: Deployment
 apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: currency-converter
+  namespace: default
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: currency-converter
+      app: web
   template:
     metadata:
       labels:
-        app: currency-converter
+        app: web
     spec:
       containers:
-      - name: currency-converter
-        image: localhost:5000/currency-converter
-        imagePullPolicy: Always
-        ports:
-          - containerPort: 80
-      restartPolicy: Always
+        - name: front-end
+          image: 499403976245.dkr.ecr.us-east-2.amazonaws.com/currency-converter:latest
+          ports:
+            - containerPort: 3000
