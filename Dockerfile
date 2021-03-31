@@ -1,2 +1,17 @@
-FROM nginx:1.19.8
-COPY build/ /usr/share/nginx/html
+FROM node:alpine
+
+# set working directory
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY package.json ./
+RUN yarn
+
+# add app
+COPY . ./
+
+# start app
+CMD ["yarn", "start"]

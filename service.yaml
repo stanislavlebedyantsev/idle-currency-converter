@@ -1,13 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: currency-converter
+  name: frontend-service
 spec:
   type: NodePort
-  ports:
-    - port: 80
-      targetPort: 80
-      protocol: TCP
-      nodePort: 31000
   selector:
-    app: currency-converter
+    app: web
+  ports:
+    - nodePort: 31479
+      port: 8080
+      targetPort: 3000

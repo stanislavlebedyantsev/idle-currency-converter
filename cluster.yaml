@@ -1,10 +1,29 @@
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 metadata:
-  name: idle-currency-converter
+  name: Converter-Cluster
   region: us-east-2
-managedNodeGroups:
-  - name: ng-1
-    launchTemplate:
-      id: lt-1
-      version: '1'
+
+vpc:
+  id: vpc-01b0a65ecb43476d0
+  cidr: '192.168.0.0/16'
+  subnets:
+    public:
+      us-east-2a:
+        id: subnet-05fce6819c7dd7646
+      us-east-2b:
+        id: subnet-0b8364cd31c506fea
+    private:
+      us-east-2a:
+        id: subnet-0f91224cd62ab6632
+      us-east-2b:
+        id: subnet-07519e4109b90c232
+
+nodeGroups:
+  - name: EKS-public-workers
+    instanceType: t2.medium
+    desiredCapacity: 2
+  - name: EKS-private-workers
+    instanceType: t2.medium
+    desiredCapacity: 1
+    privateNetworking: true
