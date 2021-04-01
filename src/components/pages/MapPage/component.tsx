@@ -44,7 +44,6 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
     const filtredList = filterBeforeSave(countryList, '');
     dispatch(updateMatchesValuesListData(filtredList));
   };
- 
 
   useEffect(() => {
     dispatch(requestCountryList());
@@ -60,13 +59,13 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
             description={t('mapsDescription')}
           />
           <MapBlock>
+            <MapContent />
             <ListAutocomplete<typeof classes.root>
               classes={classes.root}
               matchedValues={matchedValues}
               countryList={countryList}
-							handleSearchResult={handleSearchResult}
+              handleSearchResult={handleSearchResult}
             />
-            <MapContent />
           </MapBlock>
         </ContentContainer>
       </Container>

@@ -21,7 +21,7 @@ export const CurrField = styled.div.attrs((props) => ({ ...props }))`
 export const ToolsArea = styled.div`
   grid-column: 2;
   margin: 2% 2% 4%;
-  width: 50%;
+  width: 85%;
   grid-row: 1;
 `;
 

@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { ResponsiveContainer } from "recharts";
+import styled from 'styled-components';
+import { ResponsiveContainer } from 'recharts';
 
 export const ChartToolArea = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  margin: 2% 5%;
+  margin: 2% 2% 2% 5%;
 `;
 export const Chart = styled(ResponsiveContainer).attrs((props) => ({
   ...props,
@@ -19,8 +19,8 @@ export const ChartContainer = styled.div`
   display: flex;
   justify-content: center !important;
   height: 50vh;
-  width: 72vw;
-  ul {
-		margin-top: 1% !important;
-	}
+  width: 100%;
+  .recharts-legend-wrapper {
+    bottom: 0 !important;
+  }
 `;

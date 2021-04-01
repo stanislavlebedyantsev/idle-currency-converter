@@ -30,9 +30,6 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     width: '100%',
-    '& input': {
-      fontSize: '1.3vw !important',
-    },
   },
 }));
 

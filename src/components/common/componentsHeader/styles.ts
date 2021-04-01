@@ -9,10 +9,10 @@ export const HeaderContainer = styled.div`
 export const MainTitle = styled.h1`
   margin: 1% 0 0 0;
 	@media (max-width: 720px) {
-    font-size: 2.5vw;
+    font-size: 4vw;
   }
-  @media (min-width: 720px) {
-    font-size: 1.5vw;
+	@media (max-width: 568px) {
+    font-size: 3vw !important;
   }
 `;
 export const SecondTitle = styled.p`
@@ -20,9 +20,9 @@ export const SecondTitle = styled.p`
 	text-align: center;
 	
 	@media (max-width: 720px) {
-    font-size: 2vw;
+    font-size: 4vw;
   }
-  @media (min-width: 720px) {
-    font-size: 1vw;
+	@media (max-width: 568px) {
+    font-size: 3vw !important;
   }
 `;
