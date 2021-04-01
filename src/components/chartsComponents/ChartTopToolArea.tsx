@@ -21,10 +21,10 @@ type TCheckboxesState = {
 
 const useStyles = makeStyles({
   autocomplete: {
-    width: '25%',
+    width: '27%',
   },
   input: {
-    maxWidth: '30%',
+    maxWidth: '20%',
     marginLeft: '10%',
   },
 });
@@ -108,6 +108,7 @@ const ChartTopToolArea = (): React.ReactElement => {
         {checkboxes.map((element) =>
           choisenCurrencies !== element ? (
             <FormControlLabel
+              key={element}
               control={
                 <Checkbox
                   data-testid="currencyCheckbox"

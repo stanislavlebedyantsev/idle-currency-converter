@@ -21,7 +21,7 @@ type TProps = {
 
 const useStyles = makeStyles({
   autocomplete: {
-    width: '25%',
+    width: '30%',
   },
   input: {
     maxWidth: '30%',
@@ -97,7 +97,7 @@ const CurrInputContainer = ({
           />
           <InputControl
             className={classes.input}
-            inputProps={{ inputProps: { min: 0 } }}
+            InputProps={{ inputProps: { min: 0 } }}
             type="number"
             value={moneyValue.value}
             name={choicenCurrencies}

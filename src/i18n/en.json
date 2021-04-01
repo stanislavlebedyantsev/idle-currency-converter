@@ -16,7 +16,7 @@
 		"chartsDescription": "On the chart you will see the ratio of the selected currency to the currencies selected by the checkboxes. The value is taken from 1 unit of the selected currency to 1 unit of the currency selected by the checkbox",
 		"mapsTitle": "Welcome to map page",
 		"mapsDescription": "Here you can write the name of the country you want to receive information about. To get information about the selected country, move the mouse over the marker on the map.",
-		"converterLabel": "Type here for choice new currency",
+		"converterLabel": "Print to select currency",
 		"mapsLabel": "Type country",
 		"converterButton": "Update rates",
 		"countryName": "Country name:",

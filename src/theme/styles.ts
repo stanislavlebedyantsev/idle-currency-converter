@@ -20,11 +20,12 @@ export const ContentContainer = styled.div.attrs((props) => ({ ...props }))`
   position: absolute;
 
   min-width: 50%;
-  max-height: 100vh;
   border-radius: 16px;
   background-color: #fff;
   @media (max-width: 823px) and (max-height: 512px) {
-    top: 40%;
-    max-height: 150vh;
+    top: 30%;
+  }
+	@media (min-width: 720px) and (height: 540px){
+    top: 20%;
   }
 `;
