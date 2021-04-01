@@ -8,6 +8,7 @@ import Autocomplete from '@/components/controls/Autocomplite';
 import { CurrField } from '@/components/converterComponents/styles';
 import { IRootState } from '@/types/rootStateTypes';
 import { IInputedCurrenciesValues } from '@/types/reducersTypes';
+import InputControl from './../controls/Input/index';
 
 type TProps = {
   choicenCurrencies: string;
@@ -94,7 +95,7 @@ const CurrInputContainer = ({
             defValue={choicenCurrencies}
             styles={classes.autocomplete}
           />
-          <Input
+          <InputControl
             className={classes.input}
             inputProps={{ inputProps: { min: 0 } }}
             type="number"

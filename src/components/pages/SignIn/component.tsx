@@ -104,8 +104,9 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
       <Error />
       <SignInContainer id="signIn">
         <form onSubmit={handleLoginClick}>
-          {t('email')}
           <InputControl
+            id="filled-basic"
+            label={t('email')}
             error={isEmailValid}
             type="email"
             className={classes.input}
@@ -114,8 +115,9 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             onChange={handleEmailChange}
             helperText={isEmailValid}
           />
-          {t('password')}
           <InputControl
+            id="filled-basic"
+            label={t('password')}
             error={isPasswordValid || (isRegistering && arePasswordsMatching)}
             type="password"
             className={classes.input}
@@ -128,8 +130,9 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
           />
           {isRegistering ? (
             <>
-              {t('confirmPassword')}
               <InputControl
+                id="filled-basic"
+                label={t('confirmPassword')}
                 error={
                   isConfirmPasswordValid ||
                   (isRegistering && arePasswordsMatching)
@@ -138,7 +141,7 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
                   (isRegistering && arePasswordsMatching) ||
                   isConfirmPasswordValid
                 }
-								data-testid="confirmPassword"
+                data-testid="confirmPassword"
                 type="password"
                 className={classes.input}
                 value={confirmPassword}
