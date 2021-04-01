@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 type AutoCompleteFieldProps<T> = {
   onChange: (event: React.ChangeEvent, newValue: string) => void;
   options: Array<string>;
-  defValue: string;
+  defValue?: string;
   styles: T;
   label?: string;
 	dataTestId?: string

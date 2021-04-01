@@ -1,8 +1,8 @@
 {
   "translation": {
-    "email": "Email:",
-    "password": "Password:",
-    "confirmPassword": "Confirm Password:",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
     "singInByEmail": "Sign In by Email",
     "singInByGoogle": "Sign In by google",
     "singUp": "Sign Up",
@@ -18,7 +18,7 @@
 		"mapsDescription": "Here you can write the name of the country you want to receive information about. To get information about the selected country, move the mouse over the marker on the map.",
 		"converterLabel": "Type here for choice new currency",
 		"mapsLabel": "Type country",
-		"converterButton": "Click for update currency rates",
+		"converterButton": "Update rates",
 		"countryName": "Country name:",
 		"capital": "Capital:",
 		"population": "Population:",

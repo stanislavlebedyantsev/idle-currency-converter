@@ -4,7 +4,6 @@ export const toHashCode = (string: string): number => {
   for (let i = 0; i < string.length; i++) {
     char = string.charCodeAt(i);
     hash = (hash << 5) - hash + char;
-		console.log((hash << 5));
     hash |= 0;
   }
   if (hash <= 99999) hash *= 10;

@@ -23,8 +23,8 @@ export const ContentContainer = styled.div.attrs((props) => ({ ...props }))`
   max-height: 100vh;
   border-radius: 16px;
   background-color: #fff;
-  @media (max-width: 568px) and (max-height: 320px) {
-    margin-top: 80vh;
+  @media (max-width: 823px) and (max-height: 512px) {
+    top: 40%;
     max-height: 150vh;
   }
 `;

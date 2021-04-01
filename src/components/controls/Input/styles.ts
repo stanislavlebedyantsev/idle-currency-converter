@@ -12,10 +12,8 @@ export const Input = styled(TextField).attrs((props) => ({ ...props }))`
       font-size: 3.9vw;
     }
     label {
-      font-size: 4vw;
+      font-size: 2.5vw;
       width: 80%;
-      right: 0;
-      bottom: 0;
     }
   }
 	@media (max-width: 568px) and (max-height: 320px) {
@@ -23,7 +21,7 @@ export const Input = styled(TextField).attrs((props) => ({ ...props }))`
       font-size: 3vw;
     }
     label {
-      font-size: 3vw;
+      font-size: 2.5vw;
       width: 80%;
       right: 0;
       bottom: 0;
@@ -34,7 +32,7 @@ export const Input = styled(TextField).attrs((props) => ({ ...props }))`
       font-size: 4vw;
     }
     label {
-      font-size: 3.5vw;
+      font-size: 3vw;
       width: 85%;
       right: 0;
       bottom: 0;

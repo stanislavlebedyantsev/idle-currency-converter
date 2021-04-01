@@ -68,7 +68,7 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
         onChange={onSelect}
         options={avaluebleCurrencies}
         label={t('converterLabel')}
-        defValue={''}
+        defValue={undefined}
         styles={classes.autocomplete}
       />
     </ToolsArea>
