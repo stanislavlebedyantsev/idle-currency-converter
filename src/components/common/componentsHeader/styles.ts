@@ -8,21 +8,20 @@ export const HeaderContainer = styled.div`
 `;
 export const MainTitle = styled.h1`
   margin: 1% 0 0 0;
-	@media (max-width: 720px) {
-    font-size: 4vw;
-  }
+	@media(min-width:720px){
+		font-size: 28px
+	}
 	@media (max-width: 568px) {
-    font-size: 3vw !important;
+    font-size: 16px !important;
   }
 `;
 export const SecondTitle = styled.p`
   margin: 0;
 	text-align: center;
-	
-	@media (max-width: 720px) {
-    font-size: 4vw;
-  }
+	@media(min-width:720px){
+		font-size: 24px
+	}
 	@media (max-width: 568px) {
-    font-size: 3vw !important;
+    font-size: 12px !important;
   }
 `;

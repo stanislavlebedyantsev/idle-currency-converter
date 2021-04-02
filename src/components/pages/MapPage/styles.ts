@@ -6,9 +6,9 @@ export const MapBlock = styled.div`
   flex-wrap: wrap;
   flex-flow: row-reverse;
   margin: 5%;
-  height: 50vh;
+  height: 30em;
 	@media(max-width: 720px){
 		flex-flow: column;
-		height: 60vh;
+		height: 25em;
 	}
 `;

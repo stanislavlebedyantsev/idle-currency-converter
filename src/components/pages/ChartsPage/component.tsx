@@ -5,7 +5,7 @@ import ChartsHeader from '@/components/common/componentsHeader';
 import { getValuesDatabaseRequest } from '@/actions';
 import ChartTopToolArea from '@/components/chartsComponents/ChartTopToolArea';
 import LineChartContainer from '@/components/chartsComponents/LineChartContainer';
-import { Container, ContentContainer } from '@/theme/styles';
+import { Container, ContentContainer } from '@/components/common/componentStyles/styles';
 import BasicLayout from '@/components/layouts/BasicLayout/';
 import { useTranslation } from 'react-i18next';
 

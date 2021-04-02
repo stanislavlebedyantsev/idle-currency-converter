@@ -1,27 +1,25 @@
+import { COLOR_WHITE } from '@/theme/colors';
 import styled from 'styled-components';
 
 export const SignInContainer = styled.div`
   position: absolute;
+	input {
+		font-size: 1em !important;
+	}
+	label {
+		font-size: 1em !important;
+	}
   @media (max-width: 568px) and (max-height: 320px) {
     width: 50%;
-    padding: 5%;
-    input {
-      font-size: 3vw !important;
-    }
-    label {
-      font-size: 3vw !important;
-    }
   }
-  @media (max-width: 320px) and (max-height: 568px) {
-    padding: 5%;
-    input {
-      font-size: 4.5vw !important;
-    }
-  }
-  background-color: #fff;
+	@media(max-width:720px){	
+		padding: 24px;
+	}
+  
+  background-color: ${COLOR_WHITE};
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 10%;
-  border-radius: 4%;
+  padding: 50px;
+  border-radius: 25px;
 `;

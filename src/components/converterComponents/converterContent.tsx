@@ -21,7 +21,7 @@ import {
   dropCurrencyAfterDragging,
 } from '@/utils/';
 import { InputContainer } from '@/components/converterComponents/styles';
-import { ContentContainer } from '@/theme/styles';
+import { ContentContainer } from '@/components/common/componentStyles/styles';
 import { useTranslation } from 'react-i18next';
 
 const ConverterContent = (): React.ReactElement => {

@@ -13,7 +13,7 @@ import {
   registateEmailAuthRequest,
   removeError,
 } from '@/actions/';
-import { Container } from '@/theme/styles';
+import { Container } from '@/components/common/componentStyles/styles';
 import {
   emailValidator,
   matchingPasswordsValidator,

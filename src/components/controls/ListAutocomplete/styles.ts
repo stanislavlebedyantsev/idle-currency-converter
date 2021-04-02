@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const AutoCompleteListContainer = styled.div`
-  width: 25vw;
+  width: 25em;
   height: 100%;
 	@media(max-width: 720px){
 		width: 100%;
