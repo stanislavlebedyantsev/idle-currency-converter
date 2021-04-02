@@ -18,7 +18,7 @@ export const Chart = styled(ResponsiveContainer).attrs((props) => ({
 export const ChartContainer = styled.div`
   display: flex;
   justify-content: center !important;
-  height: 50vh;
+  height: 25em;
   width: 100%;
   .recharts-legend-wrapper {
     bottom: 0 !important;

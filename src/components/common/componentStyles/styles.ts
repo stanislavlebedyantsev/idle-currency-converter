@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import background from '@/assets/background.png';
-
+import { COLOR_WHITE } from '../../../theme/colors';
 export const Container = styled.div`
   display: block;
   position: fixed;
@@ -9,7 +9,7 @@ export const Container = styled.div`
   z-index: -10;
   background: url(${background}) no-repeat center center;
   background-size: cover;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -18,14 +18,13 @@ export const Container = styled.div`
 `;
 export const ContentContainer = styled.div.attrs((props) => ({ ...props }))`
   position: absolute;
-
   min-width: 50%;
   border-radius: 16px;
-  background-color: #fff;
+  background-color: ${COLOR_WHITE};
   @media (max-width: 823px) and (max-height: 512px) {
     top: 30%;
   }
-	@media (min-width: 720px) and (height: 540px){
+  @media (min-width: 720px) and (height: 540px) {
     top: 20%;
   }
 `;

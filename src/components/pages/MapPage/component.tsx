@@ -11,7 +11,7 @@ import Error from '@/components/common/error/';
 import MapContent from '@/components/mapComponents/MapContent';
 import BasicLayout from '@/components/layouts/BasicLayout/index';
 import ListAutocomplete from '@/components/controls/ListAutocomplete/component';
-import { Container, ContentContainer } from '@/theme/styles';
+import { Container, ContentContainer } from '@/components/common/componentStyles/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { MapBlock } from './styles';
 import { useTranslation } from 'react-i18next';
