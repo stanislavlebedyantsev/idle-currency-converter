@@ -13,9 +13,7 @@ const ChartsPage: React.FunctionComponent = (): React.ReactElement => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  useEffect(() => {
-    dispatch(getValuesDatabaseRequest());
-  }, [dispatch]);
+  
 
   return (
     <BasicLayout>
@@ -24,7 +22,6 @@ const ChartsPage: React.FunctionComponent = (): React.ReactElement => {
         <ContentContainer>
           <ChartsHeader
             title={t('chartsTitle')}
-            description={t('chartsDescription')}
           />
           <ChartTopToolArea />
           <LineChartContainer />

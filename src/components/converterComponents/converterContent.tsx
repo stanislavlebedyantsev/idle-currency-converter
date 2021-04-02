@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import CurrencyInputContainer from './InputContainer';
@@ -10,6 +10,7 @@ import {
   updateCurrencySelector,
   deleteCurrencyField,
   swapCurrencyViews,
+	changeDispayCharsData,
 } from '@/actions';
 import { IRootState } from '@/types/rootStateTypes';
 import { IInputedCurrenciesValues } from '@/types/reducersTypes';
@@ -19,10 +20,13 @@ import {
   updateCurrencyBeforeSelect,
   deleteCurrencyFromField,
   dropCurrencyAfterDragging,
+	predisplayedChartsMapper,
 } from '@/utils/';
-import { InputContainer } from '@/components/converterComponents/styles';
+import { InputContainer, Title } from '@/components/converterComponents/styles';
 import { ContentContainer } from '@/components/common/componentStyles/styles';
 import { useTranslation } from 'react-i18next';
+import LineChartContainer from '@/components/chartsComponents/LineChartContainer';
+import Info from '@/components/common/info/component';
 
 const ConverterContent = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -31,8 +35,19 @@ const ConverterContent = (): React.ReactElement => {
     (state: IRootState) => state.converter.inputedValues
   );
   const converterState = useSelector((state: IRootState) => state.converter);
+	const chartsRatesHistory = useSelector(
+    (store: IRootState) => store.charts.ratesHistory
+  );
   const { base, rates } = converterState.rate || { undefined };
 
+
+	useEffect(() => {
+		const mappedDisplayCurrency = predisplayedChartsMapper(
+      values,
+      chartsRatesHistory
+    );
+    dispatch(changeDispayCharsData(mappedDisplayCurrency));
+	}, [values, dispatch, chartsRatesHistory])
   const handleInput = (valueForUpdate: IInputedCurrenciesValues) => {
     const updatedCurrency: Array<IInputedCurrenciesValues> = convertBeforInput(
       valueForUpdate,
@@ -56,7 +71,7 @@ const ConverterContent = (): React.ReactElement => {
     dispatch(addNewValueFromSelect(updatedValue));
   };
 
-  const handleChangeCurr = (id: number, newValue: string) => {
+  const handleChangeCurrency = (id: number, newValue: string) => {
     const updatedCurrency = updateAfterChange(
       id,
       newValue,
@@ -64,6 +79,7 @@ const ConverterContent = (): React.ReactElement => {
       rates,
       values
     );
+		
     dispatch(updateCurrencySelector(updatedCurrency));
   };
 
@@ -92,10 +108,11 @@ const ConverterContent = (): React.ReactElement => {
 
   return (
     <ContentContainer>
-      <ConverterHeader
-        title={t('converterTitle')}
-        description={t('converterDescription')}
-      />
+      <Title>
+        <ConverterHeader title={t('converterTitle')} />
+        <ToolsAreaComponent onChangeHandle={handleSelect} />
+      </Title>
+      <Info infoText={t('converterDescription')} />
       <InputContainer>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
@@ -108,7 +125,7 @@ const ConverterContent = (): React.ReactElement => {
                     id={id}
                     fieldValue={element.value}
                     handleInput={handleInput}
-                    handleChangeCurr={handleChangeCurr}
+                    handleChangeCurr={handleChangeCurrency}
                     handleDelete={handleDelete}
                   />
                 ))}
@@ -118,7 +135,7 @@ const ConverterContent = (): React.ReactElement => {
           </Droppable>
         </DragDropContext>
       </InputContainer>
-      <ToolsAreaComponent onChangeHandle={handleSelect} />
+      <LineChartContainer/>
     </ContentContainer>
   );
 };

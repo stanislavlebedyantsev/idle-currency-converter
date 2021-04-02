@@ -14,9 +14,11 @@ import { Chart, ChartContainer } from './styles';
 import { IRootState } from '@/types/rootStateTypes';
 
 const LineChartContainer = (): React.ReactElement => {
-  const chartsData = useSelector((store: IRootState) => store.charts.mappedRates);
-  const selectedCharts = useSelector(
-    (store: IRootState) => store.charts.selectedCurrencies
+  const chartsData = useSelector(
+    (store: IRootState) => store.charts.mappedRates
+  );
+  const values = useSelector(
+    (state: IRootState) => state.converter.inputedValues
   );
 
   return (
@@ -28,19 +30,17 @@ const LineChartContainer = (): React.ReactElement => {
           <YAxis />
           <Tooltip />
           <Legend />
-          {selectedCharts
-            ? selectedCharts.map((element) => (
-                <Line
-                  key={element}
-                  type="monotone"
-                  dataKey={element}
-                  stroke={`#${toHashCode(element)}`}
-                />
-              ))
-            : null}
+          {values.map((element) => (
+            <Line
+              key={element.currency}
+              type="monotone"
+              dataKey={element.currency}
+              stroke={`#${toHashCode(element.currency)}`}
+            />
+          ))}
         </LineChart>
       </Chart>
-    </ChartContainer>
+    </ChartContainer>  
   );
 };
 

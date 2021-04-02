@@ -10,7 +10,6 @@ import { predisplayedChartsMapper } from '@/utils/';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Autocomplete from '@/components/controls/Autocomplite';
-import { makeStyles } from '@material-ui/styles';
 import { ChartToolArea } from '@/components/chartsComponents/styles';
 import { IRootState } from '@/types/rootStateTypes';
 import { useTranslation } from 'react-i18next';
@@ -18,16 +17,6 @@ import { useTranslation } from 'react-i18next';
 type TCheckboxesState = {
   [key: string]: boolean;
 };
-
-const useStyles = makeStyles({
-  autocomplete: {
-    width: '27%',
-  },
-  input: {
-    maxWidth: '20%',
-    marginLeft: '10%',
-  },
-});
 
 const ChartTopToolArea = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -54,7 +43,6 @@ const ChartTopToolArea = (): React.ReactElement => {
     BYN: selectedCurrencies.includes('BYN'),
     RUB: selectedCurrencies.includes('RUB'),
   });
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,12 +61,12 @@ const ChartTopToolArea = (): React.ReactElement => {
   }, [checkboxes, choisenCurrencies]);
 
   const handleSelectMainCurrency = (event: ChangeEvent, newValue: string) => {
-    const mappedDisplayCurrency = predisplayedChartsMapper(
-      newValue,
-      chartsRatesHistory
-    );
-    setChoisenCurrencies(newValue);
-    dispatch(changeDispayCharsData(mappedDisplayCurrency));
+    // const mappedDisplayCurrency = predisplayedChartsMapper(
+    //   newValue,
+    //   chartsRatesHistory
+    // );
+    // setChoisenCurrencies(newValue);
+    // dispatch(changeDispayCharsData(mappedDisplayCurrency));
   };
 
   const handleChangeCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
@@ -96,9 +84,8 @@ const ChartTopToolArea = (): React.ReactElement => {
 
   return (
     <ChartToolArea>
-      <Autocomplete<typeof classes.autocomplete>
+      <Autocomplete
         dataTestId="chartsCurrencies"
-        styles={classes.autocomplete}
         options={[...allCurrencies]}
         defValue={choisenCurrencies || t('chartsError')}
         onChange={handleSelectMainCurrency}

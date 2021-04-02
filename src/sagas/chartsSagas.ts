@@ -39,13 +39,13 @@ function* getAllCurrenciesValuesFromDatabase(): Generator<TGeneratorTypes, void,
     if (!allRates && !localCurrency) {
       throw new Error('We cant load data. Try again later');
     }
-    const mappedDisplayCurrency = yield predisplayedChartsMapper(
-      localCurrency.code,
-      allRates
-    );
+    // const mappedDisplayCurrency = yield predisplayedChartsMapper(
+    //   localCurrency.code,
+    //   allRates
+    // );
     //here call action for put values in state
     yield put(initChartsData(allRates));
-    yield put(changeDispayCharsData(mappedDisplayCurrency));
+    //yield put(changeDispayCharsData(mappedDisplayCurrency));
   } catch (e) {
     yield put(setError(e));
   }

@@ -1,15 +1,16 @@
 import styles from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { COLOR_BLACK } from '@/theme/colors';
 
 export const Link = styles(NavLink).attrs((props) => ({ ...props }))`
   &:hover{
-    color: #ffff;
+    color: ${COLOR_BLACK};
   }
   &:active{
-    color: #ffff;
+    color: ${COLOR_BLACK};
   }
   &{
-    color: #ffff;
+    color: ${COLOR_BLACK};
   }
 `;
 

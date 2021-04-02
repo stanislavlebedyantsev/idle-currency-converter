@@ -1,9 +1,7 @@
 import { IRates } from '@/types/apiResponces';
 
 export interface IMappedRates {
-  BYN: number;
-  RUB: number;
-  USD: number;
+	[key: string]: number | string
   currency: string;
   date: number;
   name: string;
@@ -16,6 +14,6 @@ export interface IRatesHistory {
 
 export interface IChartsState {
   ratesHistory: Array<IRatesHistory>;
-  selectedCurrencies: Array<string>;
+  selectedCurrencies: string;
   mappedRates: Array<IMappedRates>;
 }

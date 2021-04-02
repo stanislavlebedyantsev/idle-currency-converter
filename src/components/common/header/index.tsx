@@ -18,10 +18,14 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link, EmailBlock } from './styles';
 import { IRootState } from '@/types/rootStateTypes';
+import { COLOR_GREY, COLOR_BLACK } from '@/theme/colors';
 
 const useStyles = makeStyles((theme) => ({
   bar: {
-    zIndex: 0,
+    background: COLOR_GREY,
+    color: COLOR_BLACK,
+    border: 'none',
+    boxShadow: 'none',
   },
   grow: {
     flexGrow: 1,
@@ -44,21 +48,21 @@ const GlobalHeader = (): React.ReactElement => {
   };
 
   return (
-    <AppBar position="sticky">
-      <Toolbar color="primary">
+    <AppBar position="fixed" className={classes.bar}>
+      <Toolbar>
         <Typography className={classes.title} variant="h6" noWrap>
           Currency converter
         </Typography>
         <div className={classes.grow} />
         <EmailBlock>{userEmail}</EmailBlock>
         <div>
-          <Link to={CHARTS_ROUTE_PATH} data-testid="chartsBtn">
+          {/* <Link to={CHARTS_ROUTE_PATH} data-testid="chartsBtn">
             <IconButton color="inherit">
               <Badge color="secondary">
                 <TimelineIcon />
               </Badge>
             </IconButton>
-          </Link>
+          </Link> */}
           <Link to={MAP_ROUTE_PATH} data-testid="mapBtn">
             <IconButton color="inherit">
               <Badge color="secondary">

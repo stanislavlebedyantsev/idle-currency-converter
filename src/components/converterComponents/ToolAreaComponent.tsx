@@ -14,14 +14,6 @@ type TProps = {
   onChangeHandle: (event: React.ChangeEvent<Element>, newValue: string) => void;
 };
 
-const useStyles = makeStyles({
-  autocomplete: {
-    width: '100%',
-  },
-  button: {
-    marginBottom: '2%',
-  },
-});
 
 const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
   const { t } = useTranslation();
@@ -34,12 +26,6 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
   const values = useSelector(
     (state: IRootState) => state.converter.inputedValues
   );
-  const classes = useStyles();
-  const dispatch = useDispatch();
-
-  const onClickHandle = () => {
-    dispatch(currencyRateRequest());
-  };
   useEffect(() => {
     setAvaluebleCurrs(() =>
       allCurrencies.filter((el) => {
@@ -56,19 +42,11 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
 
   return (
     <ToolsArea>
-      <UpdateButton
-        className={classes.button}
-        color="primary"
-        variant="contained"
-        onClick={onClickHandle}>
-        {t('converterButton')}
-      </UpdateButton>
       <Autocomplete
 				dataTestId='currencyChoice'
         onChange={onSelect}
         options={avaluebleCurrencies}
         label={t('converterLabel')}
-        styles={classes.autocomplete}
       />
     </ToolsArea>
   );

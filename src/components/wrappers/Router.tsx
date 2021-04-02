@@ -16,10 +16,10 @@ const Router: React.FunctionComponent = (): React.ReactElement => {
   return (
     <BrowserRouter>
       <Switch>
-        <PrivateRoute
+        {/* <PrivateRoute
           path={CHARTS_ROUTE_PATH}
           component={() => <ChartsPage />}
-        />
+        /> */}
         <PrivateRoute path={MAP_ROUTE_PATH} component={() => <MapPage />} />
         <PrivateRoute
           path={CONVERTER_ROUTE_PATH}

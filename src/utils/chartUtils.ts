@@ -4,7 +4,11 @@ import {
   calculateCurrencyFromBase,
   calculateBaseValueFromCurrency,
 } from '@/utils';
-import { IRatesHistory, IMappedRates } from '@/types/reducersTypes';
+import {
+  IRatesHistory,
+  IMappedRates,
+  IInputedCurrenciesValues,
+} from '@/types/reducersTypes';
 
 export const chartsUploadMapper = (rates: IRates): IRatesHistory => {
   const uploadTime = moment().valueOf();
@@ -25,25 +29,46 @@ export const checkLastUpload = (lastUploadeData: number): boolean => {
 };
 
 export const predisplayedChartsMapper = (
-  selectedCurrency: string,
+  selectedCurrency: Array<IInputedCurrenciesValues>,
   chartsData: Array<IRatesHistory>
 ): Array<IMappedRates> => {
-  return chartsData.reduce((acc: Array<IMappedRates>, el: IRatesHistory) => {
-    const temp: IMappedRates = {
-      BYN: calculateCurrencyFromBase(
-        1 / el.rates[selectedCurrency],
-        el.rates['BYN']
-      ),
-      RUB: calculateCurrencyFromBase(
-        1 / el.rates[selectedCurrency],
-        el.rates['RUB']
-      ),
-      USD: calculateBaseValueFromCurrency(1, el.rates[selectedCurrency]),
-      currency: selectedCurrency,
-      date: el.date,
-      name: selectedCurrency,
-    };
-    acc.push(temp);
-    return acc;
-  }, []);
+  const existedValues = selectedCurrency.reduce(
+    (acc: Array<string>, element: IInputedCurrenciesValues) => {
+      acc.push(element.currency);
+      return acc;
+    },
+    []
+  );
+  return chartsData.reduce(
+    (acc: Array<IMappedRates>, element: IRatesHistory) => {
+      const temp: IMappedRates = existedValues.reduce(
+        (acc: IMappedRates, el: string) => {
+          acc[el] = element.rates[el];
+          return acc;
+        },
+        { currency: 'USD', date: element.date, name: 'USD' }
+      );
+      acc.push(temp);
+      return acc;
+    },
+    []
+  );
+  // return chartsData.reduce((acc: Array<IMappedRates>, el: IRatesHistory) => {
+  //   const temp: IMappedRates = {
+  //     BYN: calculateCurrencyFromBase(
+  //       1 / el.rates[selectedCurrency],
+  //       el.rates['BYN']
+  //     ),
+  //     RUB: calculateCurrencyFromBase(
+  //       1 / el.rates[selectedCurrency],
+  //       el.rates['RUB']
+  //     ),
+  //     USD: calculateBaseValueFromCurrency(1, el.rates[selectedCurrency]),
+  //     currency: selectedCurrency,
+  //     date: el.date,
+  //     name: selectedCurrency,
+  //   };
+  //   acc.push(temp);
+  //   return acc;
+  // }, []);
 };

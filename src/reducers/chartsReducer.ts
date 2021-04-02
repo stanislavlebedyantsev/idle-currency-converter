@@ -8,7 +8,7 @@ import {
 import { IChartsState } from '@/types/reducersTypes';
 const initState: IChartsState = {
   ratesHistory: [],
-  selectedCurrencies: [],
+  selectedCurrencies: '',
   mappedRates: [],
 };
 
@@ -23,18 +23,7 @@ const chartsReducer = (
     case SELECT_CHECKBOX_CHART: {
       return {
         ...state,
-        selectedCurrencies: [
-          ...state.selectedCurrencies,
-          action.payload,
-        ],
-      };
-    }
-    case REMOVE_SELECT_CHECKBOX_CHART: {
-      return {
-        ...state,
-        selectedCurrencies: state.selectedCurrencies.filter(
-          (el) => el !== action.payload
-        ),
+        selectedCurrencies: action.payload,
       };
     }
     case CHANGE_DISPLAY_CHARTS_DATA: {

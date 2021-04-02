@@ -3,28 +3,35 @@ import { Autocomplete } from './styles';
 import InputControl from '@/components/controls/Input/component';
 import { RenderOptions } from '@testing-library/react';
 import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/styles';
 
-type AutoCompleteFieldProps<T> = {
+type AutoCompleteFieldProps = {
   onChange: (event: React.ChangeEvent, newValue: string) => void;
   options: Array<string>;
   defValue?: string;
-  styles: T;
   label?: string;
-	dataTestId?: string
+  dataTestId?: string;
 };
 
-const AutocompleteComponent = <T extends string>({
+const useStyles = makeStyles((theme) => ({
+  input: {
+    paddingRight: 20,
+  },
+}));
+
+const AutocompleteComponent = ({
   onChange,
   options,
   defValue,
-  styles,
   label,
-	dataTestId
-}: AutoCompleteFieldProps<T>): React.ReactElement => {
+  dataTestId,
+}: AutoCompleteFieldProps): React.ReactElement => {
   const { t } = useTranslation();
+  const classes = useStyles();
   const renderInput = (params: RenderOptions) => {
     return (
       <InputControl
+        className={classes.input}
         {...params}
         size="small"
         label={label || t('defaultLabel')}
@@ -37,10 +44,10 @@ const AutocompleteComponent = <T extends string>({
 
   return (
     <Autocomplete<string | React.ComponentType<any>>
-			data-testid={dataTestId}
-      className={styles}
+      data-testid={dataTestId}
       name="currency"
       value={defValue}
+      fullWidth
       onChange={onChange}
       options={[...options]}
       renderInput={renderInput}

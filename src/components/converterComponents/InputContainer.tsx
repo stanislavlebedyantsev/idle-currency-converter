@@ -9,6 +9,9 @@ import { CurrField } from '@/components/converterComponents/styles';
 import { IRootState } from '@/types/rootStateTypes';
 import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 import InputControl from './../controls/Input/index';
+import { CurrencyName } from './styles';
+import cc from 'currency-codes';
+import CurrencyFlag from 'react-currency-flags';
 
 type TProps = {
   choicenCurrencies: string;
@@ -20,11 +23,11 @@ type TProps = {
 };
 
 const useStyles = makeStyles({
-  autocomplete: {
-    width: '30%',
+  flag: {
+    borderRadius: '50%',
+    marginRight: 10,
   },
   input: {
-    maxWidth: '30%',
     marginLeft: '10%',
   },
 });
@@ -39,6 +42,9 @@ const CurrInputContainer = ({
 }: TProps): React.ReactElement => {
   const allCurrencies = useSelector(
     (state: IRootState) => state.converter.allCurrencies
+  );
+  const selectedCurrencyRate = useSelector(
+    (state: IRootState) => state.converter.rate.rates[choicenCurrencies]
   );
   const [avaluebleCurrencies, setAvaluebleCurrs] = useState<Array<string>>(
     allCurrencies
@@ -65,14 +71,16 @@ const CurrInputContainer = ({
         const existedElement = values.find((valuesElement) => {
           return valuesElement.currency === element;
         });
-        return element === choicenCurrencies || element !== existedElement?.currency;
+        return (
+          element === choicenCurrencies || element !== existedElement?.currency
+        );
       })
     );
   }, [allCurrencies, values]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(
-      (): IInputedCurrenciesValues => ({
+      (): IInputedCurrenciesValues => ({ 
         currency: choicenCurrencies,
         value: Number(event.target.value),
       })
@@ -86,15 +94,17 @@ const CurrInputContainer = ({
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}>
-          <Autocomplete
-            onChange={(event, newValue) => {
-              handleChangeCurr(id, newValue);
-            }}
-						dataTestId='inputFieldCurrencyChoice'
-            options={avaluebleCurrencies}
-            defValue={choicenCurrencies}
-            styles={classes.autocomplete}
-          />
+          <CurrencyName>
+            <CurrencyFlag
+              height={30}
+              width={30}
+              className={classes.flag}
+              currency={choicenCurrencies}
+            />{' '}
+            <p>
+              {choicenCurrencies} {(cc as any).code(choicenCurrencies).currency}
+            </p>
+          </CurrencyName>
           <InputControl
             className={classes.input}
             InputProps={{ inputProps: { min: 0 } }}
@@ -103,6 +113,7 @@ const CurrInputContainer = ({
             name={choicenCurrencies}
             onBlur={() => handleInput(moneyValue)}
             onChange={handleChange}
+            helperText={`1 USD = ${selectedCurrencyRate}${choicenCurrencies}`}
           />
           <Button
             name={choicenCurrencies}

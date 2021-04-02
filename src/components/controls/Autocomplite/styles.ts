@@ -7,6 +7,7 @@ export const Autocomplete = styled(MaterialAutocomplete).attrs((props) => ({
   margin-top: 1%;
   margin-right: 10%;
   display: inline-block;
+	width: fit-content;
 `;
 
 

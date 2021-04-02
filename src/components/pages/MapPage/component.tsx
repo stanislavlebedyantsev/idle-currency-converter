@@ -56,7 +56,6 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
         <ContentContainer>
           <MapHeader
             title={t('mapsTitle')}
-            description={t('mapsDescription')}
           />
           <MapBlock>
             <MapContent />

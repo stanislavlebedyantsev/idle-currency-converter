@@ -1,26 +1,52 @@
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import { COLOR_WHITE } from '@/theme/colors';
 
 export const InputContainer = styled.div.attrs((props) => ({ ...props }))`
-  margin: 7% 0 0 2%;
   display: flex;
   flex-flow: column;
   overflow: auto;
   max-height: 15em;
-	width: 95%;
+
+  background-color: ${COLOR_WHITE};
+  width: 100%;
+  padding: 0 0 30px;
+  border-radius: 10px;
 `;
 
 export const CurrField = styled.div.attrs((props) => ({ ...props }))`
-  margin-bottom: 2%;
+  margin-top: 30px;
   display: flex;
-  align-items: flex-end;
+  justify-content: center;
+  align-items: center;
 `;
 
+export const CurrencyName = styled.div`
+  width: 15em;
+  font-size: 16px;
+	display:flex;
+  align-items: center;
+  margin: 0;
+	margin-left: 30px;
+	p{
+		margin: 0;
+		font-size: 18px;
+	}
+	@media(max-width: 720px){
+		flex-direction: column;
+		text-align: center
+	}
+`;
+
+export const Title = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 export const ToolsArea = styled.div`
-  grid-column: 2;
-  margin: 2% 2% 4%;
-  width: 95%;
-  grid-row: 1;
+  margin: 2%;
+  display: flex;
+  width: fit-content;
 `;
 
 export const UpdateButton = styled(Button).attrs((props) => ({ ...props }))`

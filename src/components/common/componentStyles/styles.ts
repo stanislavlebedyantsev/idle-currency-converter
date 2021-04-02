@@ -1,26 +1,23 @@
 import styled from 'styled-components';
-import background from '@/assets/background.png';
-import { COLOR_WHITE } from '../../../theme/colors';
+import {COLOR_GREY } from '@/theme/colors';
 export const Container = styled.div`
   display: block;
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   z-index: -10;
-  background: url(${background}) no-repeat center center;
-  background-size: cover;
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
+	background-color: ${COLOR_GREY};
 `;
 export const ContentContainer = styled.div.attrs((props) => ({ ...props }))`
   position: absolute;
   min-width: 50%;
+	max-width: 90%;
   border-radius: 16px;
-  background-color: ${COLOR_WHITE};
   @media (max-width: 823px) and (max-height: 512px) {
     top: 30%;
   }
