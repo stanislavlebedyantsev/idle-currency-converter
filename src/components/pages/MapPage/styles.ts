@@ -7,8 +7,8 @@ export const MapBlock = styled.div`
   flex-flow: row-reverse;
   margin: 5%;
   height: 30em;
-	@media(max-width: 720px){
-		flex-flow: column;
-		height: 25em;
-	}
+  @media (max-width: 720px) {
+    flex-flow: column;
+    height: 25em;
+  }
 `;
