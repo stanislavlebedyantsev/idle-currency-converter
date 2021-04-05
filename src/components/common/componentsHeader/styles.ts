@@ -9,10 +9,10 @@ export const HeaderContainer = styled.div`
 export const MainTitle = styled.h1`
   margin: 1% 0 0 0;
   @media (min-width: 720px) {
-    font-size: 28px;
+    font-size: 38px;
   }
   @media (max-width: 568px) {
-    font-size: 16px !important;
+    font-size: 28px !important;
   }
 `;
 export const SecondTitle = styled.p`

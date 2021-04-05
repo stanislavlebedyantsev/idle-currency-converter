@@ -23,4 +23,7 @@ export const ChartContainer = styled.div`
   .recharts-legend-wrapper {
     bottom: 0 !important;
   }
+	@media(max-width: 720px){
+		height: 15em;
+	}
 `;

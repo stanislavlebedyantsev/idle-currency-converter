@@ -10,7 +10,7 @@ import {
   updateCurrencySelector,
   deleteCurrencyField,
   swapCurrencyViews,
-	changeDispayCharsData,
+  changeDispayCharsData,
 } from '@/actions';
 import { IRootState } from '@/types/rootStateTypes';
 import { IInputedCurrenciesValues } from '@/types/reducersTypes';
@@ -20,13 +20,15 @@ import {
   updateCurrencyBeforeSelect,
   deleteCurrencyFromField,
   dropCurrencyAfterDragging,
-	predisplayedChartsMapper,
+  predisplayedChartsMapper,
 } from '@/utils/';
 import { InputContainer, Title } from '@/components/converterComponents/styles';
 import { ContentContainer } from '@/components/common/componentStyles/styles';
 import { useTranslation } from 'react-i18next';
 import LineChartContainer from '@/components/chartsComponents/LineChartContainer';
 import Info from '@/components/common/info/component';
+import moment from 'moment';
+import { TimeNow } from './styles';
 
 const ConverterContent = (): React.ReactElement => {
   const { t } = useTranslation();
@@ -35,19 +37,18 @@ const ConverterContent = (): React.ReactElement => {
     (state: IRootState) => state.converter.inputedValues
   );
   const converterState = useSelector((state: IRootState) => state.converter);
-	const chartsRatesHistory = useSelector(
+  const chartsRatesHistory = useSelector(
     (store: IRootState) => store.charts.ratesHistory
   );
   const { base, rates } = converterState.rate || { undefined };
 
-
-	useEffect(() => {
-		const mappedDisplayCurrency = predisplayedChartsMapper(
+  useEffect(() => {
+    const mappedDisplayCurrency = predisplayedChartsMapper(
       values,
       chartsRatesHistory
     );
     dispatch(changeDispayCharsData(mappedDisplayCurrency));
-	}, [values, dispatch, chartsRatesHistory])
+  }, [values, dispatch, chartsRatesHistory]);
   const handleInput = (valueForUpdate: IInputedCurrenciesValues) => {
     const updatedCurrency: Array<IInputedCurrenciesValues> = convertBeforInput(
       valueForUpdate,
@@ -79,7 +80,7 @@ const ConverterContent = (): React.ReactElement => {
       rates,
       values
     );
-		
+
     dispatch(updateCurrencySelector(updatedCurrency));
   };
 
@@ -135,7 +136,10 @@ const ConverterContent = (): React.ReactElement => {
           </Droppable>
         </DragDropContext>
       </InputContainer>
-      <LineChartContainer/>
+      <TimeNow>{`Today, ${moment()
+        .utc()
+        .format('MMM DD, YYYY | HH:MM')} UTC`}</TimeNow>
+      <LineChartContainer />
     </ContentContainer>
   );
 };

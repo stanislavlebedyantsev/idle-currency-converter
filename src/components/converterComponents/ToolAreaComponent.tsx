@@ -43,10 +43,12 @@ const ToolsAreaComponent = ({ onChangeHandle }: TProps): React.ReactElement => {
   return (
     <ToolsArea>
       <Autocomplete
-				dataTestId='currencyChoice'
+        dataTestId="currencyChoice"
         onChange={onSelect}
+        defValue={''}
         options={avaluebleCurrencies}
         label={t('converterLabel')}
+				variant='outlined'
       />
     </ToolsArea>
   );

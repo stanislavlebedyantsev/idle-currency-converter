@@ -11,11 +11,15 @@ import Error from '@/components/common/error/';
 import MapContent from '@/components/mapComponents/MapContent';
 import BasicLayout from '@/components/layouts/BasicLayout/index';
 import ListAutocomplete from '@/components/controls/ListAutocomplete/component';
-import { Container, ContentContainer } from '@/components/common/componentStyles/styles';
+import {
+  Container,
+  ContentContainer,
+} from '@/components/common/componentStyles/styles';
 import { makeStyles } from '@material-ui/core/styles';
-import { MapBlock } from './styles';
+import { HeaderContainer, MapBlock } from './styles';
 import { useTranslation } from 'react-i18next';
 import { filterBeforeSave } from '@/utils';
+import Info from './../../common/info/component';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -54,9 +58,10 @@ const MapPage: React.FunctionComponent = (): React.ReactElement => {
       <Container>
         <Error />
         <ContentContainer>
-          <MapHeader
-            title={t('mapsTitle')}
-          />
+          <HeaderContainer>
+            <MapHeader title={t('mapsTitle')} />
+          </HeaderContainer>
+					<Info infoText={t('mapsDescription')} />
           <MapBlock>
             <MapContent />
             <ListAutocomplete<typeof classes.root>

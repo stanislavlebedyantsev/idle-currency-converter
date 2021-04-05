@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Draggable } from 'react-beautiful-dnd';
 import { Input, Button } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import ClearIcon from '@material-ui/icons/Clear';
 import { makeStyles } from '@material-ui/styles';
 import Autocomplete from '@/components/controls/Autocomplite';
 import { CurrField } from '@/components/converterComponents/styles';
 import { IRootState } from '@/types/rootStateTypes';
 import { IInputedCurrenciesValues } from '@/types/reducersTypes';
 import InputControl from './../controls/Input/index';
-import { CurrencyName } from './styles';
+import Divider from '@material-ui/core/Divider';
+import { CurrencyName, InputCurrencieField, CurrencyInput } from './styles';
 import cc from 'currency-codes';
 import CurrencyFlag from 'react-currency-flags';
 
@@ -23,6 +24,11 @@ type TProps = {
 };
 
 const useStyles = makeStyles({
+  autocomplete: {
+    width: '90% !important',
+    border: '0 !important',
+    marginRight: '0 !important',
+  },
   flag: {
     borderRadius: '50%',
     marginRight: 10,
@@ -44,7 +50,8 @@ const CurrInputContainer = ({
     (state: IRootState) => state.converter.allCurrencies
   );
   const selectedCurrencyRate = useSelector(
-    (state: IRootState) => state.converter.rate.rates[choicenCurrencies]
+    (state: IRootState) =>
+      state.converter.rate.rates[choicenCurrencies.substring(0, 3)]
   );
   const [avaluebleCurrencies, setAvaluebleCurrs] = useState<Array<string>>(
     allCurrencies
@@ -53,14 +60,13 @@ const CurrInputContainer = ({
     (state: IRootState) => state.converter.inputedValues
   );
   const [moneyValue, setFieldValue] = useState<IInputedCurrenciesValues>({
-    currency: choicenCurrencies,
+    currency: choicenCurrencies.substring(0, 3),
     value: fieldValue,
   });
   const classes = useStyles();
-
   useEffect(() => {
     setFieldValue(() => ({
-      currency: choicenCurrencies,
+      currency: choicenCurrencies.substring(0, 3),
       value: fieldValue,
     }));
   }, [fieldValue, choicenCurrencies]);
@@ -80,7 +86,7 @@ const CurrInputContainer = ({
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFieldValue(
-      (): IInputedCurrenciesValues => ({ 
+      (): IInputedCurrenciesValues => ({
         currency: choicenCurrencies,
         value: Number(event.target.value),
       })
@@ -99,31 +105,51 @@ const CurrInputContainer = ({
               height={30}
               width={30}
               className={classes.flag}
-              currency={choicenCurrencies}
+              currency={choicenCurrencies.substring(0, 3)}
             />{' '}
-            <p>
-              {choicenCurrencies} {(cc as any).code(choicenCurrencies).currency}
-            </p>
+            <Autocomplete
+              styles={classes.autocomplete}
+              onChange={(event, newValue) => {
+                handleChangeCurr(id, newValue);
+              }}
+              options={avaluebleCurrencies.map(
+                (element: string) =>
+                  `${element} - ${
+                    (cc as any).code(element.substring(0, 3))?.currency
+                  }`
+              )}
+              dataTestId="inputFieldCurrencyChoice"
+              defValue={`${choicenCurrencies.substring(0, 3)} - ${
+                (cc as any).code(choicenCurrencies.substring(0, 3))?.currency
+              }`}
+              label={' '}
+            />
           </CurrencyName>
-          <InputControl
-            className={classes.input}
-            InputProps={{ inputProps: { min: 0 } }}
-            type="number"
-            value={moneyValue.value}
-            name={choicenCurrencies}
-            onBlur={() => handleInput(moneyValue)}
-            onChange={handleChange}
-            helperText={`1 USD = ${selectedCurrencyRate}${choicenCurrencies}`}
-          />
-          <Button
-            name={choicenCurrencies}
-            startIcon={<DeleteIcon />}
-            onClick={() => handleDelete(id)}
-          />
+          <InputCurrencieField>
+            <CurrencyInput
+              className={classes.input}
+              InputProps={{ inputProps: { min: 0 } }}
+              type="number"
+              value={moneyValue.value}
+              name={choicenCurrencies}
+              onBlur={() => handleInput(moneyValue)}
+              onChange={handleChange}
+              label={`1 USD = ${selectedCurrencyRate} ${choicenCurrencies.substring(
+                0,
+                3
+              )}`}
+            />
+            <Button
+              name={choicenCurrencies}
+              startIcon={<ClearIcon />}
+              onClick={() => handleDelete(id)}
+            />
+          </InputCurrencieField>
+          <Divider variant="middle" />
         </CurrField>
       )}
     </Draggable>
   );
-};
+}; 
 
 export default CurrInputContainer;

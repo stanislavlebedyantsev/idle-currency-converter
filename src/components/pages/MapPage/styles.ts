@@ -1,14 +1,25 @@
+import { COLOR_WHITE } from '@/theme/colors';
 import styled from 'styled-components';
 
 export const MapBlock = styled.div`
+  font-family: Roboto, sans-serif;
   display: flex;
   align-content: space-between;
   flex-wrap: wrap;
   flex-flow: row-reverse;
-  margin: 5%;
   height: 30em;
-  @media (max-width: 720px) {
+  background-color: ${COLOR_WHITE};
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  @media (max-width: 719px) {
     flex-flow: column;
-    height: 25em;
+    height: 30em;
   }
+`;
+
+export const HeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;

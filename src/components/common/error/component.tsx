@@ -10,7 +10,6 @@ import { IRootState } from '@/types/rootStateTypes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
     '& > * + *': {
       marginTop: theme.spacing(2),
     },

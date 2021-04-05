@@ -102,7 +102,6 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
       <SignInContainer id="signIn">
         <form onSubmit={handleLoginClick}>
           <InputControl
-            id="filled-basic"
             label={t('email')}
             error={isEmailValid}
             type="email"
@@ -113,7 +112,6 @@ const SignInPage: React.FunctionComponent = (): React.ReactElement => {
             helperText={isEmailValid}
           />
           <InputControl
-            id="filled-basic"
             label={t('password')}
             error={isPasswordValid || (isRegistering && arePasswordsMatching)}
             type="password"
