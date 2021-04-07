@@ -18,12 +18,21 @@ export const Chart = styled(ResponsiveContainer).attrs((props) => ({
 export const ChartContainer = styled.div`
   display: flex;
   justify-content: center !important;
-  height: 25em;
+  max-height: 15em;
   width: 100%;
   .recharts-legend-wrapper {
     bottom: 0 !important;
   }
-	@media(max-width: 720px){
-		height: 15em;
-	}
+  svg {
+    display: block;
+    overflow: visible;
+    width: 100%;
+    padding: 0 50px;
+  }
+  @media (max-width: 720px) {
+    height: 15em;
+  }
+  .tick + .tick:hover:before {
+    background: black;
+  }
 `;

@@ -6,6 +6,6 @@ export const Map = styled(MapContainer).attrs((props) => ({ ...props }))`
   width: 100%;
   margin-left: 3%;
   @media (max-width: 720px) {
-    margin: 0;
+    margin: 0; 
   }
 `;

@@ -25,7 +25,7 @@ import {
 import { InputContainer, Title } from '@/components/converterComponents/styles';
 import { ContentContainer } from '@/components/common/componentStyles/styles';
 import { useTranslation } from 'react-i18next';
-import LineChartContainer from '@/components/chartsComponents/LineChartContainer';
+import LineChartContainer from '@/components/chartsComponents/TestLineChart';
 import Info from '@/components/common/info/component';
 import moment from 'moment';
 import { TimeNow } from './styles';
