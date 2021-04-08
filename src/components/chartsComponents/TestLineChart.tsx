@@ -8,6 +8,15 @@ import ResizeObserver from 'resize-observer-polyfill';
 import { IInputedCurrenciesValues, IMappedRates } from '@/types/reducersTypes';
 import moment from 'moment';
 
+type TTooltipState = {
+  left: number;
+  top: number;
+  fields: Array<string>;
+};
+type TTooltipProps = {
+  state: TTooltipState;
+};
+
 const useResizeObserver = (
   ref: MutableRefObject<HTMLElement | null | undefined>
 ) => {
@@ -46,6 +55,11 @@ const findMax = (
 };
 
 const LineChart = () => {
+  const [tooltipState, setTooltipState] = useState<TTooltipState>({
+    top: 0,
+    left: 0,
+    fields: [],
+  });
   const dataVal = useSelector((store: IRootState) => store.charts.mappedRates);
   const values = useSelector(
     (state: IRootState) => state.converter.inputedValues
@@ -124,52 +138,30 @@ const LineChart = () => {
           .data([...chartValuesArray])
           .join('circle')
           .attr('class', `.myDot${index}`)
+          .style('fill', `#${toHashCode(element.currency)}`)
           .style('stroke', `#${toHashCode(element.currency)}`)
           .style('stroke-width', '4px')
           .attr('r', 4)
-          .style('fill', 'none')
           .attr('cx', (value: any, index: number) => xScale(index))
           .attr('cy', yScale)
-          .on('mouseover', (event: any, value: number) => {
-            div.transition().style('opacity', 1);
-            div
-              .text(`1 USD = ${value} ${element.currency}`)
-              .style('left', event.pageX + 'px')
-              .style('top', event.pageY - 28 + 'px');
+          .on('mouseover', (event: any, value: number, index: number) => {
+            console.log(`X: ${xScale(index)}`);
+            console.log(`Y: ${yScale}`);
+            console.log(event);
+
+            setTooltipState({
+              top: event.pageY,
+              left: event.pageX,
+              fields: [`1 USD = ${value} ${element.currency}`],
+            });
           })
           .on('mouseout', () => {
-            div.transition().duration(400).style('opacity', 0);
+            setTooltipState({
+              top: 0,
+              left: 0,
+              fields: [],
+            });
           });
-        // svgContent
-        //   .selectAll(`.myDot${element.currency}${index}`)
-        //   .data([chartValuesArray])
-        //   .join('circle')
-        //   .attr('class', `.myDot${element.currency}${index}`)
-        //   .attr('stroke', 'black')
-        //   .attr('r', 4)
-        //   .attr('fill', 'blue')
-        //   .attr('cx', (value: any, index: any) => xScale(index))
-        //   .attr('cy', yScale)
-        // .on('mouseover', function (event: any, value: number) {
-        //   const div = select(wrapperRef.current);
-        //   if (!div.selectAll('.tooltip')) {
-        //     div.append('div').attr('class', 'tooltip').style('opacity', 0);
-        //     div.transition().duration(200).style('opacity', 0.9);
-        //     div
-        //       .text(value)
-        //       .style('left', event.pageX + 'px')
-        //       .style('top', event.pageY - 28 + 'px');
-        //   }
-        // })
-        // .on('mouseout', () => {
-        //   setTimeout(() => {
-        //     select('.tooltip')
-        //       .transition()
-        //       .duration(500)
-        //       .style('opacity', 0);
-        //     select('.tooltip').remove();
-        //   }, 1000);
-        // });
       });
 
       svg
@@ -185,7 +177,23 @@ const LineChart = () => {
         <g className="y-axis" />
         <g className="content" clipPath={`url(#LineChart)`}></g>
       </svg>
+
+      <Tooltip state={tooltipState} />
     </ChartContainer>
+  );
+};
+
+export const Tooltip = ({ state }: TTooltipProps) => {
+  return (
+    <div
+      className="tooltip"
+      style={{
+        display: state.fields.length ? 'block' : 'none', 
+      }}>
+      {state.fields.map((field: string, index: number) => (
+        <p key={index}>{field}</p>
+      ))}
+    </div>
   );
 };
 
