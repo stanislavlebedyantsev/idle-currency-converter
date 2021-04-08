@@ -1,13 +1,6 @@
 import { IRootState } from '@/types/rootStateTypes';
 import { toHashCode } from '@/utils';
-import {
-  select,
-  line,
-  axisBottom,
-  axisLeft,
-  curveCardinal,
-  scaleLinear,
-} from 'd3';
+import { select, line, axisBottom, curveCardinal, scaleLinear } from 'd3';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartContainer } from './styles';
@@ -65,7 +58,16 @@ const LineChart = () => {
     const tickFormat: any = '';
     const svg: any = select(svgRef.current);
     const svgContent: any = svg.select('.content');
+
     svgContent.selectAll('path').remove();
+    svgContent.selectAll('circle').remove();
+    svgContent.selectAll('.grid').remove();
+    select('.mainSVG').selectAll('.tooltip').remove();
+    // add tooltip
+    var div = select('.mainSVG')
+      .append('div')
+      .attr('class', 'tooltip')
+      .style('opacity', 0);
     const { width, height }: any =
       dimensions || wrapperRef.current.getBoundingClientRect();
     if (!dimensions) return;
@@ -88,13 +90,12 @@ const LineChart = () => {
       const drawXGrid = () => {
         return axisBottom(xScale).ticks(8);
       };
-      if (svgContent.selectAll('.grid').empty()) {
-        svgContent
-          .append('g')
-          .attr('class', 'grid')
-          .style('stroke-dasharray', '10')
-          .call(drawXGrid().tickSize(height).tickFormat(tickFormat));
-      }
+      svgContent
+        .append('g')
+        .attr('class', 'grid')
+        .style('stroke-dasharray', '10')
+        .call(drawXGrid().tickSize(height).tickFormat(tickFormat));
+
       //render line
       const lineGenerator = line()
         .x((value: any, index: number) => xScale(index))
@@ -117,22 +118,28 @@ const LineChart = () => {
           .attr('class', `line${element.currency}`)
           .attr('d', lineGenerator)
           .attr('fill', 'none')
-          .attr('stroke', `#${toHashCode(element.currency)}`)
-          .on('mouseover', (event: any, value: any) => {
-            // console.log(event);
+          .attr('stroke', `#${toHashCode(element.currency)}`);
+        svgContent
+          .selectAll(`.myDot${index}`)
+          .data([...chartValuesArray])
+          .join('circle')
+          .attr('class', `.myDot${index}`)
+          .style('stroke', `#${toHashCode(element.currency)}`)
+          .style('stroke-width', '4px')
+          .attr('r', 4)
+          .style('fill', 'none')
+          .attr('cx', (value: any, index: number) => xScale(index))
+          .attr('cy', yScale)
+          .on('mouseover', (event: any, value: number) => {
+            div.transition().style('opacity', 1);
+            div
+              .text(`1 USD = ${value} ${element.currency}`)
+              .style('left', event.pageX + 'px')
+              .style('top', event.pageY - 28 + 'px');
+          })
+          .on('mouseout', () => {
+            div.transition().duration(400).style('opacity', 0);
           });
-        if (svgContent.selectAll(`.myDot${index}`).empty()) {
-          svgContent
-            .selectAll(`.myDot${index}`)
-            .data([...chartValuesArray])
-            .join('circle')
-            .attr('class', `.myDot${index}`)
-            .attr('stroke', 'black')
-            .attr('r', 4)
-            .attr('fill', 'none')
-            .attr('cx', (value: any, index: number) => xScale(index))
-            .attr('cy', yScale);
-        }
         // svgContent
         //   .selectAll(`.myDot${element.currency}${index}`)
         //   .data([chartValuesArray])
@@ -173,7 +180,7 @@ const LineChart = () => {
   }, [dataVal, dimensions, values]);
   return (
     <ChartContainer ref={wrapperRef}>
-      <svg ref={svgRef}>
+      <svg ref={svgRef} className="mainSVG">
         <g className="x-axis" />
         <g className="y-axis" />
         <g className="content" clipPath={`url(#LineChart)`}></g>

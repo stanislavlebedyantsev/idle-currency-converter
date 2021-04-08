@@ -37,7 +37,7 @@ export const getValuesFirebaseDatabase = (): Promise<void | Array<unknown>> => {
   return firebase
     .database()
     .ref('/rates')
-		.limitToLast(14)
+		.limitToLast(7)
     .once('value')
     .then((snapshot) => Object.values(snapshot.val()));
 };

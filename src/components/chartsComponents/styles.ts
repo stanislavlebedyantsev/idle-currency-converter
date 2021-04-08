@@ -19,6 +19,7 @@ export const ChartContainer = styled.div`
   display: flex;
   justify-content: center !important;
   max-height: 15em;
+  padding-bottom: 50px;
   width: 100%;
   .recharts-legend-wrapper {
     bottom: 0 !important;
@@ -34,5 +35,21 @@ export const ChartContainer = styled.div`
   }
   .tick + .tick:hover:before {
     background: black;
+  }
+  .mainSVG {
+    padding: 0;
+  }
+  .tooltip {
+    position: absolute;
+    text-align: center;
+    width: 160px;
+    height: 128px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: black;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+		z-index: 999;
   }
 `;
