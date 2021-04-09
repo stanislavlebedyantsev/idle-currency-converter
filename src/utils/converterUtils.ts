@@ -26,15 +26,17 @@ export const choiceConverterType = (
   newCurrency: string,
   rates: IRates
 ): number => {
-  let result = 0;
-  if (currency !== base && newCurrency !== base) {
+  let result = 0,
+	shortCurrencyName = currency.substring(0, 3),
+	shortNewCurrencyName = newCurrency.substring(0, 3);
+  if (shortCurrencyName !== base && shortNewCurrencyName !== base) {
     result = calculateCurrencyFromBase(
-      value / rates[currency],
-      rates[newCurrency]
+      value / rates[shortCurrencyName],
+      rates[shortNewCurrencyName]
     );
-  } else if (currency === base && newCurrency !== base) {
-    result = calculateCurrencyFromBase(value, rates[newCurrency]);
-  } else if (currency !== base && newCurrency === base) {
+  } else if (shortCurrencyName === base && shortNewCurrencyName !== base) {
+    result = calculateCurrencyFromBase(value, rates[shortNewCurrencyName]);
+  } else if (shortCurrencyName !== base && shortNewCurrencyName === base) {
     result = calculateBaseValueFromCurrency(value, rates[currency]);
   }
   return result;

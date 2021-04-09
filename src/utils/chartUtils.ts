@@ -34,7 +34,7 @@ export const predisplayedChartsMapper = (
 ): Array<IMappedRates> => {
   const existedValues = selectedCurrency.reduce(
     (acc: Array<string>, element: IInputedCurrenciesValues) => {
-      acc.push(element.currency);
+      acc.push(element.currency.substring(0, 3));
       return acc;
     },
     []
@@ -43,7 +43,7 @@ export const predisplayedChartsMapper = (
     (acc: Array<IMappedRates>, element: IRatesHistory) => {
       const temp: IMappedRates = existedValues.reduce(
         (acc: IMappedRates, el: string) => {
-          acc[el] = element.rates[el];
+          acc[el.substring(0, 3)] = element.rates[el.substring(0, 3)];
           return acc;
         },
         { currency: 'USD', date: element.date, name: 'USD' }
@@ -53,22 +53,4 @@ export const predisplayedChartsMapper = (
     },
     []
   );
-  // return chartsData.reduce((acc: Array<IMappedRates>, el: IRatesHistory) => {
-  //   const temp: IMappedRates = {
-  //     BYN: calculateCurrencyFromBase(
-  //       1 / el.rates[selectedCurrency],
-  //       el.rates['BYN']
-  //     ),
-  //     RUB: calculateCurrencyFromBase(
-  //       1 / el.rates[selectedCurrency],
-  //       el.rates['RUB']
-  //     ),
-  //     USD: calculateBaseValueFromCurrency(1, el.rates[selectedCurrency]),
-  //     currency: selectedCurrency,
-  //     date: el.date,
-  //     name: selectedCurrency,
-  //   };
-  //   acc.push(temp);
-  //   return acc;
-  // }, []);
 };

@@ -9,7 +9,6 @@ import {
   Tooltip,
   Legend,
 } from 'recharts';
-import { toHashCode } from '@/utils';
 import { Chart, ChartContainer } from './styles';
 import { IRootState } from '@/types/rootStateTypes';
 
@@ -35,7 +34,7 @@ const LineChartContainer = (): React.ReactElement => {
               key={element.currency}
               type="monotone"
               dataKey={element.currency}
-              stroke={`#${toHashCode(element.currency)}`}
+              // stroke={`#${toHashCode(element.currency)}`}
             />
           ))}
         </LineChart>

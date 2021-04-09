@@ -23,7 +23,7 @@ export const CurrField = styled.div.attrs((props) => ({ ...props }))`
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  @media (min-width: 720px) {
+  @media (min-width: 1680px) {
     margin-left: 30em;
     max-width: 30em;
   }

@@ -17,15 +17,15 @@ export const Chart = styled(ResponsiveContainer).attrs((props) => ({
 `;
 
 export const ChartContainer = styled.div`
-	position:relative;
+  position: relative;
   display: flex;
   justify-content: center !important;
-  max-height: 15em;
+  height: 20em;
   padding-bottom: 50px;
   width: 100%;
   .recharts-legend-wrapper {
     bottom: 0 !important;
-  }import { COLOR_GREY } from '@/theme/colors';
+  }
 
   svg {
     display: block;
@@ -44,15 +44,47 @@ export const ChartContainer = styled.div`
   }
   & .tooltip {
     position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 300;
+    width: 200px;
+    height: 50px;
     text-align: center;
-		transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
     padding: 0 10px;
-		box-shadow: 0 0 10px rgba(0,0,0,0.2);
-    font: 12px sans-serif;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
     background: ${COLOR_WHITE};
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
-		z-index: 999;
+    svg {
+      width: 20px;
+      padding: 0;
+    }
+    .MuiIcon-colorPrimary {
+      color: green !important;
+    }
+  }
+  .x-axis text {
+    font-size: 24px;
+		@media(max-width: 720px){
+			font-size: 12px;
+		}
+    color: rgba(0, 0, 0, 0.54);
+  }
+  .content .grid line {
+    stroke: lightgrey;
+    stroke-opacity: 0.9;
+    shape-rendering: crispEdges;
+    stroke-width: 2;
+  }
+  .content .mainDot {
+    fill: ${COLOR_WHITE};
+    stroke-width: 5;
+  }
+  g.grid:hover ~ g.grid {
+    bacground: black;
   }
 `;

@@ -1,20 +1,24 @@
 import { IRootState } from '@/types/rootStateTypes';
-import { toHashCode } from '@/utils';
-import { select, line, axisBottom, curveCardinal, scaleLinear } from 'd3';
+import { select, line, axisBottom, scaleLinear, curveNatural } from 'd3';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { ChartContainer } from './styles';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ResizeObserver from 'resize-observer-polyfill';
 import { IInputedCurrenciesValues, IMappedRates } from '@/types/reducersTypes';
 import moment from 'moment';
+import { toHue } from '@/utils/';
 
-type TTooltipState = {
+type TooltipState = {
   left: number;
   top: number;
   fields: Array<string>;
+  previousValue: number;
+  value: number;
 };
-type TTooltipProps = {
-  state: TTooltipState;
+type TooltipProps = {
+  state: TooltipState;
 };
 
 const useResizeObserver = (
@@ -43,8 +47,8 @@ const findMax = (
   return mappedRates.reduce((acc: number | string, el: IMappedRates) => {
     acc = inputedValues.reduce(
       (prev: number | string, inputedElement: IInputedCurrenciesValues) => {
-        if (el[inputedElement.currency] > prev) {
-          prev = el[inputedElement.currency];
+        if (el[inputedElement.currency.substring(0, 3)] > prev) {
+          prev = el[inputedElement.currency.substring(0, 3)];
         }
         return prev;
       },
@@ -55,10 +59,12 @@ const findMax = (
 };
 
 const LineChart = () => {
-  const [tooltipState, setTooltipState] = useState<TTooltipState>({
+  const [tooltipState, setTooltipState] = useState<TooltipState>({
     top: 0,
     left: 0,
     fields: [],
+    previousValue: 0,
+    value: 0,
   });
   const dataVal = useSelector((store: IRootState) => store.charts.mappedRates);
   const values = useSelector(
@@ -77,11 +83,6 @@ const LineChart = () => {
     svgContent.selectAll('circle').remove();
     svgContent.selectAll('.grid').remove();
     select('.mainSVG').selectAll('.tooltip').remove();
-    // add tooltip
-    var div = select('.mainSVG')
-      .append('div')
-      .attr('class', 'tooltip')
-      .style('opacity', 0);
     const { width, height }: any =
       dimensions || wrapperRef.current.getBoundingClientRect();
     if (!dimensions) return;
@@ -91,7 +92,7 @@ const LineChart = () => {
       );
       const xScale: any = scaleLinear()
         .domain([0, dataVal.length - 1])
-        .range([0, width - 10]);
+        .range([0, width]);
 
       const xAxis: any = axisBottom(xScale)
         .ticks(dataVal.length)
@@ -100,66 +101,82 @@ const LineChart = () => {
       const yScale: any = scaleLinear()
         .domain([0, findMax(dataVal, values)] as any)
         .range([height - 10, 0]);
-
+      //render grid
       const drawXGrid = () => {
-        return axisBottom(xScale).ticks(8);
+        return axisBottom(xScale).ticks(14);
       };
       svgContent
         .append('g')
         .attr('class', 'grid')
-        .style('stroke-dasharray', '10')
         .call(drawXGrid().tickSize(height).tickFormat(tickFormat));
-
+      //remove top grid line
+      select('.grid path').remove();
+      //remove x-axis lines
+      select('.x-axis').selectAll('.tick line').remove();
+			//remove even grid lines
+      const evenGridLines = svgContent
+        .selectAll('.grid .tick')
+        .filter((element: any, index: number) => index % 2 === 0);
+      evenGridLines.remove();
       //render line
       const lineGenerator = line()
         .x((value: any, index: number) => xScale(index))
         .y((value: any) => yScale(value))
-        .curve(curveCardinal);
+        .curve(curveNatural);
 
       //render path element and add d attribure
       values.map((element: IInputedCurrenciesValues, index: number): void => {
+        const currency = element.currency.substring(0, 3);
         const chartValuesArray = dataVal.reduce(
           (acc: any, value: any, index: number) => {
-            acc.push(value[element.currency]);
+            acc.push(value[currency]);
             return acc;
           },
           []
         );
         svgContent
-          .selectAll(`.line${element.currency}`)
+          .selectAll(`.line${currency}`)
           .data([chartValuesArray])
           .join('path')
-          .attr('class', `line${element.currency}`)
+          .attr('class', `line${currency}`)
           .attr('d', lineGenerator)
           .attr('fill', 'none')
-          .attr('stroke', `#${toHashCode(element.currency)}`);
+          .attr('stroke', `hsl(${toHue(currency)}, 39%, 76%)`)
+          .attr('stroke-width', `4`);
         svgContent
-          .selectAll(`.myDot${index}`)
+          .selectAll(`.myDot${index} .mainDot`)
           .data([...chartValuesArray])
           .join('circle')
-          .attr('class', `.myDot${index}`)
-          .style('fill', `#${toHashCode(element.currency)}`)
-          .style('stroke', `#${toHashCode(element.currency)}`)
-          .style('stroke-width', '4px')
-          .attr('r', 4)
+          .attr('class', `mainDot`)
+					.attr('stroke', `hsl(${toHue(currency)}, 39%, 76%)`)
+          .style('opacity', `0`)
+          .attr('r', 7)
           .attr('cx', (value: any, index: number) => xScale(index))
           .attr('cy', yScale)
-          .on('mouseover', (event: any, value: number, index: number) => {
-            console.log(`X: ${xScale(index)}`);
-            console.log(`Y: ${yScale}`);
-            console.log(event);
+          .on('mouseover', (event: any, value: number) => {
+            const left = event.target.cx.baseVal.value;
+            const index = Math.ceil(left / (width / 7))
+              ? Math.ceil(left / (width / 7) - 1)
+              : Math.ceil(left / (width / 7));
+            const prevValue = chartValuesArray[index - 1];
 
+            event.target.style.opacity = 1;
             setTooltipState({
-              top: event.pageY,
-              left: event.pageX,
-              fields: [`1 USD = ${value} ${element.currency}`],
+              top: event.target.cy.baseVal.value,
+              left: left > 180 ? left - 120 : left + 120,
+              fields: [`${value} ${element.currency.substring(0, 3)}`],
+              previousValue: prevValue,
+              value: value,
             });
           })
-          .on('mouseout', () => {
+          .on('mouseout', (event: any) => {
+            event.target.style.opacity = 0;
             setTooltipState({
               top: 0,
               left: 0,
               fields: [],
+              previousValue: 0,
+              value: 0,
             });
           });
       });
@@ -168,6 +185,7 @@ const LineChart = () => {
         .select('.x-axis')
         .style('transform', `translateY(${dimensions.height}px)`)
         .call(xAxis);
+      svg.select('.x-axis').select('path').remove();
     }
   }, [dataVal, dimensions, values]);
   return (
@@ -177,19 +195,26 @@ const LineChart = () => {
         <g className="y-axis" />
         <g className="content" clipPath={`url(#LineChart)`}></g>
       </svg>
-
       <Tooltip state={tooltipState} />
     </ChartContainer>
   );
 };
 
-export const Tooltip = ({ state }: TTooltipProps) => {
+export const Tooltip = ({ state }: TooltipProps) => {
   return (
     <div
       className="tooltip"
       style={{
-        display: state.fields.length ? 'block' : 'none', 
+        display: state.fields.length ? 'flex' : 'none',
+        top: `${state.top}px`,
+        left: `${state.left}px`,
       }}>
+      {state.value > state.previousValue && state.previousValue ? (
+        <ExpandLessIcon className="MuiIcon-colorPrimary" />
+      ) : null}
+      {state.value < state.previousValue && state.previousValue ? (
+        <ExpandMoreIcon color="error" />
+      ) : null}
       {state.fields.map((field: string, index: number) => (
         <p key={index}>{field}</p>
       ))}
