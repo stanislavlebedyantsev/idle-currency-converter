@@ -16,7 +16,7 @@ export const InputContainer = styled.div.attrs((props) => ({ ...props }))`
   width: 100%;
   padding: 0 0 30px;
   border-radius: 10px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
 
 export const CurrField = styled.div.attrs((props) => ({ ...props }))`

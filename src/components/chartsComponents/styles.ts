@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { ResponsiveContainer } from 'recharts';
-import { COLOR_GREY, COLOR_WHITE } from '@/theme/colors';
+import {
+  CHART_DEFAULT_TEXT_COLOR,
+  COLOR_GREY,
+  COLOR_WHITE,
+} from '@/theme/colors';
 
 export const ChartToolArea = styled.div`
   display: flex;
@@ -36,13 +40,14 @@ export const ChartContainer = styled.div`
   @media (max-width: 720px) {
     height: 15em;
   }
-  .tick + .tick:hover:before {
-    background: black;
+  .content .tick {
+    height: 100%;
   }
   .mainSVG {
     padding: 0;
   }
   & .tooltip {
+    z-index: 10;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -68,11 +73,19 @@ export const ChartContainer = styled.div`
     }
   }
   .x-axis text {
+    position: absolute;
+    z-index: 99;
     font-size: 24px;
-		@media(max-width: 720px){
-			font-size: 12px;
-		}
-    color: rgba(0, 0, 0, 0.54);
+    @media (max-width: 720px) {
+      font-size: 12px;
+    }
+    color: ${CHART_DEFAULT_TEXT_COLOR};
+  }
+  .x-axis .tick:first-child {
+    transform: translate(4%, 0);
+  }
+  .x-axis .tick:last-child {
+    transform: translate(96%, 0);
   }
   .content .grid line {
     stroke: lightgrey;
@@ -81,10 +94,19 @@ export const ChartContainer = styled.div`
     stroke-width: 2;
   }
   .content .mainDot {
+    position: absolute;
     fill: ${COLOR_WHITE};
     stroke-width: 5;
+    z-index: 100;
   }
   g.grid:hover ~ g.grid {
     bacground: black;
   }
+`;
+
+export const FilledBlock = styled.div.attrs((props) => ({ ...props }))`
+  position: absolute;
+  background-color: rgb(145, 195, 254);
+  height: 100%;
+  z-index: -10;
 `;

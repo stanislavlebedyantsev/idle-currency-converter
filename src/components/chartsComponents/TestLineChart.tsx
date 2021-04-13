@@ -1,14 +1,24 @@
 import { IRootState } from '@/types/rootStateTypes';
-import { select, line, axisBottom, scaleLinear, curveNatural } from 'd3';
+import {
+  select,
+  line,
+  axisBottom,
+  scaleLinear,
+  curveNatural,
+  scaleOrdinal,
+  axisLeft,
+  selectAll,
+} from 'd3';
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ChartContainer } from './styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ResizeObserver from 'resize-observer-polyfill';
 import { IInputedCurrenciesValues, IMappedRates } from '@/types/reducersTypes';
 import moment from 'moment';
 import { toHue } from '@/utils/';
+import { ChartContainer, FilledBlock } from './styles';
+import { CHART_DEFAULT_TEXT_COLOR, COLOR_WHITE } from '@/theme/colors';
 
 type TooltipState = {
   left: number;
@@ -20,6 +30,12 @@ type TooltipState = {
 type TooltipProps = {
   state: TooltipState;
 };
+type FilledBackgroudState =
+  | {
+      left: number;
+      width: number;
+    }
+  | undefined;
 
 const useResizeObserver = (
   ref: MutableRefObject<HTMLElement | null | undefined>
@@ -44,11 +60,11 @@ const findMax = (
   mappedRates: Array<IMappedRates>,
   inputedValues: Array<IInputedCurrenciesValues>
 ) => {
-  return mappedRates.reduce((acc: number | string, el: IMappedRates) => {
+  return mappedRates.reduce((acc: number, el: IMappedRates) => {
     acc = inputedValues.reduce(
-      (prev: number | string, inputedElement: IInputedCurrenciesValues) => {
+      (prev: number, inputedElement: IInputedCurrenciesValues) => {
         if (el[inputedElement.currency.substring(0, 3)] > prev) {
-          prev = el[inputedElement.currency.substring(0, 3)];
+          prev = el[inputedElement.currency.substring(0, 3)] as number;
         }
         return prev;
       },
@@ -59,6 +75,10 @@ const findMax = (
 };
 
 const LineChart = () => {
+  const [
+    filledBackgroundState,
+    setFilledBackgroundState,
+  ] = useState<FilledBackgroudState>(undefined);
   const [tooltipState, setTooltipState] = useState<TooltipState>({
     top: 0,
     left: 0,
@@ -70,19 +90,20 @@ const LineChart = () => {
   const values = useSelector(
     (state: IRootState) => state.converter.inputedValues
   );
+
   const svgRef: any = useRef();
   const wrapperRef: any = useRef();
   const dimensions: any = useResizeObserver(wrapperRef);
-
   useEffect(() => {
     const tickFormat: any = '';
     const svg: any = select(svgRef.current);
     const svgContent: any = svg.select('.content');
-
     svgContent.selectAll('path').remove();
     svgContent.selectAll('circle').remove();
     svgContent.selectAll('.grid').remove();
+    svgContent.selectAll('.lineLabel').remove();
     select('.mainSVG').selectAll('.tooltip').remove();
+
     const { width, height }: any =
       dimensions || wrapperRef.current.getBoundingClientRect();
     if (!dimensions) return;
@@ -93,14 +114,14 @@ const LineChart = () => {
       const xScale: any = scaleLinear()
         .domain([0, dataVal.length - 1])
         .range([0, width]);
+      const yScale: any = scaleLinear()
+        .domain([0, findMax(dataVal, values)] as Array<number>)
+        .range([height, 0]);
 
       const xAxis: any = axisBottom(xScale)
         .ticks(dataVal.length)
         .tickFormat((d, index) => [...dateArr][index]);
 
-      const yScale: any = scaleLinear()
-        .domain([0, findMax(dataVal, values)] as any)
-        .range([height - 10, 0]);
       //render grid
       const drawXGrid = () => {
         return axisBottom(xScale).ticks(14);
@@ -113,7 +134,7 @@ const LineChart = () => {
       select('.grid path').remove();
       //remove x-axis lines
       select('.x-axis').selectAll('.tick line').remove();
-			//remove even grid lines
+      //remove even grid lines
       const evenGridLines = svgContent
         .selectAll('.grid .tick')
         .filter((element: any, index: number) => index % 2 === 0);
@@ -127,6 +148,7 @@ const LineChart = () => {
       //render path element and add d attribure
       values.map((element: IInputedCurrenciesValues, index: number): void => {
         const currency = element.currency.substring(0, 3);
+        const color = toHue(currency);
         const chartValuesArray = dataVal.reduce(
           (acc: any, value: any, index: number) => {
             acc.push(value[currency]);
@@ -141,35 +163,70 @@ const LineChart = () => {
           .attr('class', `line${currency}`)
           .attr('d', lineGenerator)
           .attr('fill', 'none')
-          .attr('stroke', `hsl(${toHue(currency)}, 39%, 76%)`)
+          .attr('stroke', `hsl(${color}, 39%, 76%)`)
           .attr('stroke-width', `4`);
+        svgContent
+          .append('text')
+          .attr(
+            'transform',
+            `translate(${width + 15},${yScale(chartValuesArray[0])})`
+          )
+          .attr('class', 'lineLabel')
+          .attr('dy', '.35em')
+          .attr('text-anchor', 'start')
+          .style('fill', `hsl(${color}, 39%, 76%)`)
+          .text(currency);
         svgContent
           .selectAll(`.myDot${index} .mainDot`)
           .data([...chartValuesArray])
           .join('circle')
           .attr('class', `mainDot`)
-					.attr('stroke', `hsl(${toHue(currency)}, 39%, 76%)`)
+          .attr('stroke', `hsl(${color}, 39%, 76%)`)
           .style('opacity', `0`)
           .attr('r', 7)
           .attr('cx', (value: any, index: number) => xScale(index))
           .attr('cy', yScale)
           .on('mouseover', (event: any, value: number) => {
-            const left = event.target.cx.baseVal.value;
-            const index = Math.ceil(left / (width / 7))
-              ? Math.ceil(left / (width / 7) - 1)
-              : Math.ceil(left / (width / 7));
+            const halfBlockWidth = width / 14 + width / 100;
+            const circleCoordinates = event.target.cx.baseVal.value;
+            const index = Math.ceil(circleCoordinates / (width / 7))
+              ? Math.ceil(circleCoordinates / (width / 7) - 1)
+              : Math.ceil(circleCoordinates / (width / 7));
             const prevValue = chartValuesArray[index - 1];
-
+            setFilledBackgroundState(() => ({
+              left:
+                index === 0
+                  ? circleCoordinates
+                  : circleCoordinates - halfBlockWidth,
+              width:
+                index !== 0 && index !== chartValuesArray.length - 1
+                  ? halfBlockWidth * 2
+                  : halfBlockWidth,
+            }));
+            (selectAll('.x-axis text') as any)
+              .filter((d: any, i: number) => i === index)
+              .style('color', `${COLOR_WHITE}`);
             event.target.style.opacity = 1;
             setTooltipState({
               top: event.target.cy.baseVal.value,
-              left: left > 180 ? left - 120 : left + 120,
+              left:
+                circleCoordinates > 180
+                  ? circleCoordinates - 120
+                  : circleCoordinates + 120,
               fields: [`${value} ${element.currency.substring(0, 3)}`],
               previousValue: prevValue,
               value: value,
             });
           })
           .on('mouseout', (event: any) => {
+            const circleCoordinates = event.target.cx.baseVal.value;
+            const index = Math.ceil(circleCoordinates / (width / 7))
+              ? Math.ceil(circleCoordinates / (width / 7) - 1)
+              : Math.ceil(circleCoordinates / (width / 7));
+            (selectAll('.x-axis text') as any)
+              .filter((d: any, i: number) => i === index)
+              .style('color', `${CHART_DEFAULT_TEXT_COLOR}`);
+            setFilledBackgroundState(() => undefined);
             event.target.style.opacity = 0;
             setTooltipState({
               top: 0,
@@ -196,6 +253,14 @@ const LineChart = () => {
         <g className="content" clipPath={`url(#LineChart)`}></g>
       </svg>
       <Tooltip state={tooltipState} />
+      <FilledBlock
+        style={{
+          display: filledBackgroundState ? 'block' : 'none',
+          left: `${filledBackgroundState?.left}px`,
+          bottom: `0px`,
+          width: `${filledBackgroundState?.width}px`,
+        }}
+      />
     </ChartContainer>
   );
 };
